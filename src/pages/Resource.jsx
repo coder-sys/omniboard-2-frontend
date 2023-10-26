@@ -16,33 +16,7 @@ const Resource = () => {
 
   return (
     <div className="mt-24">
-      <div className="flex flex-wrap lg:flex-nowrap justify-center ">
-        
-      
-
-      </div>
-        <DragDropContext onDragEnd={(...props)=>{console.log(props)}}>
-            <Droppable droppableId='droppable-1'>
-                {(provided,snapshot)=>(
-                    <div {...provided.droppableProps} ref={provided.innerRef} className="flex gap-10 flex-wrap justify-center">
-	{
-        resources.map((data,i)=>{
-            return (
-<ResourceBox folderdata={data} />
-            )
-        })
-      
-    }
-        <div>
-         
-
-          
-        </div>
-      </div>
-                )}
-      
-      </Droppable>
-</DragDropContext>
+      hi
     </div>
   );
 };
