@@ -4,23 +4,33 @@ import BubbleUI from "react-bubble-ui";
 import "react-bubble-ui/dist/index.css";
 import companyData from "./companies";
 import FolderBubble from "./FolderBubble";
+import { metaData } from "../data/dummy";
 export default function Dashboard(props) {
   
-    const {state,name} = useParams()
+    const {state,email} = useParams()
 
 
     const [stockBubbles,setStockBubbles] = useState([])
     const [update, setUpdate] = useState(0)
-
+    metaData['email'] = email
     useEffect(async()=>{
-        const getFolderBubble = () => {
-            return companyData.slice(0, 20).map((company, i) => {
-              return <FolderBubble {...company} key={i} />;
-            });
-          };
-          setStockBubbles(getFolderBubble())
+      let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
+      api = await api.json()
+      metaData['firstname'] =  (api['firstname'])
+      metaData['lastname'] = (api['lastname'])
+      console.log(metaData)
+      let api2 = await fetch(`http://127.0.0.1:5000/get_folders/${metaData['firstname']+metaData['lastname']+email}`)
+      api2 = await api2.json()
+      api2 = api2['data']
+      console.log(api2)
+      const getFolderBubble = () => {
+        return api2.map((data, i) => {
+          return <FolderBubble update={update} setUpdate={setUpdate} allowshare={'yes'} {...data} key={i} />;
+        });
+      };
+      setStockBubbles(getFolderBubble())
     },[update])
-
+   
 
   const [options, setOptions] = useState({
     size: 180,

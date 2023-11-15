@@ -70,9 +70,8 @@ const customTheme = (outerTheme) =>
     },
   });
 
-function CustomizedInputsStyleOverrides({ text, ...props }) {
+function CustomizedInputsStyleOverrides({ text, ph, name, setName, keyDown, ...props }) {
   const outerTheme = useTheme();
-  const [name, setName] = useState("")
   return (
     <Box style={{ ...props }}
       sx={{
@@ -81,18 +80,13 @@ function CustomizedInputsStyleOverrides({ text, ...props }) {
         gap: 2,
       }}
     >
-      <TextField label="Folder name" style={{color:"white", backgroundColor:"white", borderRadius:"100px"}} color="secondary" onChange={async(e)=>{setName(e.target.value)}}  />
+      <TextField label={ph} onKeyPress={(e)=>{if(e.key=='Enter'){
+        console.log('clicked');
+        keyDown();
+      }}} style={{color:"white", backgroundColor:"white", borderRadius:"100px"}} color="secondary" onChange={async(e)=>{setName(e.target.value.toLowerCase())}}  />
     </Box>
   );
 }
 
 export default CustomizedInputsStyleOverrides;
 
-//<TextField label="Filled success" variant="filled" color="success" focused value={text} />
-//<TextField
-//  value={text}
-//   label="Standard warning"
-//   variant="standard"
-//   color="warning"
-//   focused
-// />

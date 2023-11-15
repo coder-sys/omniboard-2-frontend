@@ -22,8 +22,8 @@ const UserProfile = () => {
       <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
        
         <div>
-          <p className="font-semibold text-xl dark:text-gray-200"> {metaData['firstname']} </p>
-          <p className="text-gray-500 text-sm dark:text-gray-400">  {metaData['firstname']}   </p>
+          <p className="font-semibold text-xl dark:text-gray-200"> [name] </p>
+          <p className="text-gray-500 text-sm dark:text-gray-400">  {metaData['email']}   </p>
           <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> [number of resources] </p>
           <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> [number of worskpaces] </p>
 

@@ -1,17 +1,19 @@
-import CustomizedInputsStyleOverrides from './TextField';
-
-export default {
-  title: 'Example/CustomizedInputsStyleOverrides',
+import CustomizedInputsStyleOverrides from "./TextField"
+const meta = {
+  title: 'Example/TextField',
   component: CustomizedInputsStyleOverrides,
   parameters: {
     layout: 'centered',
   },
+  tags: ['autodocs'],
+};
+
+export default meta;
+
+const Default = {
   args: {
-    text: 'test',
-  },
-  parameters: {
-    tags: ['autodocs'],
+   
   },
 };
 
-export const Default = (args) => <CustomizedInputsStyleOverrides {...args} />;
+export { Default };

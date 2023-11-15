@@ -23,7 +23,6 @@ function MediaCard({name,source,children, ...props}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button backgroundColor={"#D0BCFF"} size="small" label={"close"}/>
         <Button backgroundColor={"#D0BCFF"} size="small" label={"save"} />
       
       </CardActions>

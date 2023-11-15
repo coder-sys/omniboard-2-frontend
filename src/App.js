@@ -4,7 +4,9 @@ import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
-import { Folder, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor, Resource, Workspaces } from './pages';
+import { Folder, Resource, Workspaces } from './pages';
+import WorkspaceContent from './pages/WorkspaceContent';
+import FolderContent from './pages/FolderContent';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
@@ -65,12 +67,13 @@ const App = () => {
 
               <Routes>
                 {/* dashboard  */}
-                <Route path="/:name" element={(<Folder />)} />
-                <Route path="/folders/:name" element={(<Folder />)} />
-                <Route path="/resources/:name/" element={(<Resource />)} />
-                <Route path="/workspace/:name/" element={(<Workspaces />)} />
-
-          
+                <Route path="/:email" element={(<Folder />)} />
+                <Route path="/folders/:email" element={(<Folder />)} />
+                <Route path="/resources/:email/" element={(<Resource />)} />
+                <Route path="/workspace/:email/" element={(<Workspaces />)} />
+                {/* level 2 link*/ }
+                <Route path="/folders/foldercontent/:foldername/:email" element={(<FolderContent />)} />
+                <Route path="/workspace/workspacecontent/:workspacename/:email" element={(<WorkspaceContent />)} />
 
               </Routes>
             </div>

@@ -1,5 +1,5 @@
 {
-  "name": "project_syncfusion_dashboard",
+  "name": "ESPARKmk2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.11.0",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "@mrblenny/react-flow-chart": "^0.0.14",
     "@mui/icons-material": "^5.14.15",
     "@mui/material": "^5.14.14",
     "@syncfusion/ej2": "^19.4.48",
@@ -19,6 +20,7 @@
     "@syncfusion/ej2-react-popups": "^19.4.52",
     "@syncfusion/ej2-react-richtexteditor": "^19.4.50",
     "@syncfusion/ej2-react-schedule": "^19.4.50",
+    "mdbreact": "^5.2.0",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.1",
     "react-bubble-ui": "^1.1.2",
@@ -26,9 +28,14 @@
     "react-dom": "^17.0.2",
     "react-draggable": "^4.4.6",
     "react-icons": "^4.3.1",
+    "react-quill": "^2.0.0",
+    "react-quiz-component": "^0.6.0",
     "react-router-dom": "^6.2.1",
-    "react-scripts": "^3.0.1",
-    "reactjs-popup": "^2.0.6"
+    "react-scripts": "^5.0.1",
+    "react-simple-flowchart": "^1.2.4",
+    "react-slick": "^0.29.0",
+    "reactjs-popup": "^2.0.6",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "react-scripts start",

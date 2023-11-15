@@ -1,4 +1,4 @@
-import React, {useState, useStateContext} from "react"
+import React, {useState} from "react"
 
 
 const Area = () => {

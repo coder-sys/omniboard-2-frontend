@@ -3,13 +3,14 @@ import { Drawer, List, ListItem, ListItemIcon, ListItemText, Paper, Divider } fr
 import HomeIcon from '@mui/icons-material/Home';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MailIcon from '@mui/icons-material/Mail';
-import SettingsIcon from '@mui/icons-material/Settings';
 
 function Sidebar() {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState('Folders');
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
+    setSelectedItem(item);
+
     console.log(selectedItem)
   };
 
@@ -48,7 +49,7 @@ function Sidebar() {
             <ListItem
               button
               key={index}
-              onClick={() => handleItemClick(item.text)}
+              onClick={() => {handleItemClick(item.text)}}
               selected={selectedItem === item.text}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>

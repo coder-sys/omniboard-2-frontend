@@ -3,12 +3,16 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
+import { FlowChartWithState } from '@mrblenny/react-flow-chart';
+import Test from "../Quizzes/test"
+import GoogleCarousel from '../Carousel/GoogleCarousel';
+import TopicSearchCarousel from '../Carousel/TopicSearchCarousel';
+import YouTubeCarousel from '../Carousel/YouTubeCarousel';
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <div 
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -17,7 +21,7 @@ function CustomTabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography >{children}</Typography>
         </Box>
       )}
     </div>
@@ -31,38 +35,39 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function BasicTabs({displayChart, quizMCQ, search, name, foldername}) {
   const [value, setValue] = useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%',color:'purple' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Dynamic" {...a11yProps(0)} />
-          <Tab label="Quiz" {...a11yProps(1)} />
-          <Tab label="Google search" {...a11yProps(2)} />
-          <Tab label="YouTube search" {...a11yProps(3)} />
-          <Tab label="Topic search" {...a11yProps(4)} />
+          <Tab style={{color:'purple'}} label="Dynamic" {...a11yProps(0)} />
+          <Tab style={{color:'purple'}} label="Quiz" {...a11yProps(1)} />
+          <Tab style={{color:'purple'}} label="Google search" {...a11yProps(2)} />
+          <Tab style={{color:'purple'}} label="YouTube search" {...a11yProps(3)} />
+          <Tab style={{color:'purple'}} label="Topic search" {...a11yProps(4)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        Dynamic
+
+      <FlowChartWithState style={{width:"1%"}} initialValue={displayChart} />
+
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Quiz
+        <Test questions={quizMCQ}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Google search
+        <GoogleCarousel name={name} query={search} foldername={foldername} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        YouTube search
+       <YouTubeCarousel name={name} query={search} foldername={foldername} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        Topic search
+        <TopicSearchCarousel name={name} query={search} foldername={foldername}/>
       </CustomTabPanel>
     </Box>
   );

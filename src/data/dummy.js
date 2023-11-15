@@ -482,10 +482,13 @@ export const testdata = [
 export var metaData = {
   'firstname':"John",
   'lastname':"Doe",
+  'email':"johndoe@gmail.com",
   'folders':['data science','quantum computing','blockchains','algorithms'],
   'workspaces':["variational algorithms","grover's algorithms"]
 }
-
+export var workspaceNodeMap = {
+  'data':{}
+}
 
 
 

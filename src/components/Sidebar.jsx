@@ -46,13 +46,13 @@ const Sidebar = () => {
                 {item.links.map((link) => {
                   let displaylink = ""
                   if(link.name=='Folders'){
-                    displaylink = `Folders/${metaData['firstname']}`
+                    displaylink = `Folders/${metaData['email']}`
                   }
                   else if(link.name=='Resources'){
-                    displaylink = `Resources/${metaData['firstname']}/`
+                    displaylink = `Resources/${metaData['email']}/`
                   }
                   else if(link.name=='Workspace'){
-                    displaylink = `Workspace/${metaData['firstname']}/`
+                    displaylink = `Workspace/${metaData['email']}/`
                   }
                   else{
                     displaylink = link.name

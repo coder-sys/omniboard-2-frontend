@@ -1,0 +1,17 @@
+.flow-chart-container {
+    width: 100%; /* Set the width and height to your desired size */
+    height: 500px; /* Adjust this as needed */
+  
+    overflow: hidden;
+    position: relative;
+  
+    /* Initial scale and transition properties */
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .flow-chart-container.zoomed {
+    /* Apply the zoom effect by changing the scale */
+    transform: scale(2); /* Adjust the scale factor as needed */
+  }
+  

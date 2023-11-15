@@ -46,6 +46,6 @@ Button.defaultProps = {
   backgroundColor: null,
   primary: false,
   size: 'medium',
-  onClick: undefined,
+  onClick: ()=>{console.log("clicked")},
 };
 export default Button;

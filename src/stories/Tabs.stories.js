@@ -1,20 +1,20 @@
-import Tabs from './Tabs';
+import BasicTabs from './Tabs';
 
-export default {
+const meta = {
   title: 'Example/Tabs',
-  component: Tabs,
+  component: BasicTabs,
   parameters: {
     layout: 'centered',
   },
-  argTypes: {
-    backgroundColor: { control: 'color' },
+  tags: ['autodocs'],
+};
+
+export default meta;
+
+const Default = {
+  args: {
+   
   },
 };
 
-export const Default = (args) => <Tabs {...args} />;
-Default.args = {};
-
-// If you need to define metadata like tags or autodocs, you can do so in the "parameters" object.
-Default.parameters = {
-  tags: ['autodocs'],
-};
+export { Default };

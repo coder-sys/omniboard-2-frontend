@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import shutil
 import json
-
-
+colors = []
+textColors = []
 def hex_to_rgb(value):
     value = value.lstrip('#')
     lv = len(value)
@@ -68,6 +68,8 @@ def getCompanies():
                     color = "#000000"
                     rgb = (0, 0, 0)
                 print(color)
+                colors.append(color)
+                textColors.append(bestTextColorForBg(rgb))
                 company["backgroundColor"] = color
                 company["textColor"] = bestTextColorForBg(rgb)
 
@@ -83,4 +85,3 @@ companies = getCompanies()
 with open("./companies.js", "w") as f:
     f.write("const companies = {};\n export default companies;".format(
         json.dumps(companies)))
-print(companies)

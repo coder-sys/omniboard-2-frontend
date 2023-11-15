@@ -1,11 +1,19 @@
-import React from 'react';
-import Sidebar from './sidebar';
-
-export default {
-  title: 'Example/Sidebar',
+import Sidebar from "./sidebar"
+const meta = {
+  title: 'Example/sidebar',
   component: Sidebar,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
 };
 
-const Template = (args) => <Sidebar {...args} />;
+export default meta;
 
-export const Default = Template.bind({});
+const Default = {
+  args: {
+   
+  },
+};
+
+export { Default };
