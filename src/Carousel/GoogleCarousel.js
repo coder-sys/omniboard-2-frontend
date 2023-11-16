@@ -5,14 +5,35 @@ import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar } from '@syncfusion/ej2-react-richtexteditor';
 
-function GoogleCarousel({name,query,foldername}) {
+function GoogleCarousel({setConsent,save_data,foldername,email,lastname,name,djoin_,retrievegoogledata1,retrievegoogledata2,description,update_effect,setue,linkjoin_,stored_data,djoin,linkjoin}) {
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+    ],
   };
+  console.log(setConsent)
   //useEffect(()=>{
 
  // },[])
@@ -20,17 +41,34 @@ function GoogleCarousel({name,query,foldername}) {
     <div className='w-3/4 m-auto'>
       <div  className="mt-20">
       <Slider {...settings}>
-        {data.map((d) => (
+        {retrievegoogledata2.map((data,index) => (
 
-          <div  key={d.name} className="bg-white h-[450px] text-black rounded-xl">
+          <div  key={index} className="bg-white h-[450px] text-black rounded-xl">
            
 
             <div className="flex flex-col items-center justify-center gap-4 p-4">
-              <p className="text-xl font-semibold">[d.name]</p>
+              <p className="text-xl font-semibold"><a target={'_blank'} href={data}>{retrievegoogledata1[index]}</a></p>
               <div style={{'width':'200px'}}>
-                [d.description]
+                {description[index]}
            </div>
-              <button className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl'>save</button>
+              <button disabled={stored_data[index]}  onClick={async()=>{
+                save_data(setue,data,update_effect,linkjoin_,retrievegoogledata1,index,djoin_,stored_data,name,lastname,email,foldername,description);
+                update_effect(p=>p+1)
+                setue(p=>p+1)
+              }} className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl'>{
+              [1].map((data)=>{
+                if(stored_data[index]==true){
+                  return(
+                    <p>Saved</p>
+                  )
+                }
+                else{
+                  return(
+                    <p>Save</p>
+                  )
+                }
+              })
+              }</button>
 
             </div>
           </div>

@@ -14,7 +14,27 @@ function Carousel({name,workspace}) {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+    ],
   };
   //useEffect(()=>{
 
@@ -26,8 +46,8 @@ function Carousel({name,workspace}) {
   };
   return (
     <div className='w-3/4 m-auto'>
-      <div  className="mt-20">
-      <Slider {...settings}>
+      <div style={{'backgroundColor':'darkBlue','borderRadius':'10px'}} className="mt-20">
+      <Slider  {...settings}>
         {data.map((d) => (
 
           <div  key={d.name} className="bg-white h-[450px] text-black rounded-xl">

@@ -7,12 +7,38 @@ import WorkspaceCard from '../stories/WorkspaceCard';
 import BasicTabs from '../stories/Tabs';
 import ChatBody from "../ChatUI/chatBody/ChatBody"
 import Button from "../stories/Button"
+import translateLink from '../functions/translatelink';
+import save_google_data from '../functions/save_google_data';
+import save_youtube_data from '../functions/save_youtube_data';
 const FolderContent = () => {
   const { currentColor, currentMode } = useStateContext();
   const {foldername,email} = useParams()
   metaData['email'] = email
   const [update, setUpdate] = useState('')
   const [query, setQuery] = useState("")
+  const [googlesearch,setGoogleSearch] = useState('')
+    const [retrievegoogledata1,setRetrieveGoogleData1] = useState([])
+    const [retrievegoogledata2,setRetrieveGoogleData2] = useState([])
+    const [description,setDescription] = useState([])
+    const [youtubesearch,setYoutubeSearch] = useState('')
+    const [linkjoin,setLinkJoin] = useState([])
+    const [djoin,setDJoin] = useState([])
+    const [youtubeAPITitles,setyoutubeAPITitles] = useState([])
+    const [youtubeAPILinks,setyoutubeAPILinks] = useState([])
+    const [updated,setUpdated] = useState(0)
+    const [stored_data_array,setStored_dataArray] = useState([])
+    const [linkarray,setLinkarray] = useState([])
+    const [update_effect,setue]= useState(0)
+    const [thumbnail,setThumbnail] = useState([])
+    const [stored_data,setStoredData] = useState([])
+    const [stored_data_yt,setStoredDataYT] = useState([])
+    const [consent,setConsent] = useState(true)
+    const [consent1,setConsent1] = useState(true)
+    const [SDoM,setSDom] = useState('Scroll down to start your internet research')
+    const [conceptsearch,setConceptSearch] = useState('')
+    const [csResultData,setCsResultData] = useState([])
+    const [sdomo,Ssdomo] = useState(0)
+
   useEffect(async()=>{
     let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
     api = await api.json()
@@ -59,6 +85,93 @@ const FolderContent = () => {
 			],
 		},
 	];
+
+  const searchIntegration = async()=>{
+    setYoutubeSearch(query)
+    setGoogleSearch(query)
+    setConceptSearch(query)
+    setUpdated(updated+1)
+                       setue(update_effect+1)
+       
+                       let api = await fetch(`http://127.0.0.1:5000/get_youtube_data/${query}`)
+                       api = await api.json()
+                       setyoutubeAPITitles(api.titles)
+                       setyoutubeAPILinks(api.link)
+                       setThumbnail(api.thumbnail)
+                       console.log(api.titles)
+                       translateLink(api.link).then((data)=>{
+                       translateLink(linkarray).then(async(data1)=>{
+                               try{
+                               console.log(data,data1)
+                               console.log(`http://127.0.0.1:5000/find_similarity_links/${data.join()}/${data1.join()}`)
+                               let api = await fetch(`http://127.0.0.1:5000/find_similarity_links/${data.join()}/${data1.join()}`)
+                               api = await api.json()
+                               setStoredDataYT(api.data)}catch(err){console.log(err)}
+                               })
+                              })
+  
+                              try{
+                                setUpdated(updated+1)
+                          setue(update_effect+1)
+                          let api = await fetch(`http://127.0.0.1:5000/get_google_content/${query}`)
+                          api = await api.json()
+                          console.log(api.names)
+                          setRetrieveGoogleData1(api.names)
+                          setRetrieveGoogleData2(api.urls)
+                          setDescription(api.description)
+                          let emailandlastname = await fetch(`http://127.0.0.1:5000/get_last_name_and_email/${metaData['firstname']}`)
+                          emailandlastname = await emailandlastname.json()
+                          let lapi = await fetch('http://127.0.0.1:5000/get_stored_links/'+metaData['firstname']+emailandlastname['lastname']+emailandlastname['email']+'/'+foldername)
+                          lapi = await lapi.json()
+                          translateLink(api.urls).then((data)=>{
+                            translateLink(lapi.data).then(async(data1)=>{
+                              try{
+                                let dt = []
+                                let dt1 = []
+                                data.join('').split('').map((data,index)=>{
+                                  if(data == '/'){
+                                    data = '`'
+                                  }
+                                  dt.push(data)
+                                })
+                              dt.join('').split('http').map((data,index)=>{
+                                if(index>0){
+                                dt1.push('http'+data)
+                                }
+                              })
+                              console.log(dt1.join())
+                              console.log(`http://127.0.0.1:5000/find_similarity_links/${dt1.join()}/${data1.join()}`)
+                              let api = await fetch(`http://127.0.0.1:5000/find_similarity_links/${dt1.join()}/${data1.join()}`)
+                              api = await api.json()
+                            setStoredData(api.data)}catch(err){console.log(err)}
+                          })
+                          })}catch(err){alert('Error: Too many requests. Google has temporarily blocked you. Try again later.')}
+                                                        
+  
+                          setConsent(false)
+  
+                                    try{
+                                        setUpdated(updated+1)
+                                  setue(update_effect+1)
+                                        let emailandlastname = await fetch(`http://127.0.0.1:5000/get_last_name_and_email/${metaData['firstname']}`)
+                                        emailandlastname = await emailandlastname.json()
+                                        let api = await fetch(`http://127.0.0.1:5000/get_results_on_conceptual_search/${query}/${metaData['firstname']+emailandlastname['lastname']+emailandlastname['email']}/${foldername}`)
+                                        api = await api.json()
+                                        setCsResultData(api['data'])
+                    api['data'].map((data)=>{
+                      setConsent(true)
+  
+                    })
+                                    }catch(err){
+                                        console.log(err)
+                    alert('The educational search you made was too specific,use the google search feature for your search')
+                    return(
+                      <a href='/#googlesearch'><FormButton>Go to Google Search</FormButton></a>
+                    )
+                                    }
+  
+  }
+
   const chartSimple = {
     offset: {
       x: 0,
@@ -221,19 +334,20 @@ const FolderContent = () => {
 
 <br></br>
 <div>
-<CustomizedInputsStyleOverrides ph={"Start search"} name={query} setName={setQuery}  /><br></br>
-{console.log(query)}
+<CustomizedInputsStyleOverrides ph={"Start search"} name={query} setName={setQuery} keyDown={()=>searchIntegration()}  /><br></br>
 <div style={{marginLeft:'25px'}}>
-<Button  backgroundColor={"#D0BCFF"} size="small" label={"Start search"} />
+<Button  backgroundColor={"#D0BCFF"} size="small" label={"Start search"} onClick={
+              ()=>     searchIntegration()  
+}  />
 </div>
 </div>
 
-     <BasicTabs displayChart={chartSimple} quizMCQ={questions} search={query} name={metaData['firstname']} foldername={foldername} />
+     <BasicTabs displayChart={chartSimple} quizMCQ={questions} search={query} name={metaData['firstname']} foldername={foldername} googlesearch={googlesearch} setConsent={setConsent} save_data_google={save_google_data} retrievegoogledata1={retrievegoogledata1} retrievegoogledata2={retrievegoogledata2} description={description} update_effect={setUpdate} setue={setue} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin} />
           </div>
 
     </div>
   );
-
-
 }
 export default FolderContent;
+ 
+

@@ -8,6 +8,8 @@ import Test from "../Quizzes/test"
 import GoogleCarousel from '../Carousel/GoogleCarousel';
 import TopicSearchCarousel from '../Carousel/TopicSearchCarousel';
 import YouTubeCarousel from '../Carousel/YouTubeCarousel';
+import { metaData } from '../data/dummy';
+import save_data_google from "../functions/save_google_data";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -35,7 +37,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs({displayChart, quizMCQ, search, name, foldername}) {
+export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,name, foldername,setConsent,save_data_google,retrievegoogledata1,retrievegoogledata2,description,update_effect,setue,stored_data,djoin,linkjoin}) {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -61,8 +63,19 @@ export default function BasicTabs({displayChart, quizMCQ, search, name, folderna
         <Test questions={quizMCQ}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <GoogleCarousel name={name} query={search} foldername={foldername} />
-      </CustomTabPanel>
+        {
+          [1].map((data)=>{
+            if(googlesearch != ""){
+            var linkjoin_ = []
+            var djoin_ = [] 
+            return(
+              <GoogleCarousel name={metaData['firstname']}  setConsent={setConsent} foldername={foldername} save_data={save_data_google} email={metaData['email']} lastname={metaData['lastname']} djoin_={djoin_} retrievegoogledata1={retrievegoogledata1} retrievegoogledata2={retrievegoogledata2} description={description} update_effect={update_effect} setue={setue} linkjoin_={linkjoin_} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin}  />
+
+            )
+            }
+          })
+        }
+        </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
        <YouTubeCarousel name={name} query={search} foldername={foldername} />
       </CustomTabPanel>
