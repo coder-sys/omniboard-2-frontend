@@ -14,12 +14,18 @@ const style = {
 
 export default function ListDividers({email,type, setUpdate}) {
   const [foldersInHolding, setFoldersInHolding] = useState([])
+  const [workspacesInHolding, setWorkspaceInHolding] = useState([])
   useEffect(async()=>{
     const load_data = async()=>{
     let api = await fetch(`http://127.0.0.1:5000/load_waiting_folders/${email}`)
     api = await api.json()
     setFoldersInHolding(api['data'])
     console.log(api.data)
+    console.log(email)
+    let api1 = await fetch(`http://127.0.0.1:5000/load_waiting_workspaces/${email}`)
+    api1 = await api1.json()
+    setWorkspaceInHolding(api1['data'])
+    console.log(api1['data'])
     }
     load_data()
   })
@@ -32,7 +38,7 @@ export default function ListDividers({email,type, setUpdate}) {
             foldersInHolding.map((data,i)=>{
               return(
               <ListItem button>
-          <Row message={`${data['sender']} has shared ${data['foldername']} with you`} sender={data['sender']} reciever={metaData['firstname']} sourcename={data['foldername']} />
+          <Row type={'f'} message={`${data['sender']} has shared ${data['foldername']} with you`} sender={data['sender']} reciever={metaData['firstname']} sourcename={data['foldername']} />
           </ListItem>
               )
             })
@@ -50,15 +56,16 @@ export default function ListDividers({email,type, setUpdate}) {
 }
 else if (type=="workspaces"){
       /** load from student request workspaces */
-      if(foldersInHolding != 'null'){
+      if(workspacesInHolding != 'null'){
 
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
        {
-            foldersInHolding.map((data,i)=>{
+            workspacesInHolding.map((data,i)=>{
+              console.log('i want',data)
               return(
               <ListItem button>
-          <Row message={`${data['sender']} has shared ${data['foldername']} with you`} />
+          <Row type={'w'} row={data} message={`${data['sender']} has shared ${data['workspacename']} with you`} sender={data['sender']} reciever={metaData['firstname']} sourcename={data['workspacename']} />
           </ListItem>
               )
             })
@@ -69,6 +76,9 @@ else if (type=="workspaces"){
       
     </List>
   );
+    }
+    else{
+      return "null"
     }
 }
 }

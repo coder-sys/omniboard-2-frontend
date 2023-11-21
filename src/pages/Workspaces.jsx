@@ -9,6 +9,15 @@ import WorkspaceCard from '../stories/WorkspaceCard';
 import "./index.css"
 import CustomizedInputsStyleOverrides from "../stories/TextField";
 import ListDividers from '../stories/accept';
+import Row from '../stories/snackbar';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+
+const style = {
+  width: '1000px',
+  maxWidth: "360px",
+  bgcolor: 'background.paper',
+};
 const Workspaces = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()
@@ -80,10 +89,10 @@ const Chart = ({ email, name, workspacename, setWorkspaceName, chartSimple }) =>
           let count = 0; //declaring count as 0
           let arr = []
       for (let key in nodes) {
-     //   let api3 = await fetch(`http://127.0.0.1:5000/generate_description/${nodes[key]['type']}`)
-     //   api3 = await api3.json()
+       // let api3 = await fetch(`http://127.0.0.1:5000/generate_description/${nodes[key]['type']}`)
+       // api3 = await api3.json()
         count++;
-        nodes[key].type = <div>Workspace<WorkspaceCard name={nodes[key]['type'].toUpperCase()} thumbnail={'/'} description={'api3[data]'} /></div>
+        nodes[key].type = <div>Workspace<WorkspaceCard name={nodes[key]['type']} thumbnail={'/'} description={"api3[data]"} /></div>
         arr.push(count+1)
          
       }
@@ -107,11 +116,59 @@ const Chart = ({ email, name, workspacename, setWorkspaceName, chartSimple }) =>
 
   }, []);
   return (
-    <>
+    <div>
+          <ListDividersWorkspace  email={email} type={"workspaces"} />
+
       <FlowChartWithState key={update} initialValue={chart} />
-    </>
+    </div>
   );
 };
+function ListDividersWorkspace({email,type, setUpdate}) {
+  const [foldersInHolding, setFoldersInHolding] = useState([])
+  const [workspacesInHolding, setWorkspaceInHolding] = useState([])
+  useEffect(async()=>{
+    const load_data = async()=>{
+    let api = await fetch(`http://127.0.0.1:5000/load_waiting_folders/${email}`)
+    api = await api.json()
+    setFoldersInHolding(api['data'])
+    console.log(api.data)
+    console.log(email)
+    let api1 = await fetch(`http://127.0.0.1:5000/load_waiting_workspaces/${email}`)
+    api1 = await api1.json()
+    setWorkspaceInHolding(api1['data'])
+    console.log(api1['data'])
+    }
+    load_data()
+  })
+ 
+      /** load from student request workspaces */
+      if(workspacesInHolding != 'null'){
+        console.log("ok")
+  return (
+    <List sx={style} component="nav" aria-label="mailbox folders">
+       {
+            workspacesInHolding.map((data,i)=>{
+              console.log('i want',data)
+              return(
+              <ListItem button>
+         <Row type={'w'} row={data} message={`${data['sender']} has shared ${data['workspacename']} with you`} sender={data['sender']} reciever={metaData['firstname']} sourcename={data['workspacename']} />
+          </ListItem>
+              )
+            })
+          
+        
+        
+      }
+      
+    </List>
+  );
+    }
+    else{
+      return ""
+    }
 
+}
 
 export default Workspaces;
+
+//<Row type={'w'} row={data} message={`${data['sender']} has shared ${data['workspacename']} with you`} sender={data['sender']} reciever={metaData['firstname']} sourcename={data['workspacename']} />

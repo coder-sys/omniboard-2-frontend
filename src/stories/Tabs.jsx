@@ -10,6 +10,7 @@ import TopicSearchCarousel from '../Carousel/TopicSearchCarousel';
 import YouTubeCarousel from '../Carousel/YouTubeCarousel';
 import { metaData } from '../data/dummy';
 import save_data_google from "../functions/save_google_data";
+import save_youtube_data from '../functions/save_youtube_data';
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -37,11 +38,11 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,name, foldername,setConsent,save_data_google,retrievegoogledata1,retrievegoogledata2,description,update_effect,setue,stored_data,djoin,linkjoin}) {
+export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,name, foldername,consent,setConsent,save_data_google,retrievegoogledata1,retrievegoogledata2,description,update_effect,setue,stored_data,djoin,linkjoin,youtubesearch,youtubeAPILinks,youtubeAPITitles,thumbnail,csResultData}) {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
+  }
 
   return (
     <Box sx={{ width: '100%',color:'purple' }}>
@@ -55,8 +56,24 @@ export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,n
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-
-      <FlowChartWithState style={{width:"1%"}} initialValue={displayChart} />
+      {
+              [1].map((data,index)=>{
+                if(googlesearch != ''){
+                if(consent == true){
+                  return "loading"
+                  
+                }
+                else if(consent == false){
+                  
+                return(
+                  <FlowChartWithState style={{width:"1%"}} initialValue={displayChart} />
+                )
+                }
+              }
+              })
+        
+}
+      
 
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
@@ -68,20 +85,53 @@ export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,n
             if(googlesearch != ""){
             var linkjoin_ = []
             var djoin_ = [] 
+            if(consent == true){
+              return "loading"
+              
+            }
+            else if(consent == false){
             return(
               <GoogleCarousel name={metaData['firstname']}  setConsent={setConsent} foldername={foldername} save_data={save_data_google} email={metaData['email']} lastname={metaData['lastname']} djoin_={djoin_} retrievegoogledata1={retrievegoogledata1} retrievegoogledata2={retrievegoogledata2} description={description} update_effect={update_effect} setue={setue} linkjoin_={linkjoin_} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin}  />
 
             )
             }
+          }
           })
         }
         </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-       <YouTubeCarousel name={name} query={search} foldername={foldername} />
+      {[1].map((data,index)=>{
+                    if(youtubesearch!=''){
+                      if(consent == true){
+                        return "loading"
+                        
+                      }
+                      
+                      else if(consent == false){
+                    return(
+       <YouTubeCarousel  name={name} update_effect={update_effect} thumbnail={thumbnail} stored_data_yt={save_youtube_data} setue={setue} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} foldername={foldername} />
+       )
+                    }
+      }}
+      )}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        <TopicSearchCarousel name={name} query={search} foldername={foldername}/>
-      </CustomTabPanel>
+        {
+              [1].map((data,index)=>{
+                if(consent == true){
+                  return "loading"
+                  
+                }
+                else if(consent == false){
+                return(
+                  <TopicSearchCarousel csResultData={csResultData} stored_data={stored_data} name={name} update_effect={update_effect} save_data={save_data_google} query={search} foldername={foldername} setue={setue} linkjoin_={[]} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin}  />
+
+                )
+                }
+              })
+        
+}
+        </CustomTabPanel>
     </Box>
   );
 }

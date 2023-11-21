@@ -31,7 +31,7 @@ export default class ChatContent extends Component {
   };
 
   componentDidMount() {
-    window.addEventListener("keydown", (e) => {
+    window.addEventListener("keydown", async(e) => {
       if (e.keyCode == 13) {
         if (this.state.msg != "") {
           this.chatItms.push({
@@ -41,17 +41,21 @@ export default class ChatContent extends Component {
             image:
               "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
           });
+          let api = await fetch(`http://127.0.0.1:5000/response_ai/${e.target.value}`)
+              api = await api.json()
+              this.setState({ loading:"true"})
+              console.log(this.state.loading)
           this.setState({ chat: [...this.chatItms] });
           this.setState({ msg: "" });
                 /*  Response 
                 Perform API Call
                 change load state
                 */ 
-
+              
           this.chatItms.push({
             key: 2,
             type: "other",
-            msg: "this.state.msg",
+            msg: api['data'],
             image:
               "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
           });
@@ -59,7 +63,7 @@ export default class ChatContent extends Component {
           this.scrollToBottom();
           this.setState({ msg: "" });
         }
-
+        this.setState({ loading:"false" })
         /*Change load state */
       }
     });
@@ -84,15 +88,17 @@ export default class ChatContent extends Component {
 
           <div className="blocks">
             <div className="settings">
-            </div>
-          </div>
-        </div>
-        <div className="content__body">
-        {[1].map((data)=>{
+            {[1].map((data)=>{
           if(this.state.loading==='true'){
           return(this.state.loading)
           }
           })}
+            </div>
+          </div>
+        </div>
+        <div className="content__body">
+          
+        
           <div className="chat__items"><br></br><br></br>
             {this.state.chat.map((itm, index) => {
               return (

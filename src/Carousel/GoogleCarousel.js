@@ -3,7 +3,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
-import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar } from '@syncfusion/ej2-react-richtexteditor';
 
 function GoogleCarousel({setConsent,save_data,foldername,email,lastname,name,djoin_,retrievegoogledata1,retrievegoogledata2,description,update_effect,setue,linkjoin_,stored_data,djoin,linkjoin}) {
   const settings = {

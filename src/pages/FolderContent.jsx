@@ -10,6 +10,7 @@ import Button from "../stories/Button"
 import translateLink from '../functions/translatelink';
 import save_google_data from '../functions/save_google_data';
 import save_youtube_data from '../functions/save_youtube_data';
+import InfoCard from '../stories/InfoCard';
 const FolderContent = () => {
   const { currentColor, currentMode } = useStateContext();
   const {foldername,email} = useParams()
@@ -37,6 +38,59 @@ const FolderContent = () => {
     const [SDoM,setSDom] = useState('Scroll down to start your internet research')
     const [conceptsearch,setConceptSearch] = useState('')
     const [csResultData,setCsResultData] = useState([])
+    const [mainTopic,setMainTopic] = useState('')
+    const [subtopics, setSubtopics] = useState('')
+    const [s1, setS1] = useState([
+      [
+          "Regression Analysis | Full Course",
+          "https://i.ytimg.com/vi/0m-rs2M7K-Y/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCQnjqcICRrD-LfAsiNbTufx9nppQ",
+          "https://www.youtube.com/watch?v=0m-rs2M7K-Y"
+      ],
+      [
+          "What is Data Science? | IBM",
+          "Data science is a multidisciplinary approach to gaining insights from an increasing amount of data. IBM data science products help find the value of your ...",
+          "https://www.ibm.com/topics/data-science"
+      ],
+      [
+          "Regression Analysis | Full Course",
+          "https://i.ytimg.com/vi/0m-rs2M7K-Y/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCQnjqcICRrD-LfAsiNbTufx9nppQ",
+          "https://www.youtube.com/watch?v=0m-rs2M7K-Y"
+      ]
+  ])
+    const [s2, setS2] = useState([
+      [
+          "Regression Analysis | Full Course",
+          "https://i.ytimg.com/vi/0m-rs2M7K-Y/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCQnjqcICRrD-LfAsiNbTufx9nppQ",
+          "https://www.youtube.com/watch?v=0m-rs2M7K-Y"
+      ],
+      [
+          "What is Data Science? | IBM",
+          "Data science is a multidisciplinary approach to gaining insights from an increasing amount of data. IBM data science products help find the value of your ...",
+          "https://www.ibm.com/topics/data-science"
+      ],
+      [
+          "Regression Analysis | Full Course",
+          "https://i.ytimg.com/vi/0m-rs2M7K-Y/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCQnjqcICRrD-LfAsiNbTufx9nppQ",
+          "https://www.youtube.com/watch?v=0m-rs2M7K-Y"
+      ]
+  ])
+    const [s3, setS3] = useState([
+      [
+          "Regression Analysis | Full Course",
+          "https://i.ytimg.com/vi/0m-rs2M7K-Y/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCQnjqcICRrD-LfAsiNbTufx9nppQ",
+          "https://www.youtube.com/watch?v=0m-rs2M7K-Y"
+      ],
+      [
+          "What is Data Science? | IBM",
+          "Data science is a multidisciplinary approach to gaining insights from an increasing amount of data. IBM data science products help find the value of your ...",
+          "https://www.ibm.com/topics/data-science"
+      ],
+      [
+          "Regression Analysis | Full Course",
+          "https://i.ytimg.com/vi/0m-rs2M7K-Y/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCQnjqcICRrD-LfAsiNbTufx9nppQ",
+          "https://www.youtube.com/watch?v=0m-rs2M7K-Y"
+      ]
+  ])
     const [sdomo,Ssdomo] = useState(0)
 
   useEffect(async()=>{
@@ -92,9 +146,23 @@ const FolderContent = () => {
     setConceptSearch(query)
     setUpdated(updated+1)
                        setue(update_effect+1)
-       
+                        try{
+                          let api = await fetch(`http://127.0.0.1:5000/load_concept_map/${query}`)
+                          api = await api.json()
+                          console.log("expectation",api)
+                          setMainTopic(api['data']['main_topic'])
+                          setSubtopics(api['data']['subtopics'])
+                          setS1(api['data']['s1'])
+                          setS2(api['data']['s2'])
+                          setS3(api['data']['s3'])
+                        }
+                        catch(err){
+                          console.log(err)
+                        }
                        let api = await fetch(`http://127.0.0.1:5000/get_youtube_data/${query}`)
+                       setConsent(true)
                        api = await api.json()
+                       setConsent(false)
                        setyoutubeAPITitles(api.titles)
                        setyoutubeAPILinks(api.link)
                        setThumbnail(api.thumbnail)
@@ -158,33 +226,27 @@ const FolderContent = () => {
                                         let api = await fetch(`http://127.0.0.1:5000/get_results_on_conceptual_search/${query}/${metaData['firstname']+emailandlastname['lastname']+emailandlastname['email']}/${foldername}`)
                                         api = await api.json()
                                         setCsResultData(api['data'])
-                    api['data'].map((data)=>{
-                      setConsent(true)
-  
-                    })
+                                        console.log('data',api['data'])
+                   
                                     }catch(err){
                                         console.log(err)
                     alert('The educational search you made was too specific,use the google search feature for your search')
-                    return(
-                      <a href='/#googlesearch'><FormButton>Go to Google Search</FormButton></a>
-                    )
+                    
                                     }
   
   }
-
   const chartSimple = {
     offset: {
       x: 0,
       y: 0
     },
- 
     nodes: {
       node1: {
         id: "node1",
-        type: <div> <b><i>Workspace</i></b><WorkspaceCard name={"Data Science"} thumbnail={"/"} description={"Data science is the study of data to extract meaningful insights for business. It is a multidisciplinary approach that combines principles and practices from the fields of mathematics, statistics, artificial intelligence, and computer engineering to analyze large amounts of data."} /> </div>,
+        type: <p><b><i>main topic</i></b><br></br><Button primary={true} backgroundColor={"#D0BCFF"} size="small" label={mainTopic}/></p>,
         position: {
-          x: 0,
-          y:0
+          x: 300,
+          y: 30
         },
        
         ports: {
@@ -199,17 +261,24 @@ const FolderContent = () => {
             id: "port2",
             type: "output",
             properties: {
-              value: "no"
+              value: "yes"
+            }
+          },
+          port3: {
+            id: "port3",
+            type: "output",
+            properties: {
+              value: "yes"
             }
           }
         }
       },
       node2: {
         id: "node2",
-        type:<div><b><i>Workspace1</i></b><WorkspaceCard name={"Data Science"} thumbnail={"/"} description={"Data science is the study of data to extract meaningful insights for business. It is a multidisciplinary approach that combines principles and practices from the fields of mathematics, statistics, artificial intelligence, and computer engineering to analyze large amounts of data."} /></div>,
+        type: <p><b><i>sub topic</i></b><br></br><Button primary={true} backgroundColor={"#D0BCFF"} size="small" label={subtopics[0]}/></p>,
         position: {
-          x: (Math.floor(Math.random() * (1500 - 30 + 1)) + 100)-400,
-          y: (Math.floor(Math.random() * (1500 - 30 + 1)) + 100)
+          x: 150,
+          y: 300
         },
         ports: {
           port1: {
@@ -224,10 +293,10 @@ const FolderContent = () => {
       },
       node3: {
         id: "node3",
-        type: <div><b><i>Workspace2</i></b><WorkspaceCard name={"Data Science"} thumbnail={"/"} description={"Data science is the study of data to extract meaningful insights for business. It is a multidisciplinary approach that combines principles and practices from the fields of mathematics, statistics, artificial intelligence, and computer engineering to analyze large amounts of data."} /></div>,
+        type: <p><b><i>sub topic</i></b><br></br><Button primary={true} backgroundColor={"#D0BCFF"} size="small" label={subtopics[1]}/></p>,
         position: {
-          x: (Math.floor(Math.random() * (1500 - 30 + 1)) + 200)-400,
-          y: (Math.floor(Math.random() * (1500 - 30 + 1)) + 200)
+          x: 400,
+          y: 300
         },
         ports: {
           port1: {
@@ -242,10 +311,10 @@ const FolderContent = () => {
       },
       node4: {
         id: "node4",
-        type: <div><b><i>Workspace3</i></b><WorkspaceCard name={"Data Science"} thumbnail={"/"} description={"Data science is the study of data to extract meaningful insights for business. It is a multidisciplinary approach that combines principles and practices from the fields of mathematics, statistics, artificial intelligence, and computer engineering to analyze large amounts of data."} /></div>,
+        type: <p><b><i>sub topic</i></b><br></br><Button primary={true} backgroundColor={"#D0BCFF"} size="small" label={subtopics[2]}/></p>,
         position: {
-          x: (Math.floor(Math.random() * (1500 - 30 + 1)) + 300)-400,
-          y: (Math.floor(Math.random() * (1500 - 30 + 1)) + 300)
+          x: 650,
+          y: 300
         },
         ports: {
           port1: {
@@ -260,10 +329,10 @@ const FolderContent = () => {
       },
       node5: {
         id: "node5",
-        type: <div><b><i>Workspace4</i></b><WorkspaceCard name={"Data Science"} thumbnail={"/"} description={"Data science is the study of data to extract meaningful insights for business. It is a multidisciplinary approach that combines principles and practices from the fields of mathematics, statistics, artificial intelligence, and computer engineering to analyze large amounts of data."} /></div>,
+        type: <p><b><i>Source 1</i></b><br></br><InfoCard name={s1[0][0]} thumbnail={s1[0][1]} destination={s1[0][2]}  /></p>,
         position: {
-          x: (Math.floor(Math.random() * (1500 - 30 + 1)) + 400)-300,
-          y: (Math.floor(Math.random() * (1500 - 30 + 1)) + 400)
+          x: -50,
+          y: 600
         },
         ports: {
           port1: {
@@ -275,7 +344,151 @@ const FolderContent = () => {
             type: "output"
           }
         }
-      }
+      },
+      node6: {
+        id: "node6",
+        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s1[1][0]} description={s1[1][1]} destination={s1[1][2]}  /></p>,
+        position: {
+          x: -40,
+          y: 900
+        },
+        ports: {
+          port1: {
+            id: "port1",
+            type: "input"
+          },
+          port2: {
+            id: "port2",
+            type: "output"
+          }
+        }
+      },
+      node7: {
+        id: "node7",
+        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s1[2][0]} thumbnail={s1[2][1]} destination={s1[2][2]}  /></p>,
+        position: {
+          x: 300,
+          y: 1200
+        },
+        ports: {
+          port1: {
+            id: "port1",
+            type: "input"
+          },
+          port2: {
+            id: "port2",
+            type: "output"
+          }
+        }
+      },
+      node8: {
+        id:'node8',
+        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s2[0][0]} thumbnail={s2[0][1]} destination={s2[0][2]}  /></p>,
+        position: {
+          x: 400,
+          y: 600
+        },
+        ports: {
+          port1: {
+            id: "port1",
+            type: "input"
+          },
+          port2: {
+            id: "port2",
+            type: "output"
+          }
+        }
+      },
+      node9: {
+        id:'node9',
+        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s2[1][0]} description={s2[1][1]} destination={s2[1][2]}  /></p>,
+        position: {
+          x: 490,
+          y: 1000
+        },
+        ports: {
+          port1: {
+            id: "port1",
+            type: "input"
+          },
+          port2: {
+            id: "port2",
+            type: "output"
+          }
+        }
+      },
+      node10: {
+        id:'node10',
+        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s2[2][0]} thumbnail={s2[2][1]} destination={s2[2][2]}  /></p>,
+        position: {
+          x: 490,
+          y: 1500
+        },
+        ports: {
+          port1: {
+            id: "port1",
+            type: "input"
+          },
+          port2: {
+            id: "port2",
+            type: "output"
+          }
+        }
+      },
+      node11: {
+        id:'node11',
+        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s3[0][0]} thumbnail={s3[0][1]} destination={s3[0][2]}  /></p>,
+        position: {
+          x: 850,
+          y: 600
+        },
+        ports: {
+          port1: {
+            id: "port1",
+            type: "input"
+          },
+          port2: {
+            id: "port2",
+            type: "output"
+          }
+        }
+      },
+      node12: {
+        id:'node12',
+        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s3[1][0]} description={s3[1][1]} destination={s3[1][2]}  /></p>,
+        position: {
+          x: 1050,
+          y: 1230
+        },
+        ports: {
+          port1: {
+            id: "port1",
+            type: "input"
+          },
+          port2: {
+            id: "port2",
+            type: "output"
+          }
+        }
+      },
+      node13: {
+        id:'node13',
+        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s3[2][0]} description={s3[2][1]} destination={s3[2][2]}  /></p>,
+        position: {
+          x: 800,
+          y: 1470
+        },
+        ports: {
+          port1: {
+            id: "port1",
+            type: "input"
+          },
+          port2: {
+            id: "port2",
+            type: "output"
+          }
+        }
+      },
     },
     links: {
       link1: {
@@ -285,42 +498,130 @@ const FolderContent = () => {
           portId: "port1"
         },
         to: {
-          nodeId: "node1",
-          portId: "port2"
+          nodeId: "node2",
+          portId: "port1"
         },
       },
       link2: {
         id: "link2",
         from: {
-          nodeId: "node2",
-          portId: "port1"
+          nodeId: "node1",
+          portId: "port2"
         },
         to: {
-          nodeId: "node2",
-          portId: "port2"
+          nodeId: "node3",
+          portId: "port1"
         },
       },
       link3: {
-        id: "link3",
+        id: "link2",
         from: {
-          nodeId: "node3",
-          portId: "port1"
+          nodeId: "node1",
+          portId: "port3"
         },
         to: {
+          nodeId: "node4",
+          portId: "port1"
+        },
+      },
+      link4: {
+        id: "link4",
+        from: {
+          nodeId: "node2",
+          portId: "port2"
+        },
+        to: {
+          nodeId: "node5",
+          portId: "port1"
+        },
+      },
+      link5: {
+        id: "link5",
+        from: {
+          nodeId: "node5",
+          portId: "port2"
+        },
+        to: {
+          nodeId: "node6",
+          portId: "port1"
+        },
+      },
+      link6: {
+        id: "link6",
+        from: {
+          nodeId: "node6",
+          portId: "port2"
+        },
+        to: {
+          nodeId: "node7",
+          portId: "port1"
+        },
+      },
+      link7:{
+        id: "link7",
+        from: {
           nodeId: "node3",
           portId: "port2"
         },
-        link4: {
-          id: "link4",
-          from: {
-            nodeId: "node4",
-            portId: "port1"
-          },
-          to: {
-            nodeId: "node4",
-            portId: "port2"
-          },
-        }
+        to: {
+          nodeId: "node8",
+          portId: "port1"
+        },
+      },
+      link8:{
+        id: "link8",
+        from: {
+          nodeId: "node8",
+          portId: "port2"
+        },
+        to: {
+          nodeId: "node9",
+          portId: "port1"
+        },
+      },
+      link9:{
+        id: "link9",
+        from: {
+          nodeId: "node9",
+          portId: "port2"
+        },
+        to: {
+          nodeId: "node10",
+          portId: "port1"
+        },
+      },
+      link10:{
+        id: "link10",
+        from: {
+          nodeId: "node4",
+          portId: "port2"
+        },
+        to: {
+          nodeId: "node11",
+          portId: "port1"
+        },
+      },
+      link11:{
+        id: "link11",
+        from: {
+          nodeId: "node11",
+          portId: "port2"
+        },
+        to: {
+          nodeId: "node12",
+          portId: "port1"
+        },
+      },
+      link12:{
+        id: "link12",
+        from: {
+          nodeId: "node12",
+          portId: "port2"
+        },
+        to: {
+          nodeId: "node13",
+          portId: "port1"
+        },
       },
     },
     selected: {},
@@ -334,15 +635,18 @@ const FolderContent = () => {
 
 <br></br>
 <div>
-<CustomizedInputsStyleOverrides ph={"Start search"} name={query} setName={setQuery} keyDown={()=>searchIntegration()}  /><br></br>
+<CustomizedInputsStyleOverrides ph={"Start search"} name={query} setName={setQuery} keyDown={()=>{searchIntegration();setQuery('')}}  /><br></br>
 <div style={{marginLeft:'25px'}}>
 <Button  backgroundColor={"#D0BCFF"} size="small" label={"Start search"} onClick={
-              ()=>     searchIntegration()  
+              ()=>     {searchIntegration()  ;setQuery('')
+              }
+
+                
 }  />
 </div>
 </div>
 
-     <BasicTabs displayChart={chartSimple} quizMCQ={questions} search={query} name={metaData['firstname']} foldername={foldername} googlesearch={googlesearch} setConsent={setConsent} save_data_google={save_google_data} retrievegoogledata1={retrievegoogledata1} retrievegoogledata2={retrievegoogledata2} description={description} update_effect={setUpdate} setue={setue} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin} />
+     <BasicTabs displayChart={chartSimple} quizMCQ={questions} csResultData={csResultData} search={query} name={metaData['firstname']} consent={consent} foldername={foldername} googlesearch={googlesearch} setConsent={setConsent} save_data_google={save_google_data} retrievegoogledata1={retrievegoogledata1} retrievegoogledata2={retrievegoogledata2} description={description} update_effect={setUpdate} setue={setue} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin} youtubesearch={youtubesearch} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} thumbnail={thumbnail} />
           </div>
 
     </div>

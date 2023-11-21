@@ -3,9 +3,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
+import save_google_data from "../functions/save_google_data";
 import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar } from '@syncfusion/ej2-react-richtexteditor';
-
-function TopicSearchCarousel({name,query,foldername}) {
+import { metaData } from "../data/dummy";
+import GoogleCarousel from "./GoogleCarousel";
+function TopicSearchCarousel({name,query,foldername,save_data,update_effect,setue,csResultData,setConsent,djoin,linkjoin,stored_data}) {
   const settings = {
     dots: true,
     infinite: true,
@@ -39,30 +41,23 @@ function TopicSearchCarousel({name,query,foldername}) {
   return (
     <div className='w-3/4 m-auto'>
       <div  className="mt-20">
-        {data1.map((d) => (
+        {csResultData.map((data) => (
 
         <div>
-            [subtopic]
+            {data.subtopic}
         <div>
-        <Slider {...settings}>
+        {
+          [1].map((r)=>{
+         //   if(data.ti != ""){
+            var linkjoin_ = []
+            var djoin_ = [] 
+            return(
+              <GoogleCarousel name={metaData['firstname']}  setConsent={setConsent} foldername={foldername} save_data={save_google_data} email={metaData['email']} lastname={metaData['lastname']} djoin_={djoin_} retrievegoogledata1={data.titles} retrievegoogledata2={data.link} description={data.descriptions} update_effect={update_effect} setue={setue} linkjoin_={linkjoin_} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin}  />
 
-            {d.map((d)=>{
-                return(
-                    <div  key={d.name} className="bg-white h-[450px] text-black rounded-xl">
-           
-
-                    <div className="flex flex-col items-center justify-center gap-4 p-4">
-                      <p className="text-xl font-semibold">[d.name]</p>
-                      <div style={{'width':'200px'}}>
-                        [d.description]
-                   </div>
-                      <button disabled={false} className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl'>save</button>
-        
-                    </div>
-                  </div>
-                )
-            })}
-                        </Slider>
+            )
+            
+          })
+        }
 
           </div><br></br>
           </div>

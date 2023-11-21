@@ -19,7 +19,7 @@ export default function Dashboard(props) {
       metaData['firstname'] =  (api['firstname'])
       metaData['lastname'] = (api['lastname'])
       console.log(metaData)
-      let api2 = await fetch(`http://127.0.0.1:5000/get_folders/${metaData['firstname']+metaData['lastname']+email}`)
+      let api2 = await fetch(`http://127.0.0.1:5000/get_folders/${metaData['firstname']}`)
       api2 = await api2.json()
       api2 = api2['data']
       console.log(api2)

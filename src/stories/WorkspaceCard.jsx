@@ -31,7 +31,6 @@ function WorkspaceCard({name,thumbnail,description, ...props}) {
       </CardContent>
       <CardActions>
         <Button backgroundColor={"#D0BCFF"} size="small" label={"Delete"} onClick={async()=>{
-          console.log(`http://127.0.0.1:5000/delete_workspace/${metaData['firstname']}/${name}`)
           let api = await fetch(`http://127.0.0.1:5000/delete_workspace/${metaData['firstname']}/${name}`);
           api = await api.json();
           window.location.reload();
@@ -89,7 +88,7 @@ function ShareWorkspace({name,workspace, open, setOpen, setUpdate}) {
     <div>
       <Snackbar style={{'width':"290px"}}
         open={open}
-        autoHideDuration={30000}
+        autoHideDuration={300000}
         onClose={handleClose}
         message=""
         action={action}

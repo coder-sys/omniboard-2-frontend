@@ -83,6 +83,7 @@ function CustomizedInputsStyleOverrides({ text, ph, name, setName, keyDown, ...p
       <TextField label={ph} onKeyPress={(e)=>{if(e.key=='Enter'){
         console.log('clicked');
         keyDown();
+        e.target.value = ''
       }}} style={{color:"white", backgroundColor:"white", borderRadius:"100px"}} color="secondary" onChange={async(e)=>{setName(e.target.value.toLowerCase())}}  />
     </Box>
   );
