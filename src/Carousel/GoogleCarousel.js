@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
-
+import save_google_data from "../functions/save_google_data";
 function GoogleCarousel({setConsent,save_data,foldername,email,lastname,name,djoin_,retrievegoogledata1,retrievegoogledata2,description,update_effect,setue,linkjoin_,stored_data,djoin,linkjoin}) {
   const settings = {
     dots: true,
@@ -42,7 +42,7 @@ function GoogleCarousel({setConsent,save_data,foldername,email,lastname,name,djo
       <Slider {...settings}>
         {retrievegoogledata2.map((data,index) => (
 
-          <div  key={index} className="bg-white h-[450px] text-black rounded-xl">
+          <div   className="bg-white h-[450px] text-black rounded-xl">
            
 
             <div className="flex flex-col items-center justify-center gap-4 p-4">
@@ -50,8 +50,8 @@ function GoogleCarousel({setConsent,save_data,foldername,email,lastname,name,djo
               <div style={{'width':'200px'}}>
                 {description[index]}
            </div>
-              <button disabled={stored_data[index]}  onClick={async()=>{
-                save_data(setue,data,update_effect,linkjoin_,retrievegoogledata1,index,djoin_,stored_data,name,lastname,email,foldername,description);
+              <button  disabled={stored_data[index]}  onClick={async()=>{
+                save_google_data(setue,data,update_effect,linkjoin_,retrievegoogledata1,index,djoin_,stored_data,name,lastname,email,foldername,description);
                 update_effect(p=>p+1)
                 setue(p=>p+1)
               }} className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl'>{

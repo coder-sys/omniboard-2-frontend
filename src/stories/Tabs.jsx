@@ -38,7 +38,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,name, foldername,consent,setConsent,save_data_google,retrievegoogledata1,retrievegoogledata2,description,update_effect,setue,stored_data,djoin,linkjoin,youtubesearch,youtubeAPILinks,youtubeAPITitles,thumbnail,csResultData}) {
+export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,name, stored_data_yt, csstored_data, foldername,consent,setConsent,save_data_google,retrievegoogledata1,retrievegoogledata2,description,update_effect,setue,stored_data,djoin,linkjoin,youtubesearch,youtubeAPILinks,youtubeAPITitles,thumbnail,csResultData}) {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -66,7 +66,9 @@ export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,n
                 else if(consent == false){
                   
                 return(
+                  <>
                   <FlowChartWithState style={{width:"1%"}} initialValue={displayChart} />
+                  </>
                 )
                 }
               }
@@ -109,7 +111,7 @@ export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,n
                       
                       else if(consent == false){
                     return(
-       <YouTubeCarousel  name={name} update_effect={update_effect} thumbnail={thumbnail} stored_data_yt={save_youtube_data} setue={setue} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} foldername={foldername} />
+       <YouTubeCarousel  name={metaData['firstname']} update_effect={update_effect} thumbnail={thumbnail} stored_data_yt={stored_data} setue={setue} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} foldername={foldername} />
        )
                     }
       }}
@@ -124,7 +126,7 @@ export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,n
                 }
                 else if(consent == false){
                 return(
-                  <TopicSearchCarousel csResultData={csResultData} stored_data={stored_data} name={name} update_effect={update_effect} save_data={save_data_google} query={search} foldername={foldername} setue={setue} linkjoin_={[]} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin}  />
+                  <TopicSearchCarousel csResultData={csResultData} csstored_data={csstored_data} stored_data={stored_data} name={metaData['firstname']} update_effect={update_effect} save_data={save_data_google} query={search} foldername={foldername} setue={setue} linkjoin_={[]}  djoin={djoin} linkjoin={linkjoin}  />
 
                 )
                 }

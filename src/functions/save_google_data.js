@@ -26,7 +26,7 @@ const save_google_data = async(setue,data,update_effect,linkjoin_,retrievegoogle
 try{    
 let eal = await fetch(`http://127.0.0.1:5000/get_last_name_and_email/${name}`)
 eal = await eal.json()
-    let api = await fetch(`http://127.0.0.1:5000/add_google_content/${name+lastname+email}/${foldername}/${djoin_.join("")}/${linkjoin_.join("")}/${description[index]}`)
+    let api = await fetch(`http://127.0.0.1:5000/add_google_content/${name}/${foldername}/${djoin_.join("")}/${linkjoin_.join("")}/${description[index]}`)
     api = await api.json()
     console.log(api)
 }

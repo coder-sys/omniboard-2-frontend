@@ -32,6 +32,7 @@ const FolderContent = () => {
     const [update_effect,setue]= useState(0)
     const [thumbnail,setThumbnail] = useState([])
     const [stored_data,setStoredData] = useState([])
+    const [csstored_data, setCsStoredData] = useState([])
     const [stored_data_yt,setStoredDataYT] = useState([])
     const [consent,setConsent] = useState(true)
     const [consent1,setConsent1] = useState(true)
@@ -101,7 +102,7 @@ const FolderContent = () => {
     console.log(metaData)
   },[update])
   
-  const questions = [
+  const [questions, setQuestions] = useState([
 		{
 			questionText: 'What is the capital of France?',
 			answerOptions: [
@@ -138,9 +139,10 @@ const FolderContent = () => {
 				{ answerText: '7', isCorrect: true },
 			],
 		},
-	];
+	]);
 
   const searchIntegration = async()=>{
+    setConsent(true)
     setYoutubeSearch(query)
     setGoogleSearch(query)
     setConceptSearch(query)
@@ -189,7 +191,7 @@ const FolderContent = () => {
                           setDescription(api.description)
                           let emailandlastname = await fetch(`http://127.0.0.1:5000/get_last_name_and_email/${metaData['firstname']}`)
                           emailandlastname = await emailandlastname.json()
-                          let lapi = await fetch('http://127.0.0.1:5000/get_stored_links/'+metaData['firstname']+emailandlastname['lastname']+emailandlastname['email']+'/'+foldername)
+                          let lapi = await fetch('http://127.0.0.1:5000/get_stored_links/'+metaData['firstname']+'/'+foldername)
                           lapi = await lapi.json()
                           translateLink(api.urls).then((data)=>{
                             translateLink(lapi.data).then(async(data1)=>{
@@ -211,7 +213,9 @@ const FolderContent = () => {
                               console.log(`http://127.0.0.1:5000/find_similarity_links/${dt1.join()}/${data1.join()}`)
                               let api = await fetch(`http://127.0.0.1:5000/find_similarity_links/${dt1.join()}/${data1.join()}`)
                               api = await api.json()
-                            setStoredData(api.data)}catch(err){console.log(err)}
+                            setStoredData(api.data)
+                         //   setCsStoredData([api.data,api.data,api.data,api.data,api.data])
+                          }catch(err){console.log(err)}
                           })
                           })}catch(err){alert('Error: Too many requests. Google has temporarily blocked you. Try again later.')}
                                                         
@@ -223,15 +227,24 @@ const FolderContent = () => {
                                   setue(update_effect+1)
                                         let emailandlastname = await fetch(`http://127.0.0.1:5000/get_last_name_and_email/${metaData['firstname']}`)
                                         emailandlastname = await emailandlastname.json()
-                                        let api = await fetch(`http://127.0.0.1:5000/get_results_on_conceptual_search/${query}/${metaData['firstname']+emailandlastname['lastname']+emailandlastname['email']}/${foldername}`)
+                                        let api = await fetch(`http://127.0.0.1:5000/get_results_on_conceptual_search/${query}/${metaData['firstname']}/${foldername}`)
                                         api = await api.json()
                                         setCsResultData(api['data'])
+                                        
                                         console.log('data',api['data'])
                    
                                     }catch(err){
                                         console.log(err)
                     alert('The educational search you made was too specific,use the google search feature for your search')
                     
+                                    }
+                                    try{
+                                      let api = await fetch(`http://127.0.0.1:5000/generate_questions/${query}`)
+                                      api = await api.json()
+                                      setQuestions(api['data'])
+                                    }
+                                    catch(err){
+                                      console.log(err)
                                     }
   
   }
@@ -243,7 +256,7 @@ const FolderContent = () => {
     nodes: {
       node1: {
         id: "node1",
-        type: <p><b><i>main topic</i></b><br></br><Button primary={true} backgroundColor={"#D0BCFF"} size="small" label={mainTopic}/></p>,
+        type: <p><b><i>main topic</i></b><br></br><Button primary={true} onClick={()=>{window.open(`https://www.google.com/search?q=${mainTopic}`,'_blank')}} backgroundColor={"#D0BCFF"} size="small" label={mainTopic}/></p>,
         position: {
           x: 300,
           y: 30
@@ -275,7 +288,7 @@ const FolderContent = () => {
       },
       node2: {
         id: "node2",
-        type: <p><b><i>sub topic</i></b><br></br><Button primary={true} backgroundColor={"#D0BCFF"} size="small" label={subtopics[0]}/></p>,
+        type: <p><b><i>sub topic</i></b><br></br><Button primary={true} onClick={()=>{window.open(`https://www.google.com/search?q=${mainTopic} ${subtopics[0]}`)}} backgroundColor={"#D0BCFF"} size="small" label={subtopics[0]}/></p>,
         position: {
           x: 150,
           y: 300
@@ -293,7 +306,7 @@ const FolderContent = () => {
       },
       node3: {
         id: "node3",
-        type: <p><b><i>sub topic</i></b><br></br><Button primary={true} backgroundColor={"#D0BCFF"} size="small" label={subtopics[1]}/></p>,
+        type: <p><b><i>sub topic</i></b><br></br><Button primary={true} onClick={()=>{window.open(`https://www.google.com/search?q=${mainTopic} ${subtopics[1]}`)}} backgroundColor={"#D0BCFF"} size="small" label={subtopics[1]}/></p>,
         position: {
           x: 400,
           y: 300
@@ -311,7 +324,7 @@ const FolderContent = () => {
       },
       node4: {
         id: "node4",
-        type: <p><b><i>sub topic</i></b><br></br><Button primary={true} backgroundColor={"#D0BCFF"} size="small" label={subtopics[2]}/></p>,
+        type: <p><b><i>sub topic</i></b><br></br><Button primary={true} onClick={()=>{window.open(`https://www.google.com/search?q=${mainTopic} ${subtopics[2]}`)}} backgroundColor={"#D0BCFF"} size="small" label={subtopics[2]}/></p>,
         position: {
           x: 650,
           y: 300
@@ -347,10 +360,10 @@ const FolderContent = () => {
       },
       node6: {
         id: "node6",
-        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s1[1][0]} description={s1[1][1]} destination={s1[1][2]}  /></p>,
+        type: <p><b><i>Source 2</i></b><br></br><InfoCard name={s1[1][0]} description={s1[1][1]} destination={s1[1][2]}  /></p>,
         position: {
-          x: -40,
-          y: 900
+          x: -80,
+          y: 1200
         },
         ports: {
           port1: {
@@ -365,10 +378,10 @@ const FolderContent = () => {
       },
       node7: {
         id: "node7",
-        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s1[2][0]} thumbnail={s1[2][1]} destination={s1[2][2]}  /></p>,
+        type: <p><b><i>Source 3</i></b><br></br><InfoCard name={s1[2][0]} thumbnail={s1[2][1]} destination={s1[2][2]}  /></p>,
         position: {
-          x: 300,
-          y: 1200
+          x: -90,
+          y: 2000
         },
         ports: {
           port1: {
@@ -383,7 +396,7 @@ const FolderContent = () => {
       },
       node8: {
         id:'node8',
-        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s2[0][0]} thumbnail={s2[0][1]} destination={s2[0][2]}  /></p>,
+        type: <p><b><i>Source 1</i></b><br></br><InfoCard name={s2[0][0]} thumbnail={s2[0][1]} destination={s2[0][2]}  /></p>,
         position: {
           x: 400,
           y: 600
@@ -401,10 +414,10 @@ const FolderContent = () => {
       },
       node9: {
         id:'node9',
-        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s2[1][0]} description={s2[1][1]} destination={s2[1][2]}  /></p>,
+        type: <p><b><i>Source 2</i></b><br></br><InfoCard name={s2[1][0]} description={s2[1][1]} destination={s2[1][2]}  /></p>,
         position: {
           x: 490,
-          y: 1000
+          y: 1800
         },
         ports: {
           port1: {
@@ -419,10 +432,10 @@ const FolderContent = () => {
       },
       node10: {
         id:'node10',
-        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s2[2][0]} thumbnail={s2[2][1]} destination={s2[2][2]}  /></p>,
+        type: <p><b><i>Source 3</i></b><br></br><InfoCard name={s2[2][0]} thumbnail={s2[2][1]} destination={s2[2][2]}  /></p>,
         position: {
           x: 490,
-          y: 1500
+          y: 2000
         },
         ports: {
           port1: {
@@ -437,7 +450,7 @@ const FolderContent = () => {
       },
       node11: {
         id:'node11',
-        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s3[0][0]} thumbnail={s3[0][1]} destination={s3[0][2]}  /></p>,
+        type: <p><b><i>Source 1</i></b><br></br><InfoCard name={s3[0][0]} thumbnail={s3[0][1]} destination={s3[0][2]}  /></p>,
         position: {
           x: 850,
           y: 600
@@ -455,7 +468,7 @@ const FolderContent = () => {
       },
       node12: {
         id:'node12',
-        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s3[1][0]} description={s3[1][1]} destination={s3[1][2]}  /></p>,
+        type: <p><b><i>Source 2</i></b><br></br><InfoCard name={s3[1][0]} description={s3[1][1]} destination={s3[1][2]}  /></p>,
         position: {
           x: 1050,
           y: 1230
@@ -473,10 +486,10 @@ const FolderContent = () => {
       },
       node13: {
         id:'node13',
-        type: <p><b><i>sub topic</i></b><br></br><InfoCard name={s3[2][0]} description={s3[2][1]} destination={s3[2][2]}  /></p>,
+        type: <p><b><i>Source 3</i></b><br></br><InfoCard name={s3[2][0]} description={s3[2][1]} destination={s3[2][2]}  /></p>,
         position: {
-          x: 800,
-          y: 1470
+          x: 1000,
+          y: 1600
         },
         ports: {
           port1: {
@@ -646,7 +659,7 @@ const FolderContent = () => {
 </div>
 </div>
 
-     <BasicTabs displayChart={chartSimple} quizMCQ={questions} csResultData={csResultData} search={query} name={metaData['firstname']} consent={consent} foldername={foldername} googlesearch={googlesearch} setConsent={setConsent} save_data_google={save_google_data} retrievegoogledata1={retrievegoogledata1} retrievegoogledata2={retrievegoogledata2} description={description} update_effect={setUpdate} setue={setue} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin} youtubesearch={youtubesearch} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} thumbnail={thumbnail} />
+     <BasicTabs csstored_data={csstored_data} displayChart={chartSimple} quizMCQ={questions} csResultData={csResultData} search={query} name={metaData['firstname']} consent={consent} foldername={foldername} googlesearch={googlesearch} setConsent={setConsent} save_data_google={save_google_data} retrievegoogledata1={retrievegoogledata1} retrievegoogledata2={retrievegoogledata2} description={description} update_effect={setUpdate} setue={setue} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin} youtubesearch={youtubesearch} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} thumbnail={thumbnail} />
           </div>
 
     </div>

@@ -23,7 +23,7 @@ const Folder = () => {
     
   },[update])
   const request_add_folder=async()=>{
-    let api = await fetch(`http://127.0.0.1:5000/add_folder/${metaData['firstname']+metaData['lastname']+metaData['email']}/${foldername}`)
+    let api = await fetch(`http://127.0.0.1:5000/add_folder/${metaData['firstname']}/${foldername}`)
     api = await api.json()
     window.location.reload()
   }

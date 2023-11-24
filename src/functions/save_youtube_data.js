@@ -45,7 +45,7 @@ const save_youtube_data = async(setue,update_effect,youtubeAPILinks,youtubeAPITi
                     
                 })
                 
-                                    let api = await fetch(`http://127.0.0.1:5000/add_youtube_content/${name+emailandlastname['lastname']+emailandlastname['email']}/${foldername}/${yttitlejoin.join('')}/${ytlinkjoin_.join("").split('=')[1]}/${thumbnailjoin_.join('')}`)
+                                    let api = await fetch(`http://127.0.0.1:5000/add_youtube_content/${name}/${foldername}/${yttitlejoin.join('')}/${ytlinkjoin_.join("").split('=')[1]}/${thumbnailjoin_.join('')}`)
                                     api = await api.json()
                                     console.log(api)}catch(err){alert('could not save source')}
                                    }

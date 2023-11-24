@@ -70,6 +70,7 @@ const App = () => {
                 <Route path="/:email" element={(<Folder />)} />
                 <Route path="/folders/:email" element={(<Folder />)} />
                 <Route path="/resources/:email/" element={(<Resource />)} />
+                <Route path="/resourceslinked/:email/:foldername" element={(<Resource />)} />
                 <Route path="/workspace/:email/" element={(<Workspaces />)} />
                 {/* level 2 link*/ }
                 <Route path="/folders/foldercontent/:foldername/:email" element={(<FolderContent />)} />

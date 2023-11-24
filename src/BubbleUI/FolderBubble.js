@@ -61,7 +61,7 @@ export default function FolderBubble(props) {
             }}
           >
   <Button style={{marginRight:"20px"}} onClick={async()=>{
-    let api = await fetch(`http://127.0.0.1:5000/delete_folder/${metaData['firstname']+metaData['lastname']+metaData['email']}/${props.symbol}`)
+    let api = await fetch(`http://127.0.0.1:5000/delete_folder/${metaData['firstname']}/${props.symbol}`)
     api = await api.json()
     props.setUpdate(props.update+1)
   }} backgroundColor={"#D0BCFF"} size="small" label={"Delete Folder"} />
