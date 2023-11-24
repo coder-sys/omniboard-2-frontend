@@ -6,7 +6,8 @@ import "./index.css";
 import save_google_data from "../functions/save_google_data";
 import WorkspaceCard from "../stories/WorkspaceCard";
 import { FlowChartWithState } from "@mrblenny/react-flow-chart";
-
+import ResourceCard from "../stories/ResourceCard";
+import { metaData } from "../data/dummy";
 function ResourceFolderCarousel({folders,name}) {
     const [update, setUpdated] = useState(0)
     const [vf, sVF] = useState('')
@@ -84,10 +85,10 @@ function ResourceFolderCarousel({folders,name}) {
                     
                   if(types[count] == 'google'){  
                     console.log(descriptions)
-                    nodes[key].type = <div>Saved Source<WorkspaceCard name={names[count]} thumbnail={'/'} description={descriptions[count]} /></div>
+                    nodes[key].type = <div>Saved Source<ResourceCard fname={metaData['firstname']} name={names[count]} thumbnail={'/'} description={descriptions[count]} foldername={data.symbol} sourcename={names[count]} link={links[count]} /></div>
                   }
                   else{
-                    nodes[key].type = <div>Saved Source<WorkspaceCard name={names[count]} thumbnail={thumbnails[count]} description={"api3[data]"} /></div>
+                    nodes[key].type = <div>Saved Source<ResourceCard fname={metaData['firstname']} name={names[count]} thumbnail={thumbnails[count]} description={"api3[data]"} foldername={data.symbol} sourcename={names[count]} link={links[count]} /></div>
                   }
        
                  count++;
