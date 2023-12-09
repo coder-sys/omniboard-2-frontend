@@ -79,7 +79,24 @@ export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,n
 
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Test questions={quizMCQ}/>
+      {
+          [1].map((data)=>{
+            if(googlesearch != ""){
+            var linkjoin_ = []
+            var djoin_ = [] 
+            if(consent == true){
+              return "loading"
+              
+            }
+            else if(consent == false){
+            return(
+              <Test questions={quizMCQ}/>
+            )
+            }
+          }
+          })
+        }
+        
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         {
@@ -120,6 +137,7 @@ export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,n
       <CustomTabPanel value={value} index={4}>
         {
               [1].map((data,index)=>{
+                if(googlesearch != ""){
                 if(consent == true){
                   return "loading"
                   
@@ -130,6 +148,7 @@ export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,n
 
                 )
                 }
+              }
               })
         
 }

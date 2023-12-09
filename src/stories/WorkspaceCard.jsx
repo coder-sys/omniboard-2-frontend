@@ -88,7 +88,7 @@ function ShareWorkspace({name,workspace, open, setOpen, setUpdate}) {
     <div>
       <Snackbar style={{'width':"290px"}}
         open={open}
-        autoHideDuration={300000}
+        autoHideDuration={3000000}
         onClose={handleClose}
         message=""
         action={action}

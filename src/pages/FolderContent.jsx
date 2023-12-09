@@ -93,13 +93,16 @@ const FolderContent = () => {
       ]
   ])
     const [sdomo,Ssdomo] = useState(0)
-
+  const [date_error, setDr]=useState(100)
   useEffect(async()=>{
     let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
     api = await api.json()
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
     console.log(metaData)
+    let api2 = await fetch(`http://127.0.0.1:5000/date_subtraction_for_paid_version`)
+    api2 = await api2.json()
+    setDr(api2['data'])
   },[update])
   
   const [questions, setQuestions] = useState([
@@ -194,7 +197,7 @@ const FolderContent = () => {
                           let lapi = await fetch('http://127.0.0.1:5000/get_stored_links/'+metaData['firstname']+'/'+foldername)
                           lapi = await lapi.json()
                           translateLink(api.urls).then((data)=>{
-                            translateLink(lapi.data).then(async(data1)=>{
+                            translateLink(lapi.links).then(async(data1)=>{
                               try{
                                 let dt = []
                                 let dt1 = []
@@ -211,7 +214,7 @@ const FolderContent = () => {
                               })
                               console.log(dt1.join())
                               console.log(`http://127.0.0.1:5000/find_similarity_links/${dt1.join()}/${data1.join()}`)
-                              let api = await fetch(`http://127.0.0.1:5000/find_similarity_links/${dt1.join()}/${data1.join()}`)
+                              let api = await fetch(`http://127.0.0.1:5000/find_similarity_links/${dt1.join()}/${data1.replace(/\//g, "`")}`)
                               api = await api.json()
                             setStoredData(api.data)
                          //   setCsStoredData([api.data,api.data,api.data,api.data,api.data])
@@ -236,7 +239,6 @@ const FolderContent = () => {
                                     }catch(err){
                                         console.log(err)
                     alert('The educational search you made was too specific,use the google search feature for your search')
-                    
                                     }
                                     try{
                                       let api = await fetch(`http://127.0.0.1:5000/generate_questions/${query}`)
@@ -244,7 +246,7 @@ const FolderContent = () => {
                                       setQuestions(api['data'])
                                     }
                                     catch(err){
-                                      console.log(err)
+                                      console.log('---',err)
                                     }
   
   }
@@ -640,6 +642,7 @@ const FolderContent = () => {
     selected: {},
     hovered: {}
   };
+  if(date_error<30){
   return (
     <div className="mt-24">
            <ChatBody  />
@@ -665,6 +668,9 @@ const FolderContent = () => {
     </div>
   );
 }
+else{
+  return("Relocation")
+}
+}
 export default FolderContent;
  
-

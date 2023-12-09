@@ -25,7 +25,7 @@ const Workspaces = () => {
   metaData['email'] = email
   const [update, setUpdate] = useState('')
   const [workspacename, setWorkspaceName] = useState("")
- 
+  const [date_err, setDR] = useState(100)
 /** use useEffect for loding data below */
 useEffect(async()=>{
   let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
@@ -33,7 +33,11 @@ useEffect(async()=>{
   metaData['firstname'] =  (api['firstname'])
   metaData['lastname'] = (api['lastname'])
  console.log(metaData['firstname'] )
+ let api2 = await fetch(`http://127.0.0.1:5000/date_subtraction_for_paid_version`)
+ api2 = await api2.json()
+ setDR(api2['data'])
 },[update])
+if(date_err<30){
   return(
     <div className="mt-24">
      
@@ -57,6 +61,10 @@ useEffect(async()=>{
 </div>
     </div>
   )
+}
+else{
+  return "Relocation"
+}
  
 
 };
@@ -126,6 +134,7 @@ const Chart = ({ email, name, workspacename, setWorkspaceName, chartSimple }) =>
 function ListDividersWorkspace({email,type, setUpdate}) {
   const [foldersInHolding, setFoldersInHolding] = useState([])
   const [workspacesInHolding, setWorkspaceInHolding] = useState([])
+
   useEffect(async()=>{
     const load_data = async()=>{
     let api = await fetch(`http://127.0.0.1:5000/load_waiting_folders/${email}`)

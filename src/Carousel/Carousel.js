@@ -7,13 +7,14 @@ import "./index.css";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
 import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar } from '@syncfusion/ej2-react-richtexteditor';
+import parse from 'html-react-parser';
 
-function Carousel({name,workspace}) {
+function Carousel({name,workspace,data}) {
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
     responsive: [
       {
@@ -50,13 +51,15 @@ function Carousel({name,workspace}) {
       <Slider  {...settings}>
         {data.map((d) => (
 
-          <div  key={d.name} className="bg-white h-[450px] text-black rounded-xl">
+          <div  key={d.notes} className="bg-white h-[450px] text-black rounded-xl">
            
 
             <div className="flex flex-col items-center justify-center gap-4 p-4">
-              <p className="text-xl font-semibold">[d.name]</p>
-              <button className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl'>delete</button>
-              <button className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl'>save notes</button>
+              <button className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl' onClick={async()=>{
+               let api = await fetch(`http://127.0.0.1:5000/delete_saved_notes/${name}/${workspace}/${d.notes}`)
+               api = await api.json()
+               window.location.reload()
+              }}>delete</button>
 
               <div style={{'width':'200px'}}>
 
@@ -64,8 +67,21 @@ function Carousel({name,workspace}) {
        
       <ReactQuill style={{'width':'100%','height':'100%'}}
         theme="snow" // You can choose different themes
-        value={"d.value"}
-      />
+        value={d.notes.replace(new RegExp('`','gi'),'/')}
+        onChange={async(e)=>{
+  
+      let api = await fetch(`http://127.0.0.1:5000/save_notes/${name}/${workspace}/${e.replace(new RegExp('/','gi'),'`')}`)
+      api = await api.json()
+        }}
+        modules={{
+          toolbar: [
+            // Customize the toolbar if needed
+            ['bold', 'italic', 'underline', 'strike'], 
+            ['link', 'image'],
+          ],
+        }}
+      /><br></br>
+      <div style={{'textAlign':'align', border: '1px solid black'}} >{parse(d.notes.replace(new RegExp('`','gi'),'/'))}</div>
       </div></div>
               
 

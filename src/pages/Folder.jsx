@@ -14,19 +14,23 @@ const Folder = () => {
   metaData['email'] = email
   const [update, setUpdate] = useState(0)
   const [foldername, setFoldername] = useState("")
+  const [date_err,setDR] = useState(100)
   useEffect(async()=>{
     let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
     api = await api.json()
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
     console.log(metaData)
-    
+    let api2 = await fetch(`http://127.0.0.1:5000/date_subtraction_for_paid_version`)
+    api2 = await api2.json()
+    setDR(api2['data'])
   },[update])
   const request_add_folder=async()=>{
     let api = await fetch(`http://127.0.0.1:5000/add_folder/${metaData['firstname']}/${foldername}`)
     api = await api.json()
     window.location.reload()
   }
+  if(date_err<30){
   return (
     <div className="mt-24">
                     <CustomizedInputsStyleOverrides keyDown={()=>{request_add_folder()}} ph={"Create Folder"} name={foldername} setName={setFoldername} style={{'marginLeft':"50px"}} />
@@ -46,6 +50,10 @@ const Folder = () => {
          
     </div>
   );
+}
+else{
+  return("relocation")
+}
 };
 
 export default Folder;

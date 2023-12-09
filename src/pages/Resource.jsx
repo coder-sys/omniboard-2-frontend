@@ -31,6 +31,7 @@ const Resource = () => {
     selected: {},
     hovered: {}
   });
+  const [date_err, setDR] = useState(1000)
   useEffect(async()=>{
     let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
     api = await api.json()
@@ -40,7 +41,11 @@ const Resource = () => {
     api1 = await api1.json()
     console.log(api1['data'])
     setFolders(api1['data'])
+    let api2 = await fetch("http://127.0.0.1:5000/date_subtraction_for_paid_version")
+    api2 = await api2.json()
+    setDR(api2['data'])
   },[updated])
+  if(date_err<30){
   return (
     <div className="mt-24">
       <ResourceFolderCarousel folders={folders} name={metaData['firstname']} setChartSimple={setChartSimple} />
@@ -52,7 +57,10 @@ const Resource = () => {
         />
 
     </div>
-  );
+  );}
+  else{
+    return "Relocation"
+  }
 };
 
 export default Resource;
