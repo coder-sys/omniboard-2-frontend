@@ -9,10 +9,10 @@ import 'reactjs-popup/dist/index.css';
 import { FlowChartWithState } from "@mrblenny/react-flow-chart";
 import Button from '../stories/Button';
 import ResourceFolderCarousel from '../Carousel/ResourceFolderCarousel';
+import Cookies from 'js-cookie';
 const Resource = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()
-  console.log(email)
   metaData['email'] = email
   const [folders, setFolders] = useState([])
   const [updated, setUpdated] = useState(0)
@@ -33,11 +33,16 @@ const Resource = () => {
   });
   const [date_err, setDR] = useState(1000)
   useEffect(async()=>{
-    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
+    const cookieValue = Cookies.get('session_id')
+   console.log('im looking for',cookieValue)
+   let preapi = await fetch(`http://127.0.0.1:5000/session_map/${cookieValue}`)
+   preapi = await preapi.json()
+    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${preapi['data']}`)
     api = await api.json()
+    metaData['email'] = preapi['data']
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
-    let api1 = await fetch(`http://127.0.0.1:5000/get_folders/${api['firstname']}`)
+    let api1 = await fetch(`http://127.0.0.1:5000/get_folders/${metaData['firstname']}`)
     api1 = await api1.json()
     console.log(api1['data'])
     setFolders(api1['data'])
@@ -59,7 +64,7 @@ const Resource = () => {
     </div>
   );}
   else{
-    return "Relocation"
+    return <h1 style={{"color":'white'}}>Error 404: Please contact your administration</h1>
   }
 };
 

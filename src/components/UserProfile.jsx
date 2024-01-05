@@ -6,7 +6,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 import { metaData } from '../data/dummy';
 const UserProfile = () => {
   const { currentColor } = useStateContext();
-
+  
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">
@@ -17,6 +17,7 @@ const UserProfile = () => {
           bgHoverColor="light-gray"
           size="2xl"
           borderRadius="50%"
+          customFunction={()=>{console.log("Closing")}}
         />
       </div>
       <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">

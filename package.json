@@ -21,6 +21,7 @@
     "@syncfusion/ej2-react-richtexteditor": "^19.4.50",
     "@syncfusion/ej2-react-schedule": "^19.4.50",
     "html-react-parser": "^5.0.7",
+    "js-cookie": "^3.0.5",
     "mdbreact": "^5.2.0",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.1",

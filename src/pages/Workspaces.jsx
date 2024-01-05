@@ -12,6 +12,7 @@ import ListDividers from '../stories/accept';
 import Row from '../stories/snackbar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import Cookies from 'js-cookie';
 
 const style = {
   width: '1000px',
@@ -21,14 +22,19 @@ const style = {
 const Workspaces = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()
-  console.log(email)
   metaData['email'] = email
   const [update, setUpdate] = useState('')
   const [workspacename, setWorkspaceName] = useState("")
   const [date_err, setDR] = useState(100)
 /** use useEffect for loding data below */
 useEffect(async()=>{
-  let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
+  const cookieValue = Cookies.get('session_id')
+  console.log('im looking for',cookieValue)
+  let preapi = await fetch(`http://127.0.0.1:5000/session_map/${cookieValue}`)
+  preapi = await preapi.json()
+
+
+  let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${preapi['data']}`)
   api = await api.json()
   metaData['firstname'] =  (api['firstname'])
   metaData['lastname'] = (api['lastname'])
@@ -56,14 +62,14 @@ if(date_err<30){
 <br></br>
 
 <br></br>
-    <Chart email={email} name={metaData['firstname']} workspacename={workspacename} setWorkspaceName={setWorkspaceName}  />
+    <Chart email={metaData['email']} name={metaData['firstname']} workspacename={workspacename} setWorkspaceName={setWorkspaceName}  />
 
 </div>
     </div>
   )
 }
 else{
-  return "Relocation"
+  return <h1 style={{"color":'white'}}>Error 404: Please contact your administration</h1>
 }
  
 

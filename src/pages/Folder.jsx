@@ -4,20 +4,29 @@ import { metaData, links, earningData, medicalproBranding, recentTransactions, w
 import { useStateContext } from '../contexts/ContextProvider';
 import Dashboard from "../BubbleUI/Dashboard"
 import CustomizedInputsStyleOverrides from "../stories/TextField"
-import Box from '@mui/material/Box';
 import  Button  from '../stories/Button';
 import ListDividers from "../stories/accept"
+import Cookies from 'js-cookie';
+
 const Folder = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()
-  console.log(email)
   metaData['email'] = email
+ 
   const [update, setUpdate] = useState(0)
   const [foldername, setFoldername] = useState("")
   const [date_err,setDR] = useState(100)
+  const [email_,setSID] = useState('')
   useEffect(async()=>{
-    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
+   
+   const cookieValue = Cookies.get('session_id')
+   console.log('im looking for',cookieValue)
+   let preapi = await fetch(`http://127.0.0.1:5000/session_map/${cookieValue}`)
+   preapi = await preapi.json()
+   setSID(preapi['data'])
+    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${preapi['data']}`)
     api = await api.json()
+    metaData['email'] = preapi['data']
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
     console.log(metaData)
@@ -30,13 +39,12 @@ const Folder = () => {
     api = await api.json()
     window.location.reload()
   }
-  if(date_err<30){
+  if(date_err<30 ){
   return (
     <div className="mt-24">
                     <CustomizedInputsStyleOverrides keyDown={()=>{request_add_folder()}} ph={"Create Folder"} name={foldername} setName={setFoldername} style={{'marginLeft':"50px"}} />
              <div style={{marginLeft:"50px"}}>
                <Button onClick={async()=>{
-                console.log('testing')
                 request_add_folder()
 }}  backgroundColor={"#D0BCFF"} size="small" label={"Create folder"} />
                </div>
@@ -44,15 +52,16 @@ const Folder = () => {
 
 
           <Dashboard />
-          <ListDividers  email={email} type={"folders"} />
+          <ListDividers  email={metaData['email']} type={"folders"} />
 
           </div>
          
     </div>
   );
+
 }
-else{
-  return("relocation")
+if(date_err>=30){
+ return <h1 style={{"color":'white'}}>Error 404: Please contact your administration</h1>
 }
 };
 

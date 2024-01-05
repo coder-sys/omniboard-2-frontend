@@ -11,6 +11,7 @@ import translateLink from '../functions/translatelink';
 import save_google_data from '../functions/save_google_data';
 import save_youtube_data from '../functions/save_youtube_data';
 import InfoCard from '../stories/InfoCard';
+import Cookies from 'js-cookie'
 const FolderContent = () => {
   const { currentColor, currentMode } = useStateContext();
   const {foldername,email} = useParams()
@@ -95,7 +96,12 @@ const FolderContent = () => {
     const [sdomo,Ssdomo] = useState(0)
   const [date_error, setDr]=useState(100)
   useEffect(async()=>{
-    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
+    const cookieValue = Cookies.get('session_id')
+  console.log('im looking for',cookieValue)
+  let preapi = await fetch(`http://127.0.0.1:5000/session_map/${cookieValue}`)
+  preapi = await preapi.json()
+
+    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${preapi['data']}`)
     api = await api.json()
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
@@ -669,7 +675,7 @@ const FolderContent = () => {
   );
 }
 else{
-  return("Relocation")
+  return <h1 style={{"color":'white'}}>Error 404: Please contact your administration</h1>
 }
 }
 export default FolderContent;

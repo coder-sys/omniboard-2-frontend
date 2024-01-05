@@ -16,6 +16,7 @@ import 'react-quill/dist/quill.snow.css';
 const DOMAIN = 'http://127.0.0.1:5000/'
 import parse from 'html-react-parser';
 import PacmanLoader  from "react-spinners/PacmanLoader";
+import Cookies from 'js-cookie';
 
 const WorkspaceContent = () => {
   const { currentColor, currentMode } = useStateContext();
@@ -36,7 +37,11 @@ const WorkspaceContent = () => {
     setContent(newContent);
   };
   useEffect(async()=>{
-    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
+    const cookieValue = Cookies.get('session_id')
+   console.log('im looking for',cookieValue)
+   let preapi = await fetch(`http://127.0.0.1:5000/session_map/${cookieValue}`)
+   preapi = await preapi.json()
+    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${preapi['data']}`)
     api = await api.json()
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
@@ -153,7 +158,7 @@ if(date_error<30){
   );
     }
     else{
-      return('relocation')
+      return <h1 style={{"color":'white'}}>Error 404: Please contact your administration</h1>
     }
 
 }
