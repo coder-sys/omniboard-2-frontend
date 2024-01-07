@@ -12,6 +12,8 @@ import save_google_data from '../functions/save_google_data';
 import save_youtube_data from '../functions/save_youtube_data';
 import InfoCard from '../stories/InfoCard';
 import Cookies from 'js-cookie'
+
+const DOMAIN = 'http://127.0.0.1:5000'
 const FolderContent = () => {
   const { currentColor, currentMode } = useStateContext();
   const {foldername,email} = useParams()
@@ -98,15 +100,15 @@ const FolderContent = () => {
   useEffect(async()=>{
     const cookieValue = Cookies.get('session_id')
   console.log('im looking for',cookieValue)
-  let preapi = await fetch(`http://127.0.0.1:5000/session_map/${cookieValue}`)
+  let preapi = await fetch(`${DOMAIN}/session_map/${cookieValue}`)
   preapi = await preapi.json()
 
-    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${preapi['data']}`)
+    let api = await fetch(`${DOMAIN}/email_to_name_map/${preapi['data']}`)
     api = await api.json()
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
     console.log(metaData)
-    let api2 = await fetch(`http://127.0.0.1:5000/date_subtraction_for_paid_version`)
+    let api2 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`)
     api2 = await api2.json()
     setDr(api2['data'])
   },[update])
@@ -158,7 +160,7 @@ const FolderContent = () => {
     setUpdated(updated+1)
                        setue(update_effect+1)
                         try{
-                          let api = await fetch(`http://127.0.0.1:5000/load_concept_map/${query}`)
+                          let api = await fetch(`${DOMAIN}/load_concept_map/${query}`)
                           api = await api.json()
                           console.log("expectation",api)
                           setMainTopic(api['data']['main_topic'])
@@ -170,7 +172,7 @@ const FolderContent = () => {
                         catch(err){
                           console.log(err)
                         }
-                       let api = await fetch(`http://127.0.0.1:5000/get_youtube_data/${query}`)
+                       let api = await fetch(`${DOMAIN}/get_youtube_data/${query}`)
                        setConsent(true)
                        api = await api.json()
                        setConsent(false)
@@ -183,7 +185,7 @@ const FolderContent = () => {
                                try{
                                console.log(data,data1)
                                console.log(`http://127.0.0.1:5000/find_similarity_links/${data.join()}/${data1.join()}`)
-                               let api = await fetch(`http://127.0.0.1:5000/find_similarity_links/${data.join()}/${data1.join()}`)
+                               let api = await fetch(`${DOMAIN}/find_similarity_links/${data.join()}/${data1.join()}`)
                                api = await api.json()
                                setStoredDataYT(api.data)}catch(err){console.log(err)}
                                })
@@ -192,15 +194,15 @@ const FolderContent = () => {
                               try{
                                 setUpdated(updated+1)
                           setue(update_effect+1)
-                          let api = await fetch(`http://127.0.0.1:5000/get_google_content/${query}`)
+                          let api = await fetch(`${DOMAIN}/get_google_content/${query}`)
                           api = await api.json()
                           console.log(api.names)
                           setRetrieveGoogleData1(api.names)
                           setRetrieveGoogleData2(api.urls)
                           setDescription(api.description)
-                          let emailandlastname = await fetch(`http://127.0.0.1:5000/get_last_name_and_email/${metaData['firstname']}`)
+                          let emailandlastname = await fetch(`${DOMAIN}/get_last_name_and_email/${metaData['firstname']}`)
                           emailandlastname = await emailandlastname.json()
-                          let lapi = await fetch('http://127.0.0.1:5000/get_stored_links/'+metaData['firstname']+'/'+foldername)
+                          let lapi = await fetch(DOMAIN+'/get_stored_links/'+metaData['firstname']+'/'+foldername)
                           lapi = await lapi.json()
                           translateLink(api.urls).then((data)=>{
                             translateLink(lapi.links).then(async(data1)=>{
@@ -218,9 +220,7 @@ const FolderContent = () => {
                                 dt1.push('http'+data)
                                 }
                               })
-                              console.log(dt1.join())
-                              console.log(`http://127.0.0.1:5000/find_similarity_links/${dt1.join()}/${data1.join()}`)
-                              let api = await fetch(`http://127.0.0.1:5000/find_similarity_links/${dt1.join()}/${data1.replace(/\//g, "`")}`)
+                              let api = await fetch(`${DOMAIN}/find_similarity_links/${dt1.join()}/${data1.replace(/\//g, "`")}`)
                               api = await api.json()
                             setStoredData(api.data)
                          //   setCsStoredData([api.data,api.data,api.data,api.data,api.data])
@@ -234,9 +234,9 @@ const FolderContent = () => {
                                     try{
                                         setUpdated(updated+1)
                                   setue(update_effect+1)
-                                        let emailandlastname = await fetch(`http://127.0.0.1:5000/get_last_name_and_email/${metaData['firstname']}`)
+                                        let emailandlastname = await fetch(`${DOMAIN}/get_last_name_and_email/${metaData['firstname']}`)
                                         emailandlastname = await emailandlastname.json()
-                                        let api = await fetch(`http://127.0.0.1:5000/get_results_on_conceptual_search/${query}/${metaData['firstname']}/${foldername}`)
+                                        let api = await fetch(`${DOMAIN}/get_results_on_conceptual_search/${query}/${metaData['firstname']}/${foldername}`)
                                         api = await api.json()
                                         setCsResultData(api['data'])
                                         
@@ -247,7 +247,7 @@ const FolderContent = () => {
                     alert('The educational search you made was too specific,use the google search feature for your search')
                                     }
                                     try{
-                                      let api = await fetch(`http://127.0.0.1:5000/generate_questions/${query}`)
+                                      let api = await fetch(`${DOMAIN}/generate_questions/${query}`)
                                       api = await api.json()
                                       setQuestions(api['data'])
                                     }

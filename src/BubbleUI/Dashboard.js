@@ -5,6 +5,7 @@ import "react-bubble-ui/dist/index.css";
 import companyData from "./companies";
 import FolderBubble from "./FolderBubble";
 import { metaData } from "../data/dummy";
+const DOMAIN = 'http://127.0.0.1:5000'
 export default function Dashboard(props) {
   
     const {state,email} = useParams()
@@ -14,12 +15,12 @@ export default function Dashboard(props) {
     const [update, setUpdate] = useState(0)
     metaData['email'] = email
     useEffect(async()=>{
-      let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
+      let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`)
       api = await api.json()
       metaData['firstname'] =  (api['firstname'])
       metaData['lastname'] = (api['lastname'])
       console.log(metaData)
-      let api2 = await fetch(`http://127.0.0.1:5000/get_folders/${metaData['firstname']}`)
+      let api2 = await fetch(`${DOMAIN}/get_folders/${metaData['firstname']}`)
       api2 = await api2.json()
       api2 = api2['data']
       console.log(api2)

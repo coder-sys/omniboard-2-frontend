@@ -7,7 +7,7 @@ import CustomizedInputsStyleOverrides from "../stories/TextField"
 import  Button  from '../stories/Button';
 import ListDividers from "../stories/accept"
 import Cookies from 'js-cookie';
-
+const DOMAIN = 'http://127.0.0.1:5000'
 const Folder = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()
@@ -21,21 +21,21 @@ const Folder = () => {
    
    const cookieValue = Cookies.get('session_id')
    console.log('im looking for',cookieValue)
-   let preapi = await fetch(`http://127.0.0.1:5000/session_map/${cookieValue}`)
+   let preapi = await fetch(`${DOMAIN}/session_map/${cookieValue}`)
    preapi = await preapi.json()
    setSID(preapi['data'])
-    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${preapi['data']}`)
+    let api = await fetch(`${DOMAIN}/email_to_name_map/${preapi['data']}`)
     api = await api.json()
     metaData['email'] = preapi['data']
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
     console.log(metaData)
-    let api2 = await fetch(`http://127.0.0.1:5000/date_subtraction_for_paid_version`)
+    let api2 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`)
     api2 = await api2.json()
     setDR(api2['data'])
   },[update])
   const request_add_folder=async()=>{
-    let api = await fetch(`http://127.0.0.1:5000/add_folder/${metaData['firstname']}/${foldername}`)
+    let api = await fetch(`${DOMAIN}/add_folder/${metaData['firstname']}/${foldername}`)
     api = await api.json()
     window.location.reload()
   }

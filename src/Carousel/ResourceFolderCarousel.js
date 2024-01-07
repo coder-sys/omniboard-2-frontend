@@ -8,6 +8,7 @@ import WorkspaceCard from "../stories/WorkspaceCard";
 import { FlowChartWithState } from "@mrblenny/react-flow-chart";
 import ResourceCard from "../stories/ResourceCard";
 import { metaData } from "../data/dummy";
+const DOMAIN = 'http://127.0.0.1:5000'
 function ResourceFolderCarousel({folders,name}) {
     const [update, setUpdated] = useState(0)
     const [vf, sVF] = useState('')
@@ -72,7 +73,7 @@ function ResourceFolderCarousel({folders,name}) {
              
               <button   onClick={async()=>{
                 sVF(data.symbol)
-                let api = await fetch(`http://127.0.0.1:5000/get_stored_links/${name}/${data.symbol}`)
+                let api = await fetch(`${DOMAIN}/get_stored_links/${name}/${data.symbol}`)
                 api = await api.json()
                 let names = api['names']
                 let links = api['links']

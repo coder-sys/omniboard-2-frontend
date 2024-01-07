@@ -7,10 +7,8 @@ import Typography from '@mui/material/Typography';
 import { metaData } from '../data/dummy';
 import  Button  from './Button';
 
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import Share from './share';
+
+const DOMAIN = 'http://127.0.0.1:5000'
 function ResourceCard({fname,name,thumbnail,description, foldername, sourcename, link, ...props}) {
   const [openShare, setOpenShare] = useState(false)
   const [update, setUpdate] = useState(0)
@@ -31,7 +29,7 @@ function ResourceCard({fname,name,thumbnail,description, foldername, sourcename,
       </CardContent>
       <CardActions>
         <Button backgroundColor={"#D0BCFF"} size="small" label={"Delete"} onClick={async()=>{
-         let api = await fetch(`http://127.0.0.1:5000/delete_saved_data/${fname}/${foldername}/${sourcename}`)
+         let api = await fetch(`${DOMAIN}/delete_saved_data/${fname}/${foldername}/${sourcename}`)
          api = await api.json()
          window.location.reload()
         }}  />

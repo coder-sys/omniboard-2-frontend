@@ -1,3 +1,4 @@
+const DOMAIN = 'http://127.0.0.1:5000'
 const save_google_data = async(setue,data,update_effect,linkjoin_,retrievegoogledata1,index,djoin_,stored_data,name,lastname,email,foldername,description)=>{
     setue(update_effect+1)
     data.split('').map((data_)=>{
@@ -24,9 +25,9 @@ const save_google_data = async(setue,data,update_effect,linkjoin_,retrievegoogle
     stored_data[index] = true
 
 try{    
-let eal = await fetch(`http://127.0.0.1:5000/get_last_name_and_email/${name}`)
+let eal = await fetch(`${DOMAIN}/get_last_name_and_email/${name}`)
 eal = await eal.json()
-    let api = await fetch(`http://127.0.0.1:5000/add_google_content/${name}/${foldername}/${djoin_.join("")}/${linkjoin_.join("")}/${description[index]}`)
+    let api = await fetch(`${DOMAIN}/add_google_content/${name}/${foldername}/${djoin_.join("")}/${linkjoin_.join("")}/${description[index]}`)
     api = await api.json()
     console.log(api)
 }

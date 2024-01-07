@@ -2,6 +2,8 @@ import React from "react";
 import Button from "../stories/Button"; 
 import Share from "../stories/share";
 import { metaData } from "../data/dummy";
+const DOMAIN = 'http://127.0.0.1:5000'
+const SD = 'http://localhost:3000'
 export default function FolderBubble(props) {
   // console.log(props);
   const [open, setOpen] = React.useState(false);  //make it a public state
@@ -61,11 +63,11 @@ export default function FolderBubble(props) {
             }}
           >
   <Button style={{marginRight:"20px"}} onClick={async()=>{
-    let api = await fetch(`http://127.0.0.1:5000/delete_folder/${metaData['firstname']}/${props.symbol}`)
+    let api = await fetch(`${DOMAIN}/delete_folder/${metaData['firstname']}/${props.symbol}`)
     api = await api.json()
     props.setUpdate(props.update+1)
   }} backgroundColor={"#D0BCFF"} size="small" label={"Delete Folder"} />
-    <Button onClick={()=>{window.location.replace(`http://localhost:3000/folders/foldercontent/${props.symbol}/${metaData['email']}`)}} style={{marginRight:"20px",textColor:'white'}}  backgroundColor={"#D0BCFF"} size="small" label={"View Folder"}   />
+    <Button onClick={()=>{window.location.replace(`${SD}/folders/foldercontent/${props.symbol}/${metaData['email']}`)}} style={{marginRight:"20px",textColor:'white'}}  backgroundColor={"#D0BCFF"} size="small" label={"View Folder"}   />
 
           </p>
              <p

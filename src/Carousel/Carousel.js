@@ -8,7 +8,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
 import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar } from '@syncfusion/ej2-react-richtexteditor';
 import parse from 'html-react-parser';
-
+const DOMAIN = 'http://127.0.0.1:5000'
 function Carousel({name,workspace,data}) {
   const settings = {
     dots: true,
@@ -56,7 +56,7 @@ function Carousel({name,workspace,data}) {
 
             <div className="flex flex-col items-center justify-center gap-4 p-4">
               <button className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl' onClick={async()=>{
-               let api = await fetch(`http://127.0.0.1:5000/delete_saved_notes/${name}/${workspace}/${d.notes}`)
+               let api = await fetch(`${DOMAIN}/delete_saved_notes/${name}/${workspace}/${d.notes}`)
                api = await api.json()
                window.location.reload()
               }}>delete</button>
@@ -70,7 +70,7 @@ function Carousel({name,workspace,data}) {
         value={d.notes.replace(new RegExp('`','gi'),'/')}
         onChange={async(e)=>{
   
-      let api = await fetch(`http://127.0.0.1:5000/save_notes/${name}/${workspace}/${e.replace(new RegExp('/','gi'),'`')}`)
+      let api = await fetch(`${DOMAIN}/save_notes/${name}/${workspace}/${e.replace(new RegExp('/','gi'),'`')}`)
       api = await api.json()
         }}
         modules={{

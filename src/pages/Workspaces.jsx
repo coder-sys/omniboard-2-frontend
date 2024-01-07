@@ -19,6 +19,7 @@ const style = {
   maxWidth: "360px",
   bgcolor: 'background.paper',
 };
+const DOMAIN = 'http://127.0.0.1:5000'
 const Workspaces = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()
@@ -30,16 +31,16 @@ const Workspaces = () => {
 useEffect(async()=>{
   const cookieValue = Cookies.get('session_id')
   console.log('im looking for',cookieValue)
-  let preapi = await fetch(`http://127.0.0.1:5000/session_map/${cookieValue}`)
+  let preapi = await fetch(`${DOMAIN}/session_map/${cookieValue}`)
   preapi = await preapi.json()
 
 
-  let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${preapi['data']}`)
+  let api = await fetch(`${DOMAIN}/email_to_name_map/${preapi['data']}`)
   api = await api.json()
   metaData['firstname'] =  (api['firstname'])
   metaData['lastname'] = (api['lastname'])
  console.log(metaData['firstname'] )
- let api2 = await fetch(`http://127.0.0.1:5000/date_subtraction_for_paid_version`)
+ let api2 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`)
  api2 = await api2.json()
  setDR(api2['data'])
 },[update])
@@ -49,12 +50,12 @@ if(date_err<30){
      
 <div  className="flow-chart-container">
 <CustomizedInputsStyleOverrides ph={"Create Workspace"} keyDown={async()=>{
-  let api = await fetch(`http://127.0.0.1:5000/add_workspace/${metaData['firstname']}/${workspacename}`);
+  let api = await fetch(`${DOMAIN}/add_workspace/${metaData['firstname']}/${workspacename}`);
   api = await api.json();
   window.location.reload();
 }} name={workspacename} setName={setWorkspaceName} style={{'marginLeft':"500px"}} />
 <div style={{marginLeft:"5%"}}><Button onClick={async()=>{
-  let api = await fetch(`http://127.0.0.1:5000/add_workspace/${metaData['firstname']}/${workspacename}`);
+  let api = await fetch(`${DOMAIN}/add_workspace/${metaData['firstname']}/${workspacename}`);
   api = await api.json();
   window.location.reload();
 
@@ -88,10 +89,10 @@ const Chart = ({ email, name, workspacename, setWorkspaceName, chartSimple }) =>
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${email}`)
+        let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`)
   api = await api.json()
         const nameParam = encodeURIComponent(api['firstname']);
-        const workspaceResponse = await fetch(`http://127.0.0.1:5000/get_workspaces/${nameParam}`);
+        const workspaceResponse = await fetch(`${DOMAIN}/get_workspaces/${nameParam}`);
         if (!workspaceResponse.ok) {
           throw new Error('Network response was not ok');
         }
@@ -143,12 +144,12 @@ function ListDividersWorkspace({email,type, setUpdate}) {
 
   useEffect(async()=>{
     const load_data = async()=>{
-    let api = await fetch(`http://127.0.0.1:5000/load_waiting_folders/${email}`)
+    let api = await fetch(`${DOMAIN}/load_waiting_folders/${email}`)
     api = await api.json()
     setFoldersInHolding(api['data'])
     console.log(api.data)
     console.log(email)
-    let api1 = await fetch(`http://127.0.0.1:5000/load_waiting_workspaces/${email}`)
+    let api1 = await fetch(`${DOMAIN}/load_waiting_workspaces/${email}`)
     api1 = await api1.json()
     setWorkspaceInHolding(api1['data'])
     console.log(api1['data'])

@@ -11,6 +11,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Share from './share';
+const DOMAIN = 'http://127.0.0.1:5000'
 function WorkspaceCard({name,thumbnail,description, ...props}) {
   const [openShare, setOpenShare] = useState(false)
   const [update, setUpdate] = useState(0)
@@ -31,7 +32,7 @@ function WorkspaceCard({name,thumbnail,description, ...props}) {
       </CardContent>
       <CardActions>
         <Button backgroundColor={"#D0BCFF"} size="small" label={"Delete"} onClick={async()=>{
-          let api = await fetch(`http://127.0.0.1:5000/delete_workspace/${metaData['firstname']}/${name}`);
+          let api = await fetch(`${DOMAIN}/delete_workspace/${metaData['firstname']}/${name}`);
           api = await api.json();
           window.location.reload();
         }}  />
@@ -57,7 +58,7 @@ function ShareWorkspace({name,workspace, open, setOpen, setUpdate}) {
 
   const handleClick = async() => {
     console.log(`sharing folder ${workspace} to ${recieverEmail} from ${name} `)
-    let api = await fetch(`http://127.0.0.1:5000/share_workspace/${workspace}/${metaData['email']}/${recieverEmail}`)
+    let api = await fetch(`${DOMAIN}/share_workspace/${workspace}/${metaData['email']}/${recieverEmail}`)
     api = await api.json()
     console.log(api)
     setUpdate(p=>p+1);

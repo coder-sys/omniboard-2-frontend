@@ -13,7 +13,7 @@ import FolderBubble from "../BubbleUI/FolderBubble"
 import Button from "../stories/Button";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
-const DOMAIN = 'http://127.0.0.1:5000/'
+const DOMAIN = 'http://127.0.0.1:5000'
 import parse from 'html-react-parser';
 import PacmanLoader  from "react-spinners/PacmanLoader";
 import Cookies from 'js-cookie';
@@ -33,24 +33,25 @@ const WorkspaceContent = () => {
   const [note, setNotes1] = useState("<u>test</u>")
   const [loaded_notes, setLoadedNotes] = useState([])
   const [date_error, setDR] = useState(100)
+
   const handleContentChange = (newContent) => {
     setContent(newContent);
   };
   useEffect(async()=>{
     const cookieValue = Cookies.get('session_id')
    console.log('im looking for',cookieValue)
-   let preapi = await fetch(`http://127.0.0.1:5000/session_map/${cookieValue}`)
+   let preapi = await fetch(`${DOMAIN}/session_map/${cookieValue}`)
    preapi = await preapi.json()
-    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${preapi['data']}`)
+    let api = await fetch(`${DOMAIN}/email_to_name_map/${preapi['data']}`)
     api = await api.json()
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
     console.log(metaData)
-    let api2 = await fetch(`http://127.0.0.1:5000/retrieve_notes/${metaData['firstname']}/${workspacename}`)
+    let api2 = await fetch(`${DOMAIN}/retrieve_notes/${metaData['firstname']}/${workspacename}`)
     api2 = await api2.json()
     setLoadedNotes(api2['data'])
     console.log(api2['data'])
-    let api3 = await fetch(`http://127.0.0.1:5000/date_subtraction_for_paid_version`)
+    let api3 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`)
     api3 = await api3.json()
     setDR(api3['data'])
   },[update])
@@ -90,9 +91,9 @@ if(date_error<30){
       </div>
     </div>
     <button onClick={async()=>{
-      let preapi = await fetch(`http://127.0.0.1:5000/email_to_name_map/${metaData['email']}`)
+      let preapi = await fetch(`${DOMAIN}/email_to_name_map/${metaData['email']}`)
       preapi = await preapi.json()
-      let api = await fetch(`http://127.0.0.1:5000/save_notes/${preapi['firstname']}/${workspacename}/${content.replace(new RegExp('/','gi'),'`')}`)
+      let api = await fetch(`${DOMAIN}/save_notes/${preapi['firstname']}/${workspacename}/${content.replace(new RegExp('/','gi'),'`')}`)
       api = await api.json()
       setContent('')
       window.location.reload()
@@ -106,7 +107,7 @@ if(date_error<30){
         <br></br>
         <CustomizedInputsStyleOverrides ph={"Explore a topic"} setName={setExploreTopic} name={exploreTopic} keyDown={async()=>{
           setLoading(true)
-          let api2 = await fetch(`http://127.0.0.1:5000/load_related_topics/${exploreTopic}`)
+          let api2 = await fetch(`${DOMAIN}/load_related_topics/${exploreTopic}`)
           api2 = await api2.json()
           let api2n = api2['names']
           api2 = api2['data']
@@ -122,7 +123,7 @@ if(date_error<30){
         <br></br>
         <button onClick={async()=>{
           setLoading(true)
-          let api2 = await fetch(`http://127.0.0.1:5000/load_related_topics/${exploreTopic}`)
+          let api2 = await fetch(`${DOMAIN}/load_related_topics/${exploreTopic}`)
           api2 = await api2.json()
           let api2n = api2['names']
           api2 = api2['data']

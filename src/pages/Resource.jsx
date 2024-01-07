@@ -10,6 +10,7 @@ import { FlowChartWithState } from "@mrblenny/react-flow-chart";
 import Button from '../stories/Button';
 import ResourceFolderCarousel from '../Carousel/ResourceFolderCarousel';
 import Cookies from 'js-cookie';
+const DOMAIN = 'http://127.0.0.1:5000'
 const Resource = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()
@@ -35,18 +36,18 @@ const Resource = () => {
   useEffect(async()=>{
     const cookieValue = Cookies.get('session_id')
    console.log('im looking for',cookieValue)
-   let preapi = await fetch(`http://127.0.0.1:5000/session_map/${cookieValue}`)
+   let preapi = await fetch(`${DOMAIN}/session_map/${cookieValue}`)
    preapi = await preapi.json()
-    let api = await fetch(`http://127.0.0.1:5000/email_to_name_map/${preapi['data']}`)
+    let api = await fetch(`${DOMAIN}/email_to_name_map/${preapi['data']}`)
     api = await api.json()
     metaData['email'] = preapi['data']
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
-    let api1 = await fetch(`http://127.0.0.1:5000/get_folders/${metaData['firstname']}`)
+    let api1 = await fetch(`${DOMAIN}/get_folders/${metaData['firstname']}`)
     api1 = await api1.json()
     console.log(api1['data'])
     setFolders(api1['data'])
-    let api2 = await fetch("http://127.0.0.1:5000/date_subtraction_for_paid_version")
+    let api2 = await fetch(DOMAIN+"/date_subtraction_for_paid_version")
     api2 = await api2.json()
     setDR(api2['data'])
   },[updated])

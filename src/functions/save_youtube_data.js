@@ -1,3 +1,4 @@
+const DOMAIN = 'http://127.0.0.1:5000'
 const save_youtube_data = async(setue,update_effect,youtubeAPILinks,youtubeAPITitles,index,ytlinkjoin_,ytdjoin_,data,stored_data_yt,name,foldername,thumbnail,thumbnailjoin_)=>{
     //document.getElementById('savesourcebutton').disable = true
     
@@ -31,7 +32,7 @@ const save_youtube_data = async(setue,update_effect,youtubeAPILinks,youtubeAPITi
                                     console.log(ytlinkjoin_)
                                     console.log('link is '+ytlinkjoin_.join("").split('=')[1])
                                     try{
-      let emailandlastname = await fetch(`http://127.0.0.1:5000/get_last_name_and_email/${name}`)
+      let emailandlastname = await fetch(`${DOMAIN}/get_last_name_and_email/${name}`)
       emailandlastname = await emailandlastname.json()
                 console.log(thumbnail[index])
                 let yttitlejoin = []
@@ -45,7 +46,7 @@ const save_youtube_data = async(setue,update_effect,youtubeAPILinks,youtubeAPITi
                     
                 })
                 
-                                    let api = await fetch(`http://127.0.0.1:5000/add_youtube_content/${name}/${foldername}/${yttitlejoin.join('')}/${ytlinkjoin_.join("").split('=')[1]}/${thumbnailjoin_.join('')}`)
+                                    let api = await fetch(`${DOMAIN}/add_youtube_content/${name}/${foldername}/${yttitlejoin.join('')}/${ytlinkjoin_.join("").split('=')[1]}/${thumbnailjoin_.join('')}`)
                                     api = await api.json()
                                     console.log(api)}catch(err){alert('could not save source')}
                                    }

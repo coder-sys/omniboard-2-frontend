@@ -4,6 +4,7 @@ import "./chatContent.css";
 import Avatar from "../chatList/Avatar";
 import ChatItem from "./ChatItem";
 
+const DOMAIN = 'http://127.0.0.1:5000'
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
   chatItms = [
@@ -41,7 +42,7 @@ export default class ChatContent extends Component {
             image:
               "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
           });
-          let api = await fetch(`http://127.0.0.1:5000/response_ai/${e.target.value}`)
+          let api = await fetch(`${DOMAIN}/response_ai/${e.target.value}`)
               api = await api.json()
               this.setState({ loading:"true"})
               console.log(this.state.loading)
