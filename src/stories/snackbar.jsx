@@ -75,9 +75,11 @@ export default function Row({sourcename,sender,reciever,message,type}) {
     };
   
     const handleYes = async() =>{
+      console.log()
       let api = await fetch(`http://127.0.0.1:5000/add_workspace/${metaData['firstname']}/${sourcename} shared by ${sender}`)
       api = await api.json();
-      let api2 = await fetch(`http://127.0.0.1:5000/delete_workspace_in_request/${sourcename}/${sender}/${reciever}`)
+      console.log(sender,reciever,'dd')
+      let api2 = await fetch(`http://127.0.0.1:5000/delete_workspace_in_request/${sourcename}/${sender}/${metaData['firstname']}`)
       api2 = await api2.json()
       console.log(api2['data'])
       setOpen(false);
@@ -85,7 +87,9 @@ export default function Row({sourcename,sender,reciever,message,type}) {
     }
     
     const handleNo = async() =>{
-      let api = await fetch(`http://127.0.0.1:5000/delete_workspace_in_request/${sourcename}/${sender}/${reciever}`)
+      console.log(sender,reciever,'dd')
+
+      let api = await fetch(`http://127.0.0.1:5000/delete_workspace_in_request/${sourcename}/${sender}/${metaData['firstname']}`)
       api = await api.json()
       console.log(api['data'])
       setOpen(false);

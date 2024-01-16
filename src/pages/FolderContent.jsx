@@ -103,7 +103,7 @@ const FolderContent = () => {
   let preapi = await fetch(`${DOMAIN}/session_map/${cookieValue}`)
   preapi = await preapi.json()
 
-    let api = await fetch(`${DOMAIN}/email_to_name_map/${preapi['data']}`)
+    let api = await fetch(`${DOMAIN}/email_to_name_map/${metaData['email']}`)
     api = await api.json()
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
