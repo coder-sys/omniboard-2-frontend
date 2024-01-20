@@ -21,7 +21,7 @@ export default function Share({name,foldername, open, setOpen, setUpdate}) {
 
   const handleClose = async(event, reason) => {
     
-    setOpen(true);
+    setOpen(false);
   };
 
   const action = (
@@ -32,6 +32,7 @@ export default function Share({name,foldername, open, setOpen, setUpdate}) {
       </Button>
        
       <input style={{"backgroundColor":"black"}} placeholder={`Enter the recievers email`} onChange={(e)=>setRecieverEmail(e.target.value)} onKeyPress={(e)=>{if(e.key === 'Enter'){handleClick()}}} />
+      <br></br>
     
       
     </React.Fragment>
@@ -39,7 +40,7 @@ export default function Share({name,foldername, open, setOpen, setUpdate}) {
 
   return (
     <div>
-      <Snackbar style={{'width':"290px"}}
+      <Snackbar style={{'width':"290px",'marginBottom':"60px"}}
         open={open}
         autoHideDuration={30000}
         onClose={handleClose}

@@ -3,6 +3,7 @@ import React, { Component, useState, createRef, useEffect } from "react";
 import "./chatContent.css";
 import Avatar from "../chatList/Avatar";
 import ChatItem from "./ChatItem";
+import ScaleLoader  from "react-spinners/ScaleLoader";
 
 const DOMAIN = 'http://127.0.0.1:5000'
 export default class ChatContent extends Component {
@@ -35,6 +36,9 @@ export default class ChatContent extends Component {
     window.addEventListener("keydown", async(e) => {
       if (e.keyCode == 13) {
         if (this.state.msg != "") {
+          
+          this.setState({ loading:"true"})
+
           this.chatItms.push({
             key: 1,
             type: "",
@@ -44,7 +48,6 @@ export default class ChatContent extends Component {
           });
           let api = await fetch(`${DOMAIN}/response_ai/${e.target.value}`)
               api = await api.json()
-              this.setState({ loading:"true"})
               console.log(this.state.loading)
           this.setState({ chat: [...this.chatItms] });
           this.setState({ msg: "" });
@@ -91,7 +94,8 @@ export default class ChatContent extends Component {
             <div className="settings">
             {[1].map((data)=>{
           if(this.state.loading==='true'){
-          return(this.state.loading)
+          return(<ScaleLoader color="#A020F0" />
+          )
           }
           })}
             </div>

@@ -31,7 +31,7 @@ export default function FolderBubble(props) {
           <p 
             style={{
               color: props.textColor,
-              fontSize: 10,
+              fontSize: 15,
               fontFamily: 'Source Code Pro',
               marginLeft: 10,
               textAlign: "right",
@@ -45,7 +45,7 @@ export default function FolderBubble(props) {
       ) : null}
       <div >  {[1].map((data)=>{
         if(props.allowshare=="yes"){
-        return<div > <Share name={metaData['firstname']} foldername={props.symbol} setUpdate={props.setUpdate} open={open} setOpen={setOpen} /></div>
+        return<div style={{'marginBottom':'10px'}}> <Share name={metaData['firstname']} foldername={props.symbol} setUpdate={props.setUpdate} open={open} setOpen={setOpen} /></div>
         }
         else{
           return ""
@@ -55,19 +55,20 @@ export default function FolderBubble(props) {
    <p
             style={{
               color: props.textColor,
-              fontSize: 14,
+              fontSize: 5,
               marginBottom: 6,
               fontWeight: 100,
               maxWidth: 100,
               textAlign: "center",
             }}
           >
-  <Button style={{marginRight:"20px"}} onClick={async()=>{
+  <Button style={{marginRight:"20px",color:props.textColor}} onClick={async()=>{
     let api = await fetch(`${DOMAIN}/delete_folder/${metaData['firstname']}/${props.symbol}`)
     api = await api.json()
     props.setUpdate(props.update+1)
   }} backgroundColor={"#D0BCFF"} size="small" label={"Delete Folder"} />
-    <Button onClick={()=>{window.location.replace(`${SD}/folders/foldercontent/${props.symbol}/${metaData['email']}`)}} style={{marginRight:"20px",textColor:'white'}}  backgroundColor={"#D0BCFF"} size="small" label={"View Folder"}   />
+
+    <Button onClick={()=>{window.location.replace(`${SD}/folders/foldercontent/${props.symbol}/${metaData['email']}`)}} style={{marginRight:"20px",color:props.textColor}}  backgroundColor={"#D0BCFF"} size="small" label={"View Folder"}   />
 
           </p>
              <p

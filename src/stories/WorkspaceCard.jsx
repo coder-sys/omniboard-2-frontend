@@ -12,6 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Share from './share';
 const DOMAIN = 'http://127.0.0.1:5000'
+const SD = 'http://localhost:3000'
 function WorkspaceCard({name,thumbnail,description, ...props}) {
   const [openShare, setOpenShare] = useState(false)
   const [update, setUpdate] = useState(0)
@@ -36,7 +37,7 @@ function WorkspaceCard({name,thumbnail,description, ...props}) {
           api = await api.json();
           window.location.reload();
         }}  />
-        <Button backgroundColor={"#D0BCFF"} size="small" label={"View"} onClick={()=>{window.location.replace(`http://localhost:3000/workspace/workspacecontent/${name}/${metaData["email"]}`)}} />
+        <Button backgroundColor={"#D0BCFF"} size="small" label={"View"} onClick={()=>{window.location.replace(`${SD}/workspace/workspacecontent/${name}/${metaData["email"]}`)}} />
         <Button backgroundColor={"#D0BCFF"} size="small" label={"Share"} onClick={()=>{setOpenShare(true)}} />
 
       </CardActions>

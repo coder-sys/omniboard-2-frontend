@@ -61,7 +61,7 @@ body {
   width: 100%;
   max-width: 1000px;
   height: 500px;
-  border-radius: 50px;
+  border-radius: 150px;
   background-color: white !important;
   overflow: hidden !important;
   -webkit-backface-visibility: hidden;
@@ -134,13 +134,13 @@ h3 {
 } */
 
 .companyBubble {
-  border-radius: 50%;
+  border-radius: 75%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: 100%;
-  height: 100%;
+  width: 150px;
+  height: 100px;
   transition: opacity 0.6s ease;
 }
 
@@ -237,7 +237,7 @@ h4 {
 .comparisonBubbleUI {
   height: 400px;
   width: 400px;
-  border-radius: 50px;
+  border-radius: 250px;
   background-color: white !important;
   overflow: hidden !important;
   -webkit-backface-visibility: hidden;
@@ -247,16 +247,16 @@ h4 {
 }
 
 .dummyBubble {
-  border-radius: 50%;
+  border-radius: 150%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: 100px;
+  height: 100px;
 }
 
 .dummyBubbleText {
-  font-size: 17px;
+  font-size: 1px;
 }
 
 .optionContainer {
