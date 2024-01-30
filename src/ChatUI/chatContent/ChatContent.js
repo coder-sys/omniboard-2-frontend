@@ -46,7 +46,7 @@ export default class ChatContent extends Component {
             image:
               "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
           });
-          let api = await fetch(`${DOMAIN}/response_ai/${e.target.value}`)
+          let api = await fetch(`${DOMAIN}/response_ai/${e.target.value.replace('/',' ')}`)
               api = await api.json()
               console.log(this.state.loading)
           this.setState({ chat: [...this.chatItms] });

@@ -128,7 +128,7 @@ export default function BasicTabs({displayChart, quizMCQ, search, googlesearch,n
                       
                       else if(consent == false){
                     return(
-       <YouTubeCarousel  name={metaData['firstname']} update_effect={update_effect} thumbnail={thumbnail} stored_data_yt={stored_data} setue={setue} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} foldername={foldername} />
+       <YouTubeCarousel  name={metaData['firstname']}  update_effect={update_effect} thumbnail={thumbnail} stored_data_yt={stored_data_yt} setue={setue} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} foldername={foldername} />
        )
                     }
       }}

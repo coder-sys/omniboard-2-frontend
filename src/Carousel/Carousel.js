@@ -49,14 +49,14 @@ function Carousel({name,workspace,data}) {
     <div className='w-3/4 m-auto'>
       <div style={{'backgroundColor':'darkBlue','borderRadius':'10px'}} className="mt-20">
       <Slider  {...settings}>
-        {data.map((d) => (
+        {data.map((d,index) => (
 
-          <div  key={d.notes} className="bg-white h-[450px] text-black rounded-xl">
+          <div  key={index} className="bg-white h-[450px] text-black rounded-xl">
            
 
             <div className="flex flex-col items-center justify-center gap-4 p-4">
               <button className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl' onClick={async()=>{
-               let api = await fetch(`${DOMAIN}/delete_saved_notes/${name}/${workspace}/${d.notes}`)
+               let api = await fetch(`${DOMAIN}/delete_saved_notes/${name}/${workspace}/${d.on}`)
                api = await api.json()
                window.location.reload()
               }}>delete</button>
@@ -65,13 +65,37 @@ function Carousel({name,workspace,data}) {
 
               <div style={{'backgroundColor':'white','width':'100%','height':'100%'}} className="toolbar">
        
-      <ReactQuill style={{'width':'100%','height':'100%'}}
+      <ReactQuill style={{'width':'300px','height':'100%'}}
         theme="snow" // You can choose different themes
         value={d.notes.replace(new RegExp('`','gi'),'/')}
         onChange={async(e)=>{
-  
-      let api = await fetch(`${DOMAIN}/save_notes/${name}/${workspace}/${e.replace(new RegExp('/','gi'),'`')}`)
-      api = await api.json()
+          try{
+          try{
+            let api = await fetch(`${DOMAIN}/update_notes/${name}/${workspace}/${d.notes}/${d.on.replace(new RegExp('/','gi'),'`')}`)
+            api = await api.json()
+           
+          }
+          catch(err){
+           
+
+            let api = await fetch(`${DOMAIN}/update_notes/${name}/${workspace}/${e.replace(new RegExp('/','gi'),'`')}/${d.on}`)
+            api = await api.json()
+          }
+
+      try{
+        let api = await fetch(`${DOMAIN}/update_notes/${name}/${workspace}/${e.replace(new RegExp('/','gi'),'`')}/${d.on}`)
+        api = await api.json()
+       
+      }
+      catch(err){
+        let api = await fetch(`${DOMAIN}/update_notes/${name}/${workspace}/${d.on}/${e.replace(new RegExp('/','gi'),'`')}`)
+        api = await api.json()
+      }
+    }
+    catch(err){
+      console.log(err)
+      
+    }
         }}
         modules={{
           toolbar: [

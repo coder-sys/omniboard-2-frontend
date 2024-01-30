@@ -136,7 +136,7 @@ const FolderContent = () => {
     setUpdated(updated+1)
                        setue(update_effect+1)
                         try{
-                          let api = await fetch(`${DOMAIN}/load_concept_map/${query}`)
+                          let api = await fetch(`${DOMAIN}/load_concept_map/${query.replace('/',' ')}`)
                           api = await api.json()
                           console.log("expectation",api)
                           setMainTopic(api['data']['main_topic'])
@@ -148,7 +148,7 @@ const FolderContent = () => {
                         catch(err){
                           console.log(err)
                         }
-                       let api = await fetch(`${DOMAIN}/get_youtube_data/${query}`)
+                       let api = await fetch(`${DOMAIN}/get_youtube_data/${query.replace('/',' ')}`)
                        setConsent(true)
                        api = await api.json()
                        setConsent(false)
@@ -170,7 +170,7 @@ const FolderContent = () => {
                               try{
                                 setUpdated(updated+1)
                           setue(update_effect+1)
-                          let api = await fetch(`${DOMAIN}/get_google_content/${query}`)
+                          let api = await fetch(`${DOMAIN}/get_google_content/${query.replace('/',' ')}`)
                           api = await api.json()
                           console.log(api.names)
                           setRetrieveGoogleData1(api.names)
@@ -212,7 +212,7 @@ const FolderContent = () => {
                                   setue(update_effect+1)
                                         let emailandlastname = await fetch(`${DOMAIN}/get_last_name_and_email/${metaData['firstname']}`)
                                         emailandlastname = await emailandlastname.json()
-                                        let api = await fetch(`${DOMAIN}/get_results_on_conceptual_search/${query}/${metaData['firstname']}/${foldername}`)
+                                        let api = await fetch(`${DOMAIN}/get_results_on_conceptual_search/${query.replace('/',' ')}/${metaData['firstname']}/${foldername}`)
                                         api = await api.json()
                                         setCsResultData(api['data'])
                                         
@@ -223,7 +223,7 @@ const FolderContent = () => {
                     alert('The educational search you made was too specific,use the google search feature for your search')
                                     }
                                     try{
-                                      let api = await fetch(`${DOMAIN}/generate_questions/${query}`)
+                                      let api = await fetch(`${DOMAIN}/generate_questions/${query.replace('/',' ')}`)
                                       api = await api.json()
                                       setQuestions(api['data'])
                                     }
@@ -644,7 +644,7 @@ const FolderContent = () => {
 </div>
 </div>
 
-     <BasicTabs csstored_data={csstored_data} displayChart={chartSimple} quizMCQ={questions} csResultData={csResultData} search={query} name={metaData['firstname']} consent={consent} foldername={foldername} googlesearch={googlesearch} setConsent={setConsent} save_data_google={save_google_data} retrievegoogledata1={retrievegoogledata1} retrievegoogledata2={retrievegoogledata2} description={description} update_effect={setUpdate} setue={setue} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin} youtubesearch={youtubesearch} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} thumbnail={thumbnail} />
+     <BasicTabs stored_data_yt={stored_data_yt} csstored_data={csstored_data} displayChart={chartSimple} quizMCQ={questions} csResultData={csResultData} search={query} name={metaData['firstname']} consent={consent} foldername={foldername} googlesearch={googlesearch} setConsent={setConsent} save_data_google={save_google_data} retrievegoogledata1={retrievegoogledata1} retrievegoogledata2={retrievegoogledata2} description={description} update_effect={setUpdate} setue={setue} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin} youtubesearch={youtubesearch} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} thumbnail={thumbnail} />
           </div>
 
     </div>
