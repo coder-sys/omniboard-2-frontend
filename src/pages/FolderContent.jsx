@@ -470,7 +470,7 @@ const FolderContent = () => {
       },
       node13: {
         id:'node13',
-        type: <p><b><i>Source 3</i></b><br></br><InfoCard name={s3[2][0]} description={s3[2][1]} destination={s3[2][2]}  /></p>,
+        type: <p><b><i>Source 3</i></b><br></br><InfoCard name={s3[2][0]} thumbnail={s3[2][1]} destination={s3[2][2]}  /></p>,
         position: {
           x: 1000,
           y: 1600
