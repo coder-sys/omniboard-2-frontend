@@ -4,6 +4,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { metaData } from '../data/dummy';
+const DOMAIN = 'http://15.204.238.234:5000'
 export default function Row({sourcename,sender,reciever,message,type}) {
   const [open, setOpen] = React.useState(true);
 
@@ -13,9 +14,9 @@ export default function Row({sourcename,sender,reciever,message,type}) {
   };
 
   const handleYes = async() =>{
-    let api = await fetch(`http://127.0.0.1:5000/add_folder/${metaData['firstname']}/${sourcename} shared by ${sender}`)
+    let api = await fetch(`${DOMAIN}/add_folder/${metaData['firstname']}/${sourcename} shared by ${sender}`)
     api = await api.json();
-    let api2 = await fetch(`http://127.0.0.1:5000/delete_folder_in_request/${sourcename}/${sender}/${reciever}`)
+    let api2 = await fetch(`${DOMAIN}/delete_folder_in_request/${sourcename}/${sender}/${reciever}`)
     api2 = await api2.json()
     console.log(api2['data'])
     setOpen(false);
@@ -23,7 +24,7 @@ export default function Row({sourcename,sender,reciever,message,type}) {
   }
   
   const handleNo = async() =>{
-    let api = await fetch(`http://127.0.0.1:5000/delete_folder_in_request/${sourcename}/${sender}/${reciever}`)
+    let api = await fetch(`${DOMAIN}/delete_folder_in_request/${sourcename}/${sender}/${reciever}`)
     api = await api.json()
     console.log(api['data'])
     setOpen(false);
@@ -73,13 +74,12 @@ export default function Row({sourcename,sender,reciever,message,type}) {
     const handleClick = () => {
       setOpen(true);
     };
-  
     const handleYes = async() =>{
       console.log()
-      let api = await fetch(`http://127.0.0.1:5000/add_workspace/${metaData['firstname']}/${sourcename} shared by ${sender}`)
+      let api = await fetch(`${DOMAIN}/add_workspace/${metaData['firstname']}/${sourcename} shared by ${sender}`)
       api = await api.json();
       console.log(sender,reciever,'dd')
-      let api2 = await fetch(`http://127.0.0.1:5000/delete_workspace_in_request/${sourcename}/${sender}/${metaData['firstname']}`)
+      let api2 = await fetch(`${DOMAIN}/delete_workspace_in_request/${sourcename}/${sender}/${metaData['firstname']}`)
       api2 = await api2.json()
       console.log(api2['data'])
       setOpen(false);
@@ -89,7 +89,7 @@ export default function Row({sourcename,sender,reciever,message,type}) {
     const handleNo = async() =>{
       console.log(sender,reciever,'dd')
 
-      let api = await fetch(`http://127.0.0.1:5000/delete_workspace_in_request/${sourcename}/${sender}/${metaData['firstname']}`)
+      let api = await fetch(`${DOMAIN}/delete_workspace_in_request/${sourcename}/${sender}/${metaData['firstname']}`)
       api = await api.json()
       console.log(api['data'])
       setOpen(false);

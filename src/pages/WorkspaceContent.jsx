@@ -13,7 +13,7 @@ import FolderBubble from "../BubbleUI/FolderBubble"
 import Button from "../stories/Button";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'http://15.204.238.234:5000'
 import parse from 'html-react-parser';
 import PacmanLoader  from "react-spinners/PacmanLoader";
 import Cookies from 'js-cookie';

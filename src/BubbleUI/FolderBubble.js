@@ -2,8 +2,8 @@ import React from "react";
 import Button from "../stories/Button"; 
 import Share from "../stories/share";
 import { metaData } from "../data/dummy";
-const DOMAIN = 'http://127.0.0.1:5000'
-const SD = 'http://localhost:3000'
+const DOMAIN = 'http://15.204.238.234:5000'
+const SD = 'https://espark.afd.enterprises'
 export default function FolderBubble(props) {
   // console.log(props);
   const [open, setOpen] = React.useState(false);  //make it a public state

@@ -5,13 +5,13 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import {useState} from "react"
 import { metaData } from "../data/dummy";
-
+const DOMAIN = 'http://15.204.238.234:5000'
 export default function Share({name,foldername, open, setOpen, setUpdate}) {
   const [recieverEmail, setRecieverEmail] = useState("j")
 
   const handleClick = async() => {
     console.log(`sharing folder ${foldername} to ${recieverEmail} from ${name} `)
-    let api = await fetch(`http://127.0.0.1:5000/share_folder/${foldername}/${metaData['email']}/${recieverEmail}`)
+    let api = await fetch(`${DOMAIN}/share_folder/${foldername}/${metaData['email']}/${recieverEmail}`)
     api = await api.json()
     console.log(api)
     setUpdate(p=>p+1);

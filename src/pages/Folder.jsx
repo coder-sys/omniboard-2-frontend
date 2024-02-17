@@ -7,7 +7,7 @@ import CustomizedInputsStyleOverrides from "../stories/TextField"
 import  Button  from '../stories/Button';
 import ListDividers from "../stories/accept"
 import Cookies from 'js-cookie';
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'http://15.204.238.234:5000'
 const Folder = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()

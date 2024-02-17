@@ -1,4 +1,4 @@
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'http://15.204.238.234:5000'
 const save_google_data = async(setue,data,update_effect,linkjoin_,retrievegoogledata1,index,djoin_,stored_data,name,lastname,email,foldername,description)=>{
     setue(update_effect+1)
     data.split('').map((data_)=>{

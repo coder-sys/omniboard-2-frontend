@@ -1,4 +1,4 @@
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'http://15.204.238.234:5000'
 const searchIntegration = async()=>{
     setUpdated(updated+1)
                        setue(update_effect+1)
@@ -13,8 +13,7 @@ const searchIntegration = async()=>{
                        translateLink(linkarray).then(async(data1)=>{
                                try{
                                console.log(data,data1)
-                               let api = await fetch(`${DOMAIN}/find_similarity_links/${data.join()}/${data1.join()}`)
-                               api = await api.json()
+                        
                                setStoredDataYT(api.data)}catch(err){console.log(err)}
                                })
                               })
@@ -49,9 +48,7 @@ const searchIntegration = async()=>{
                                 }
                               })
                               console.log(dt1.join())
-                              console.log(`https://espark-apis-tndx3hr7aq-uc.a.run.app/find_similarity_links/${dt1.join()}/${data1.join()}`)
-                              let api = await fetch(`${DOMAIN}/find_similarity_links/${dt1.join()}/${data1.join()}`)
-                              api = await api.json()
+                           
                             setStoredData(api.data)}catch(err){console.log(err)}
                           })
                           })}catch(err){alert('Error: Too many requests. Google has temporarily blocked you. Try again later.')}
@@ -64,8 +61,13 @@ const searchIntegration = async()=>{
 			                            setue(update_effect+1)
                                         let emailandlastname = await fetch(`${DOMAIN}/get_last_name_and_email/${metaData['firstname']}`)
                                         emailandlastname = await emailandlastname.json()
+                                        try{
                                         let api = await fetch(`${DOMAIN}/get_results_on_conceptual_search/${conceptsearch}/${metaData['firstname']+emailandlastname['lastname']+emailandlastname['email']}/${foldername}`)
-                                        api = await api.json()
+                                        api = await api.json()}
+                                        catch(err){
+                                          alert("Could not load topic breakdown")
+                                          console.log(err)
+                                        }
                                         setCsResultData(api['data'])
 										api['data'].map((data)=>{
 											setConsent(true)

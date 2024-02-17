@@ -19,7 +19,7 @@ const style = {
   maxWidth: "360px",
   bgcolor: 'background.paper',
 };
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'http://15.204.238.234:5000'
 const Workspaces = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()

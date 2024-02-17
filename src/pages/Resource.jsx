@@ -10,7 +10,7 @@ import { FlowChartWithState } from "@mrblenny/react-flow-chart";
 import Button from '../stories/Button';
 import ResourceFolderCarousel from '../Carousel/ResourceFolderCarousel';
 import Cookies from 'js-cookie';
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'http://15.204.238.234:5000'
 const Resource = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()

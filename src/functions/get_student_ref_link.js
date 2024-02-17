@@ -1,4 +1,4 @@
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'http://15.204.238.234:5000'
 const D2 = 'https://espark-afd-enterprises.uc.r.appspot.com'
 const get_student_ref_link = async(data)=>{
     //homepage redirect

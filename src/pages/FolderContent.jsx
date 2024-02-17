@@ -13,7 +13,7 @@ import save_youtube_data from '../functions/save_youtube_data';
 import InfoCard from '../stories/InfoCard';
 import Cookies from 'js-cookie'
 
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'http://15.204.238.234:5000'
 const FolderContent = () => {
   const { currentColor, currentMode } = useStateContext();
   const {foldername,email} = useParams()
@@ -633,7 +633,16 @@ const FolderContent = () => {
 
 <br></br>
 <div>
-<CustomizedInputsStyleOverrides ph={"Start search"} name={query} setName={setQuery} keyDown={()=>{searchIntegration();setQuery('')}}  /><br></br>
+<CustomizedInputsStyleOverrides ph={"Start search"} name={query} setName={setQuery} keyDown={()=>{
+  try{
+  searchIntegration();
+  }
+  catch(err){
+    alert(err)
+  }
+  setQuery('')
+  
+  }}  /><br></br>
 <div style={{marginLeft:'25px'}}>
 <Button  backgroundColor={"#D0BCFF"} size="small" label={"Start search"} onClick={
               ()=>     {searchIntegration()  ;setQuery('')

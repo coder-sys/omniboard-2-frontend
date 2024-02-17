@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 import save_youtube_data from "../functions/save_youtube_data";
 import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar } from '@syncfusion/ej2-react-richtexteditor';
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'http://15.204.238.234:5000'
 function YouTubeCarousel({name,setue,update_effect,youtubeAPILinks,youtubeAPITitles,stored_data_yt,thumbnail,foldername}) {
   const settings = {
     dots: true,

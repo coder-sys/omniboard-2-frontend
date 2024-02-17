@@ -8,7 +8,7 @@ import { metaData } from '../data/dummy';
 import  Button  from './Button';
 
 
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'http://15.204.238.234:5000'
 function ResourceCard({fname,name,thumbnail,description, foldername, sourcename, link, ...props}) {
   const [openShare, setOpenShare] = useState(false)
   const [update, setUpdate] = useState(0)

@@ -7,7 +7,7 @@ import save_google_data from "../functions/save_google_data";
 import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar } from '@syncfusion/ej2-react-richtexteditor';
 import { metaData } from "../data/dummy";
 import GoogleCarousel from "./GoogleCarousel";
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'http://15.204.238.234:5000'
 function TopicSearchCarousel({name,query,foldername,save_data, csstored_data,update_effect,setue,csResultData,setConsent,djoin,linkjoin,stored_data}) {
  
   //useEffect(()=>{

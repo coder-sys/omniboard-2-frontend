@@ -11,8 +11,8 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Share from './share';
-const DOMAIN = 'http://127.0.0.1:5000'
-const SD = 'http://localhost:3000'
+const DOMAIN = 'http://15.204.238.234:5000'
+const SD = 'https://espark.afd.enterprises'
 function WorkspaceCard({name,thumbnail,description, ...props}) {
   const [openShare, setOpenShare] = useState(false)
   const [update, setUpdate] = useState(0)
