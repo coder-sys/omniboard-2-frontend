@@ -11,18 +11,18 @@ const style = {
   maxWidth: "360px",
   bgcolor: 'background.paper',
 };
-
+const DOMAIN = 'http://15.204.238.234:5000'
 export default function ListDividers({email,type, setUpdate}) {
   const [foldersInHolding, setFoldersInHolding] = useState([])
   const [workspacesInHolding, setWorkspaceInHolding] = useState([])
   useEffect(async()=>{
     const load_data = async()=>{
-    let api = await fetch(`http://127.0.0.1:5000/load_waiting_folders/${email}`)
+    let api = await fetch(`${DOMAIN}/load_waiting_folders/${email}`)
     api = await api.json()
     setFoldersInHolding(api['data'])
     console.log(api.data)
     console.log(email)
-    let api1 = await fetch(`http://127.0.0.1:5000/load_waiting_workspaces/${email}`)
+    let api1 = await fetch(`${DOMAIN}/load_waiting_workspaces/${email}`)
     api1 = await api1.json()
     setWorkspaceInHolding(api1['data'])
     console.log(api1['data'])
