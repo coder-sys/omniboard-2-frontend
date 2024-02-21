@@ -34,11 +34,8 @@ const Resource = () => {
   });
   const [date_err, setDR] = useState(1000)
   useEffect(async()=>{
-    const cookieValue = Cookies.get('session_id')
-   console.log('im looking for',cookieValue)
-   let preapi = await fetch(`${DOMAIN}/session_map/${cookieValue}`)
-   preapi = await preapi.json()
-    let api = await fetch(`${DOMAIN}/email_to_name_map/${metaData['email']}`)
+   
+    let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`)
     api = await api.json()
     metaData['email'] = preapi['data']
     metaData['firstname'] =  (api['firstname'])
