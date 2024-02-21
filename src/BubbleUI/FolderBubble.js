@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../stories/Button"; 
 import Share from "../stories/share";
 import { metaData } from "../data/dummy";
-const DOMAIN = 'http://15.204.238.234:5000'
+const DOMAIN = 'https://espark-apis.afd.enterprises'
 const SD = 'https://espark.afd.enterprises'
 export default function FolderBubble(props) {
   // console.log(props);

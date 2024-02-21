@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import {useState} from "react"
 import { metaData } from "../data/dummy";
-const DOMAIN = 'http://15.204.238.234:5000'
+const DOMAIN = 'https://espark-apis.afd.enterprises'
 export default function Share({name,foldername, open, setOpen, setUpdate}) {
   const [recieverEmail, setRecieverEmail] = useState("j")
 

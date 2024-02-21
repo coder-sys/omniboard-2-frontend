@@ -8,7 +8,7 @@ import WorkspaceCard from "../stories/WorkspaceCard";
 import { FlowChartWithState } from "@mrblenny/react-flow-chart";
 import ResourceCard from "../stories/ResourceCard";
 import { metaData } from "../data/dummy";
-const DOMAIN = 'http://15.204.238.234:5000'
+const DOMAIN = 'https://espark-apis.afd.enterprises'
 function ResourceFolderCarousel({folders,name}) {
     const [update, setUpdated] = useState(0)
     const [vf, sVF] = useState('')

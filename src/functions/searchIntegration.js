@@ -1,4 +1,4 @@
-const DOMAIN = 'http://15.204.238.234:5000'
+const DOMAIN = 'https://espark-apis.afd.enterprises'
 const searchIntegration = async()=>{
     setUpdated(updated+1)
                        setue(update_effect+1)
