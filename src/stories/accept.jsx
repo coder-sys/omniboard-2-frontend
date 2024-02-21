@@ -11,7 +11,7 @@ const style = {
   maxWidth: "360px",
   bgcolor: 'background.paper',
 };
-const DOMAIN = 'http://15.204.238.234:5000'
+const DOMAIN = 'https://espark-apis.afd.enterprises'
 export default function ListDividers({email,type, setUpdate}) {
   const [foldersInHolding, setFoldersInHolding] = useState([])
   const [workspacesInHolding, setWorkspaceInHolding] = useState([])
