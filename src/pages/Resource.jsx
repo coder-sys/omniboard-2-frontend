@@ -37,7 +37,6 @@ const Resource = () => {
    
     let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`)
     api = await api.json()
-    metaData['email'] = preapi['data']
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
     let api1 = await fetch(`${DOMAIN}/get_folders/${metaData['firstname']}`)
