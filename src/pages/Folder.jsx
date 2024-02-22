@@ -22,7 +22,6 @@ const Folder = () => {
 
     let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`)
     api = await api.json()
-    metaData['email'] = preapi['data']
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
     console.log(metaData)
