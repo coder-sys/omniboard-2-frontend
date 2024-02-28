@@ -147,7 +147,15 @@ const FolderContent = () => {
                         catch(err){
                           console.log(err)
                         }
-                       let api = await fetch(`${DOMAIN}/get_youtube_data/${query.replace('/',' ')}`)
+	  		
+                       let api;
+	  		try{
+				api = await fetch(`${DOMAIN}/get_youtube_data/${query.replace('/',' ')}`)
+			}
+	  		catch(err){
+
+				api = await fetch(`${DOMAIN}/get_youtube_data/harvard ${query.replace('/',' ')}`)
+			}
                        setConsent(true)
                        api = await api.json()
                        setConsent(false)
