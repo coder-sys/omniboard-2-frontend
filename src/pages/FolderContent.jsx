@@ -153,8 +153,34 @@ const FolderContent = () => {
 				api = await fetch(`${DOMAIN}/get_youtube_data/${query.replace('/',' ')}`)
 			}
 	  		catch(err){
+				const universities = [
+  "Harvard",
+  "UPenn",
+  "Yale",
+  "Dartmouth",
+  "Princeton",
+  "Brown University",
+  "Columbia",
+  "Cornell",
+  "CalTech",
+  "Stanford",
+  "UC Berkeley",
+  "NYU",
+  "UCLA",
+  "UC Davis",
+  "UT Austin",
+  "Rice University",
+  "UChicago",
+  "Northwestern University",
+  "Texas A&M"
+];
 
-				api = await fetch(`${DOMAIN}/get_youtube_data/harvard ${query.replace('/',' ')}`)
+  const randomIndex = Math.floor(Math.random() * universities.length);
+  const randomUniversity = universities[randomIndex];
+
+
+
+				api = await fetch(`${DOMAIN}/get_youtube_data/${randomUniversity} ${query.replace('/',' ')}`)
 			}
                        setConsent(true)
                        api = await api.json()
