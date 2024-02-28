@@ -172,7 +172,12 @@ const FolderContent = () => {
   "Rice University",
   "UChicago",
   "Northwestern University",
-  "Texas A&M"
+  "Texas A&M",
+  "Oxford University",
+  "Cambridge University",
+  "MIT",
+  "Boston College",
+"Boston University"
 ];
 
   const randomIndex = Math.floor(Math.random() * universities.length);
