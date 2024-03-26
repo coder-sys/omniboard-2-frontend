@@ -208,7 +208,7 @@ const FolderContent = () => {
                               try{
                                 setUpdated(updated+1)
                           setue(update_effect+1)
-                          let api = await fetch(`${DOMAIN}/get_google_content/${query.replace('/',' ')}`)
+                          let api = await fetch(`${DOMAIN}/get_google_content/what is ${query.replace('/',' ')}`)
                           api = await api.json()
                           console.log(api.names)
                           setRetrieveGoogleData1(api.names)
