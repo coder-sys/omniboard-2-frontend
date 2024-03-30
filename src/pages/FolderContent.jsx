@@ -184,10 +184,11 @@ const FolderContent = () => {
   const randomUniversity = universities[randomIndex];
 
   try {
-    api = await fetch(`${DOMAIN}/regular_get_youtube_data/${query.replace('/',' ')}`)
-}catch(err){
+	  				api = await fetch(`${DOMAIN}/get_youtube_data/${randomUniversity} ${query.replace('/',' ')}`)
 
-				api = await fetch(`${DOMAIN}/get_youtube_data/${randomUniversity} ${query.replace('/',' ')}`)
+}catch(err){
+    api = await fetch(`${DOMAIN}/regular_get_youtube_data/${query.replace('/',' ')}`)
+
 }
 }
     
