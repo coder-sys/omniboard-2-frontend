@@ -183,16 +183,13 @@ const FolderContent = () => {
   const randomIndex = Math.floor(Math.random() * universities.length);
   const randomUniversity = universities[randomIndex];
 
-
+  try {
+    api = await fetch(`${DOMAIN}/regular_get_youtube_data/${query.replace('/',' ')}`)
+}catch(err){
 
 				api = await fetch(`${DOMAIN}/get_youtube_data/${randomUniversity} ${query.replace('/',' ')}`)
-			}
-      try{
-        api = await fetch(`${DOMAIN}/regular_get_youtube_data/${query.replace('/',' ')}`)
-      }
-      catch(err){
-        console.log(404)
-      }
+}
+}
     
       
                        setConsent(true)
