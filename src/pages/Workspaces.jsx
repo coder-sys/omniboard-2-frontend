@@ -13,14 +13,18 @@ import Row from '../stories/snackbar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Cookies from 'js-cookie';
+import useToken from '../components/useToken';
 
 const style = {
   width: '1000px',
   maxWidth: "360px",
   bgcolor: 'background.paper',
 };
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
+
 const Workspaces = () => {
+  const { token, removeToken, setToken } = useToken();
+
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()
   metaData['email'] = email
@@ -28,6 +32,7 @@ const Workspaces = () => {
   const [workspacename, setWorkspaceName] = useState("")
   const [date_err, setDR] = useState(100)
 /** use useEffect for loding data below */
+
 useEffect(async()=>{
   const cookieValue = Cookies.get('session_id')
   console.log('im looking for',cookieValue)
@@ -39,7 +44,16 @@ useEffect(async()=>{
   metaData['firstname'] =  (api['firstname'])
   metaData['lastname'] = (api['lastname'])
  console.log(metaData['firstname'] )
- let api2 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`)
+ let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', email)
+    console.log(token)
+ let api2 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`,{
+  headers:{
+    Authorization:`Bearer ${token}`
+  }
+})
  api2 = await api2.json()
  setDR(api2['data'])
 },[update])
@@ -49,12 +63,20 @@ if(date_err<30){
      
 <div  className="flow-chart-container">
 <CustomizedInputsStyleOverrides ph={"Create Workspace"} keyDown={async()=>{
-  let api = await fetch(`${DOMAIN}/add_workspace/${metaData['firstname']}/${workspacename}`);
+  let api = await fetch(`${DOMAIN}/add_workspace/${metaData['firstname']}/${workspacename}`,{
+    headers:{
+      Authorization:`Bearer ${token}`
+    }
+  });
   api = await api.json();
   window.location.reload();
 }} name={workspacename} setName={setWorkspaceName} style={{'marginLeft':"500px"}} />
 <div style={{marginLeft:"5%"}}><Button onClick={async()=>{
-  let api = await fetch(`${DOMAIN}/add_workspace/${metaData['firstname']}/${workspacename}`);
+  let api = await fetch(`${DOMAIN}/add_workspace/${metaData['firstname']}/${workspacename}`,{
+    headers:{
+      Authorization:`Bearer ${token}`
+    }
+  });
   api = await api.json();
   window.location.reload();
 
@@ -75,6 +97,8 @@ else{
 
 };
 const Chart = ({ email, name, workspacename, setWorkspaceName, chartSimple }) => {
+  const { token, removeToken, setToken } = useToken();
+
   const [comparedState, setComparedState] = useState(5);
   const [update, setUpdate] = useState(0);
   const [chart, setChart] = useState({
@@ -91,7 +115,11 @@ const Chart = ({ email, name, workspacename, setWorkspaceName, chartSimple }) =>
         let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`)
   api = await api.json()
         const nameParam = encodeURIComponent(api['firstname']);
-        const workspaceResponse = await fetch(`${DOMAIN}/get_workspaces/${nameParam}`);
+        const workspaceResponse = await fetch(`${DOMAIN}/get_workspaces/${nameParam}`,{
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        });
         if (!workspaceResponse.ok) {
           throw new Error('Network response was not ok');
         }
@@ -140,15 +168,28 @@ const Chart = ({ email, name, workspacename, setWorkspaceName, chartSimple }) =>
 function ListDividersWorkspace({email,type, setUpdate}) {
   const [foldersInHolding, setFoldersInHolding] = useState([])
   const [workspacesInHolding, setWorkspaceInHolding] = useState([])
+  const { token, removeToken, setToken } = useToken();
 
   useEffect(async()=>{
+    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', email)
     const load_data = async()=>{
-    let api = await fetch(`${DOMAIN}/load_waiting_folders/${email}`)
+    let api = await fetch(`${DOMAIN}/load_waiting_folders/${email}`,{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
     api = await api.json()
     setFoldersInHolding(api['data'])
     console.log(api.data)
     console.log(email)
-    let api1 = await fetch(`${DOMAIN}/load_waiting_workspaces/${email}`)
+    let api1 = await fetch(`${DOMAIN}/load_waiting_workspaces/${email}`,{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
     api1 = await api1.json()
     setWorkspaceInHolding(api1['data'])
     console.log(api1['data'])

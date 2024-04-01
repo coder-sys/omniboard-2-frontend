@@ -5,13 +5,22 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import {useState} from "react"
 import { metaData } from "../data/dummy";
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+import useToken from '../components/useToken';
+const DOMAIN = 'http://127.0.0.1:5000'
 export default function Share({name,foldername, open, setOpen, setUpdate}) {
   const [recieverEmail, setRecieverEmail] = useState("j")
-
+  const { token, removeToken, setToken } = useToken();
   const handleClick = async() => {
+    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', metaData['email'])
     console.log(`sharing folder ${foldername} to ${recieverEmail} from ${name} `)
-    let api = await fetch(`${DOMAIN}/share_folder/${foldername}/${metaData['email']}/${recieverEmail}`)
+    let api = await fetch(`${DOMAIN}/share_folder/${foldername}/${metaData['email']}/${recieverEmail}`,{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
     api = await api.json()
     console.log(api)
     setUpdate(p=>p+1);

@@ -5,7 +5,7 @@ import Avatar from "../chatList/Avatar";
 import ChatItem from "./ChatItem";
 import ScaleLoader  from "react-spinners/ScaleLoader";
 
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
   chatItms = [

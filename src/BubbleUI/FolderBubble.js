@@ -2,11 +2,14 @@ import React from "react";
 import Button from "../stories/Button"; 
 import Share from "../stories/share";
 import { metaData } from "../data/dummy";
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+import useToken from '../components/useToken';
+
+const DOMAIN = 'http://127.0.0.1:5000'
 const SD = 'https://espark.afd.enterprises'
 export default function FolderBubble(props) {
   // console.log(props);
   const [open, setOpen] = React.useState(false);  //make it a public state
+  const { token, removeToken, setToken } = useToken();
 
   return (
     <div onClick={()=>setOpen(true)} id="main"
@@ -63,7 +66,15 @@ export default function FolderBubble(props) {
             }}
           >
   <Button style={{marginRight:"20px",color:props.textColor}} onClick={async()=>{
-    let api = await fetch(`${DOMAIN}/delete_folder/${metaData['firstname']}/${props.symbol}`)
+    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', metaData['email'])
+    let api = await fetch(`${DOMAIN}/delete_folder/${metaData['firstname']}/${props.symbol}`,{
+      headers:{
+        Authorization:`Bearer ${preapi.data}`
+      }
+    })
     api = await api.json()
     props.setUpdate(props.update+1)
   }} backgroundColor={"#D0BCFF"} size="small" label={"Delete Folder"} />
