@@ -169,6 +169,10 @@ const FolderContent = () => {
 	  		
                        let api;
 	  		try{
+				   let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+          preapi = await preapi.json()
+          setToken(preapi.data)
+          localStorage.setItem('email', email)
 				api = await fetch(`${DOMAIN}/get_youtube_data/${query.replace('/',' ')}`,{
           headers:{
             Authorization:`Bearer ${preapi.data}`
