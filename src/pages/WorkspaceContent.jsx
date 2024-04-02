@@ -17,7 +17,7 @@ import parse from 'html-react-parser';
 import PacmanLoader  from "react-spinners/PacmanLoader";
 import Cookies from 'js-cookie';
 import useToken from '../components/useToken';
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'https://espark-apis.afd.enterprises'
 
 const WorkspaceContent = () => {
   const { currentColor, currentMode } = useStateContext();

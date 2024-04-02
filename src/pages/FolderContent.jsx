@@ -14,7 +14,7 @@ import InfoCard from '../stories/InfoCard';
 import Cookies from 'js-cookie'
 import useToken from '../components/useToken';
 
-const DOMAIN = 'http://127.0.0.1:5000'
+const DOMAIN = 'https://espark-apis.afd.enterprises'
 const FolderContent = () => {
   const { currentColor, currentMode } = useStateContext();
   const {foldername,email} = useParams()
@@ -241,7 +241,7 @@ const FolderContent = () => {
                        translateLink(linkarray).then(async(data1)=>{
                                try{
                                console.log(data,data1)
-                               console.log(`http://127.0.0.1:5000/find_similarity_links/${data.join()}/${data1.join()}`)
+                               console.log(`https://espark-apis.afd.enterprises/find_similarity_links/${data.join()}/${data1.join()}`)
                                let api = await fetch(`${DOMAIN}/find_similarity_links/${data.join()}/${data1.join()}`)
                                api = await api.json()
                                setStoredDataYT(api.data)}catch(err){console.log(err)}
