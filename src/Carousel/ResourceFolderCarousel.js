@@ -8,10 +8,14 @@ import WorkspaceCard from "../stories/WorkspaceCard";
 import { FlowChartWithState } from "@mrblenny/react-flow-chart";
 import ResourceCard from "../stories/ResourceCard";
 import { metaData } from "../data/dummy";
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+import useToken from '../components/useToken';
+
+const DOMAIN = 'http://127.0.0.1:5000'
 function ResourceFolderCarousel({folders,name}) {
     const [update, setUpdated] = useState(0)
     const [vf, sVF] = useState('')
+    const { token, removeToken, setToken } = useToken();
+
     const [chartSimple, setChartSimple] = useState({
         offset: {
           x: 0,
@@ -72,8 +76,16 @@ function ResourceFolderCarousel({folders,name}) {
               <p className="text-xl font-semibold">{data.symbol}</p>
              
               <button   onClick={async()=>{
+                let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+                preapi = await preapi.json()
+                setToken(preapi.data)
+                localStorage.setItem('email', metaData['email'])
                 sVF(data.symbol)
-                let api = await fetch(`${DOMAIN}/get_stored_links/${name}/${data.symbol}`)
+                let api = await fetch(`${DOMAIN}/get_stored_links/${name}/${data.symbol}`,{
+                  headers:{
+                    Authorization:`Bearer ${preapi.data}`
+                  }
+                })
                 api = await api.json()
                 let names = api['names']
                 let links = api['links']

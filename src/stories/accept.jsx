@@ -6,23 +6,39 @@ import Divider from '@mui/material/Divider';
 import Row from './snackbar';
 import { useState, useEffect } from 'react';
 import { metaData } from '../data/dummy';
+import useToken from '../components/useToken';
+
 const style = {
   width: '1000px',
   maxWidth: "360px",
   bgcolor: 'background.paper',
 };
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
 export default function ListDividers({email,type, setUpdate}) {
   const [foldersInHolding, setFoldersInHolding] = useState([])
   const [workspacesInHolding, setWorkspaceInHolding] = useState([])
+  const { token, removeToken, setToken } = useToken();
+
   useEffect(async()=>{
+    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', metaData['email'])
     const load_data = async()=>{
-    let api = await fetch(`${DOMAIN}/load_waiting_folders/${email}`)
+    let api = await fetch(`${DOMAIN}/load_waiting_folders/${metaData['email']}`,{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
     api = await api.json()
     setFoldersInHolding(api['data'])
     console.log(api.data)
     console.log(email)
-    let api1 = await fetch(`${DOMAIN}/load_waiting_workspaces/${email}`)
+    let api1 = await fetch(`${DOMAIN}/load_waiting_workspaces/${metaData['email']}`,{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
     api1 = await api1.json()
     setWorkspaceInHolding(api1['data'])
     console.log(api1['data'])

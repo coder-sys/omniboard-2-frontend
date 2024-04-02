@@ -12,8 +12,9 @@ import save_google_data from '../functions/save_google_data';
 import save_youtube_data from '../functions/save_youtube_data';
 import InfoCard from '../stories/InfoCard';
 import Cookies from 'js-cookie'
+import useToken from '../components/useToken';
 
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
 const FolderContent = () => {
   const { currentColor, currentMode } = useStateContext();
   const {foldername,email} = useParams()
@@ -97,6 +98,8 @@ const FolderContent = () => {
   ])
     const [sdomo,Ssdomo] = useState(0)
   const [date_error, setDr]=useState(100)
+  const { token, removeToken, setToken } = useToken();
+
   useEffect(async()=>{
     const cookieValue = Cookies.get('session_id')
   console.log('im looking for',cookieValue)
@@ -106,8 +109,16 @@ const FolderContent = () => {
     api = await api.json()
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
+    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', email)
     console.log(metaData)
-    let api2 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`)
+    let api2 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`,{
+      headers:{
+        Authorization:`Bearer ${preapi.data}`
+      }
+    })
     api2 = await api2.json()
     setDr(api2['data'])
   },[update])
@@ -135,7 +146,15 @@ const FolderContent = () => {
     setUpdated(updated+1)
                        setue(update_effect+1)
                         try{
-                          let api = await fetch(`${DOMAIN}/load_concept_map/${query.replace('/',' ')}`)
+                          let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', email)
+                          let api = await fetch(`${DOMAIN}/load_concept_map/${query.replace('/',' ')}`,{
+                            headers:{
+                              Authorization:`Bearer ${preapi.data}`
+                            }
+                          })
                           api = await api.json()
                           console.log("expectation",api)
                           setMainTopic(api['data']['main_topic'])
@@ -150,7 +169,11 @@ const FolderContent = () => {
 	  		
                        let api;
 	  		try{
-				api = await fetch(`${DOMAIN}/get_youtube_data/${query.replace('/',' ')}`)
+				api = await fetch(`${DOMAIN}/get_youtube_data/${query.replace('/',' ')}`,{
+          headers:{
+            Authorization:`Bearer ${preapi.data}`
+          }
+        })
 			}
 	  		catch(err){
 				const universities = [
@@ -184,11 +207,25 @@ const FolderContent = () => {
   const randomUniversity = universities[randomIndex];
 
   try {
-	  				api = await fetch(`${DOMAIN}/get_youtube_data/${randomUniversity} ${query.replace('/',' ')}`)
-
+    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', email)
+    api = await fetch(`${DOMAIN}/regular_get_youtube_data/${query.replace('/',' ')}`,{
+      headers:{
+        Authorization:`Bearer ${preapi.data}`
+      }
+    })
 }catch(err){
-    api = await fetch(`${DOMAIN}/regular_get_youtube_data/${query.replace('/',' ')}`)
-
+  let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+  preapi = await preapi.json()
+  setToken(preapi.data)
+  localStorage.setItem('email', email)
+				api = await fetch(`${DOMAIN}/get_youtube_data/${randomUniversity} ${query.replace('/',' ')}`,{
+          headers:{
+            Authorization:`Bearer ${preapi.data}`
+          }
+        })
 }
 }
     
@@ -212,9 +249,17 @@ const FolderContent = () => {
                               })
   
                               try{
+                                let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+  preapi = await preapi.json()
+  setToken(preapi.data)
+  localStorage.setItem('email', email)
                                 setUpdated(updated+1)
                           setue(update_effect+1)
-                          let api = await fetch(`${DOMAIN}/get_google_content/ ${query.replace('/',' ')}`)
+                          let api = await fetch(`${DOMAIN}/get_google_content/ ${query.replace('/',' ')}`,{
+                            headers:{
+                              Authorization:`Bearer ${preapi.data}`
+                            }
+                          })
                           api = await api.json()
                           console.log(api.names)
                           setRetrieveGoogleData1(api.names)
@@ -222,7 +267,11 @@ const FolderContent = () => {
                           setDescription(api.description)
                           let emailandlastname = await fetch(`${DOMAIN}/get_last_name_and_email/${metaData['firstname']}`)
                           emailandlastname = await emailandlastname.json()
-                          let lapi = await fetch(DOMAIN+'/get_stored_links/'+metaData['firstname']+'/'+foldername)
+                          let lapi = await fetch(DOMAIN+'/get_stored_links/'+metaData['firstname']+'/'+foldername,{
+                            headers:{
+                              Authorization:`Bearer ${preapi.data}`
+                            }
+                          })
                           lapi = await lapi.json()
                           translateLink(api.urls).then((data)=>{
                             translateLink(lapi.links).then(async(data1)=>{
@@ -252,11 +301,19 @@ const FolderContent = () => {
                           setConsent(false)
   
                                     try{
+                                      let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+                                      preapi = await preapi.json()
+                                      setToken(preapi.data)
+                                      localStorage.setItem('email', email)
                                         setUpdated(updated+1)
                                   setue(update_effect+1)
                                         let emailandlastname = await fetch(`${DOMAIN}/get_last_name_and_email/${metaData['firstname']}`)
                                         emailandlastname = await emailandlastname.json()
-                                        let api = await fetch(`${DOMAIN}/get_results_on_conceptual_search/${query.replace('/',' ')}/${metaData['firstname']}/${foldername}`)
+                                        let api = await fetch(`${DOMAIN}/get_results_on_conceptual_search/${query.replace('/',' ')}/${metaData['firstname']}/${foldername}`,{
+                                          headers:{
+                                            Authorization:`Bearer ${preapi.data}`
+                                          }
+                                        })
                                         api = await api.json()
                                         setCsResultData(api['data'])
                                         
@@ -267,7 +324,15 @@ const FolderContent = () => {
                     alert('The educational search you made was too specific,use the google search feature for your search')
                                     }
                                     try{
-                                      let api = await fetch(`${DOMAIN}/generate_questions/${query.replace('/',' ')}`)
+                                      let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+                                      preapi = await preapi.json()
+                                      setToken(preapi.data)
+                                      localStorage.setItem('email', email)
+                                      let api = await fetch(`${DOMAIN}/generate_questions/${query.replace('/',' ')}`,{
+                                        headers:{
+                                          Authorization:`Bearer ${preapi.data}`
+                                        }
+                                      })
                                       api = await api.json()
                                       setQuestions(api['data'])
                                     }

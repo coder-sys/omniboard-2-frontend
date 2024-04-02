@@ -11,11 +11,22 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Share from './share';
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+import useToken from '../components/useToken';
+import { useEffect } from 'react';
+
+const DOMAIN = 'http://127.0.0.1:5000'
 const SD = 'https://espark.afd.enterprises'
 function WorkspaceCard({name,thumbnail,description, ...props}) {
   const [openShare, setOpenShare] = useState(false)
   const [update, setUpdate] = useState(0)
+  const { token, removeToken, setToken } = useToken();
+  useEffect(async()=>{
+    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', metaData['email'])
+    console.log(token)
+  },[])
   return (
     <Card style={{ maxWidth: 345 }}>
       <CardMedia
@@ -33,7 +44,11 @@ function WorkspaceCard({name,thumbnail,description, ...props}) {
       </CardContent>
       <CardActions>
         <Button backgroundColor={"#D0BCFF"} size="small" label={"Delete"} onClick={async()=>{
-          let api = await fetch(`${DOMAIN}/delete_workspace/${metaData['firstname']}/${name}`);
+          let api = await fetch(`${DOMAIN}/delete_workspace/${metaData['firstname']}/${name}`,{
+            headers:{
+              Authorization:`Bearer ${token}`
+            }
+          });
           api = await api.json();
           window.location.reload();
         }}  />
@@ -56,10 +71,18 @@ function WorkspaceCard({name,thumbnail,description, ...props}) {
 }
 function ShareWorkspace({name,workspace, open, setOpen, setUpdate}) {
   const [recieverEmail, setRecieverEmail] = useState("j")
+  const { token, removeToken, setToken } = useToken();
 
   const handleClick = async() => {
     console.log(`sharing folder ${workspace} to ${recieverEmail} from ${name} `)
-    let api = await fetch(`${DOMAIN}/share_workspace/${workspace}/${metaData['email']}/${recieverEmail}`)
+    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    let api = await fetch(`${DOMAIN}/share_workspace/${workspace}/${metaData['email']}/${recieverEmail}`,{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
     api = await api.json()
     console.log(api)
     setUpdate(p=>p+1);

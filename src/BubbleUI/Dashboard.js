@@ -5,7 +5,8 @@ import "react-bubble-ui/dist/index.css";
 import companyData from "./companies";
 import FolderBubble from "./FolderBubble";
 import { metaData } from "../data/dummy";
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+import useToken from "../components/useToken";
+const DOMAIN = 'http://127.0.0.1:5000'
 export default function Dashboard(props) {
   
     const {state,email} = useParams()
@@ -14,13 +15,27 @@ export default function Dashboard(props) {
     const [stockBubbles,setStockBubbles] = useState([])
     const [update, setUpdate] = useState(0)
     metaData['email'] = email
+    const { token, removeToken, setToken } = useToken();
+
     useEffect(async()=>{
-      let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`)
+      let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', email)
+      let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`,{
+        headers:{
+          Authorization:`Bearer ${preapi.data}`
+        }
+      })
       api = await api.json()
       metaData['firstname'] =  (api['firstname'])
       metaData['lastname'] = (api['lastname'])
       console.log(metaData)
-      let api2 = await fetch(`${DOMAIN}/get_folders/${metaData['firstname']}`)
+      let api2 = await fetch(`${DOMAIN}/get_folders/${metaData['firstname']}`,{
+        headers:{
+          Authorization:`Bearer ${preapi.data}`
+        }
+      })
       api2 = await api2.json()
       api2 = api2['data']
       console.log(api2)

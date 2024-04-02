@@ -7,7 +7,8 @@ import CustomizedInputsStyleOverrides from "../stories/TextField"
 import  Button  from '../stories/Button';
 import ListDividers from "../stories/accept"
 import Cookies from 'js-cookie';
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+import useToken from '../components/useToken';
+const DOMAIN = 'http://127.0.0.1:5000'
 const Folder = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()
@@ -17,20 +18,36 @@ const Folder = () => {
   const [foldername, setFoldername] = useState("")
   const [date_err,setDR] = useState(100)
   const [email_,setSID] = useState('')
+  const { token, removeToken, setToken } = useToken();
   useEffect(async()=>{
-   
-
     let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`)
     api = await api.json()
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
+    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', email)
+    console.log(token)
     console.log(metaData)
-    let api2 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`)
+    let api2 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`,{
+      headers:{
+        Authorization:`Bearer ${preapi.data}`
+      }
+    })
     api2 = await api2.json()
     setDR(api2['data'])
   },[update])
   const request_add_folder=async()=>{
-    let api = await fetch(`${DOMAIN}/add_folder/${metaData['firstname']}/${foldername}`)
+    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    preapi = await preapi.json()
+    setToken(preapi.data)
+    localStorage.setItem('email', email)
+    let api = await fetch(`${DOMAIN}/add_folder/${metaData['firstname']}/${foldername}`,{
+      headers:{
+        Authorization:`Bearer ${preapi.data}`
+      }
+    })
     api = await api.json()
     window.location.reload()
   }
