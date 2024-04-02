@@ -180,6 +180,7 @@ const FolderContent = () => {
         })
 			}
 	  		catch(err){
+				console.log("error 1",err)
 				const universities = [
   "Harvard",
   "UPenn",
@@ -221,6 +222,7 @@ const FolderContent = () => {
       }
     })
 }catch(err){
+	  console.log("error 2",err)
   let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
   preapi = await preapi.json()
   setToken(preapi.data)
