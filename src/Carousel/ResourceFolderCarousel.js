@@ -109,7 +109,9 @@ function ResourceFolderCarousel({folders,name}) {
                 setChartSimple(api.data)
                 setUpdated(p=>p+1)
               }} className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl'>View</button>
-
+              <a href={'/resourcestatistics/'+metaData['email']+'/'+data.symbol} target="_blank">
+<button  className='bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl'>View Stats</button>
+</a>
             </div>
           </div>
         ))}
