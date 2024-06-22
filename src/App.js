@@ -7,6 +7,7 @@ import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
 import { Folder, Resource, Workspaces } from './pages';
 import WorkspaceContent from './pages/WorkspaceContent';
 import FolderContent from './pages/FolderContent';
+import ResourceStatistics from './pages/ResourceStatistics';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
@@ -71,6 +72,7 @@ const App = () => {
                 <Route path="/folders/:email" element={(<Folder />)} />
                 <Route path="/resources/:email/" element={(<Resource />)} />
                 <Route path="/resourceslinked/:email/:foldername" element={(<Resource />)} />
+                <Route path="/resourcestatistics/:email/:foldername" element={(<ResourceStatistics />)} />
                 <Route path="/workspace/:email/" element={(<Workspaces />)} />
                 {/* level 2 link*/ }
                 <Route path="/folders/foldercontent/:foldername/:email" element={(<FolderContent />)} />
