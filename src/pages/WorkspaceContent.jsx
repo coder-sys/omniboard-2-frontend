@@ -188,7 +188,8 @@ if(date_error<30){
       <BubbleUI className="bubbleUI" options={options}>
         {stockBubbles}
       </BubbleUI>
-    
+    <iframe src="https://www.codeconvert.ai/free-code-generator" width="400" height="400"></iframe>
+
     </React.Fragment>
 
 
