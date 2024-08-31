@@ -125,6 +125,7 @@ if(date_error<30){
           </div>
         <br></br>
         <hr></hr>
+    <iframe src="https://www.codeconvert.ai/free-code-generator" width="530" height="400"></iframe>
 
         <br></br>
         <CustomizedInputsStyleOverrides ph={"Explore a topic"} setName={setExploreTopic} name={exploreTopic} keyDown={async()=>{
@@ -188,7 +189,6 @@ if(date_error<30){
       <BubbleUI className="bubbleUI" options={options}>
         {stockBubbles}
       </BubbleUI>
-    <iframe src="https://www.codeconvert.ai/free-code-generator" width="400" height="400"></iframe>
 
     </React.Fragment>
 
