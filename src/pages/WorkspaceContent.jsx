@@ -125,7 +125,7 @@ if(date_error<30){
           </div>
         <br></br>
         <hr></hr>
-    <iframe src="https://www.codeconvert.ai/free-code-generator" width="530" height="400"></iframe>
+    <iframe src="https://www.codeconvert.ai/free-code-generator" width="800" height="540"></iframe>
 
         <br></br>
         <CustomizedInputsStyleOverrides ph={"Explore a topic"} setName={setExploreTopic} name={exploreTopic} keyDown={async()=>{
