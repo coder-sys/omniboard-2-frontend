@@ -125,8 +125,39 @@ if(date_error<30){
           </div>
         <br></br>
         <hr></hr>
-    <iframe src="https://www.codeconvert.ai/free-code-generator" width="640" height="400"></iframe>
-
+   <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+      }}
+    >
+      <iframe
+        src="https://www.codeconvert.ai/free-code-generator"
+        width="100%"
+        height="400"
+        style={{
+          flex: '1 1 45%',
+          maxWidth: '100%',
+          minWidth: '300px',
+          margin: '10px',
+        }}
+        title="Code Converter"
+      ></iframe>
+      <iframe
+        src="https://clipnote.ai/?ref=deepgram&utm_source=deepgram&utm_medium=referral"
+        width="100%"
+        height="400"
+        style={{
+          flex: '1 1 45%',
+          maxWidth: '100%',
+          minWidth: '300px',
+          margin: '10px',
+        }}
+        title="Clipnote"
+      ></iframe>
+    </div>
+      
         <br></br>
         <CustomizedInputsStyleOverrides ph={"Explore a topic"} setName={setExploreTopic} name={exploreTopic} keyDown={async()=>{
           setLoading(true)
