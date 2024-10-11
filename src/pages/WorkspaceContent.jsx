@@ -135,8 +135,8 @@ if(date_error<30){
       <br></br><br></br><br></br>
               <hr></hr>
 
-      <iframe
-        src="https://notegpt.io/youtube-video-summarizer"
+     <iframe
+        src="https://gist.ly/youtube-summarizer"
         width="620"
         height="400"
        
