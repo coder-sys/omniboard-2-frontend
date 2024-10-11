@@ -136,7 +136,7 @@ if(date_error<30){
               <hr></hr>
 
       <iframe
-        src="https://clipnote.ai/?ref=deepgram&utm_source=deepgram&utm_medium=referral"
+        src="https://notegpt.io/youtube-video-summarizer"
         width="620"
         height="400"
        
