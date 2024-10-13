@@ -126,21 +126,52 @@ if(date_error<30){
         <br></br>
         <hr></hr>
  
+          <div style={{ position: 'relative', width: '640px', height: '400px' }}>
+      {/* The iframe element */}
       <iframe
         src="https://www.codeconvert.ai/free-code-generator"
         width="640"
         height="400"
-       
+        style={{ border: 'none' }}
       ></iframe>
+
+      {/* Overlay div to hide the top portion */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '640px',
+          height: '1in', // Hides the top inch of the iframe
+          backgroundColor: 'white',
+        }}
+      ></div>
+    </div>
+      
       <br></br><br></br><br></br>
               <hr></hr>
 
-     <iframe
+        <div style={{ position: 'relative', width: '640px', height: '400px' }}>
+      {/* The iframe element */}
+      <iframe
         src="https://gist.ly/youtube-summarizer"
-        width="620"
+        width="640"
         height="400"
-       
+        style={{ border: 'none' }}
       ></iframe>
+
+      {/* Overlay div to hide the top portion */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '640px',
+          height: '1.5in', // Hides the top inch of the iframe
+          backgroundColor: 'white',
+        }}
+      ></div>
+    </div>
     
       
         <br></br>
