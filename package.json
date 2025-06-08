@@ -1,5 +1,5 @@
 {
-  "name": "ESPARKmk2",
+  "name": "Omniboardmk2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -38,7 +38,8 @@
     "react-slick": "^0.29.0",
     "react-spinners": "^0.13.8",
     "reactjs-popup": "^2.0.6",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "victory": "^37.3.6"
   },
   "scripts": {
     "start": "react-scripts start",

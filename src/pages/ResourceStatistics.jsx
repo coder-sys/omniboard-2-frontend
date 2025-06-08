@@ -9,7 +9,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 import useToken from '../components/useToken';
 import  ColorPicker  from './ColorPicker';
 
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
 const ResourceStatistics = () => {
 
     const { currentColor, currentMode } = useStateContext();

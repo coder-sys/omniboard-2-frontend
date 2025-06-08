@@ -12,7 +12,7 @@ import ResourceFolderCarousel from '../Carousel/ResourceFolderCarousel';
 import Cookies from 'js-cookie';
 import useToken from '../components/useToken';
 
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
 const Resource = () => {
   const { currentColor, currentMode } = useStateContext();
   const {email} = useParams()

@@ -6,7 +6,7 @@ import companyData from "./companies";
 import FolderBubble from "./FolderBubble";
 import { metaData } from "../data/dummy";
 import useToken from "../components/useToken";
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
 export default function Dashboard(props) {
   
     const {state,email} = useParams()

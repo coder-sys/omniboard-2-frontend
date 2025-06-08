@@ -16,7 +16,7 @@ const CustomColorPicker = ({ id, mode }) => <ColorPickerComponent id={id} mode={
 import { VictoryPie } from "victory-pie";
 import { VictoryChart } from "victory-chart";
 import { VictoryTooltip } from "victory-tooltip";
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
 
 const ColorPicker = ({foldername,email,firstname}) => {
   const [youtubedata, setYoutubeData] = useState(10)

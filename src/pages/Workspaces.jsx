@@ -20,7 +20,7 @@ const style = {
   maxWidth: "360px",
   bgcolor: 'background.paper',
 };
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
 
 const Workspaces = () => {
   const { token, removeToken, setToken } = useToken();
@@ -131,7 +131,7 @@ const Chart = ({ email, name, workspacename, setWorkspaceName, chartSimple }) =>
           let count = 0; //declaring count as 0
           let arr = []
       for (let key in nodes) {
-       // let api3 = await fetch(`https://espark-apis.afd.enterprises/generate_description/${nodes[key]['type']}`)
+       // let api3 = await fetch(`http://127.0.0.1:5000/generate_description/${nodes[key]['type']}`)
        // api3 = await api3.json()
         count++;
         nodes[key].type = <div>Workspace<WorkspaceCard name={nodes[key]['type']} thumbnail={'/'} description={"api3[data]"} /></div>

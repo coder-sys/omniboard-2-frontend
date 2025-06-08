@@ -10,7 +10,7 @@ import ResourceCard from "../stories/ResourceCard";
 import { metaData } from "../data/dummy";
 import useToken from '../components/useToken';
 
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
 function ResourceFolderCarousel({folders,name}) {
     const [update, setUpdated] = useState(0)
     const [vf, sVF] = useState('')

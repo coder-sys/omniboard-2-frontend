@@ -9,7 +9,7 @@ import  Button  from './Button';
 import useToken from '../components/useToken';
 
 
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
 function ResourceCard({fname,name,thumbnail,description, foldername, sourcename, link, ...props}) {
   const [openShare, setOpenShare] = useState(false)
   const [update, setUpdate] = useState(0)

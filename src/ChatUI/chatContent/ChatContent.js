@@ -5,7 +5,7 @@ import Avatar from "../chatList/Avatar";
 import ChatItem from "./ChatItem";
 import ScaleLoader  from "react-spinners/ScaleLoader";
 
-const DOMAIN = 'https://espark-apis.afd.enterprises'
+const DOMAIN = 'http://127.0.0.1:5000'
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
   chatItms = [
@@ -14,7 +14,7 @@ export default class ChatContent extends Component {
       image:
         "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
       type: "other",
-      msg: "Hi, I'm ESPARK, how can I help you?",
+      msg: "Hi, I'm Omniboard, how can I help you?",
     },
     
   ];
@@ -86,7 +86,7 @@ export default class ChatContent extends Component {
                 isOnline="active"
                 image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU"
               />
-              <p>ESPARK</p>
+              <p>Omniboard</p>
             </div>
           </div>
 

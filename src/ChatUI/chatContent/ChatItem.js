@@ -22,4 +22,4 @@ export default class ChatItem extends Component {
     );
   }
 }
-//replace with ESPARK logo
+//replace with Omniboard logo
