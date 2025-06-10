@@ -62,29 +62,25 @@ if(date_err<30){
     <div className="mt-24">
      
 <div  className="flow-chart-container">
-<CustomizedInputsStyleOverrides ph={"Create Workspace"} keyDown={async()=>{
-  let api = await fetch(`${DOMAIN}/add_workspace/${metaData['firstname']}/${workspacename}`,{
-    headers:{
-      Authorization:`Bearer ${token}`
-    }
-  });
-  api = await api.json();
-  window.location.reload();
-}} name={workspacename} setName={setWorkspaceName} style={{'marginLeft':"500px"}} />
-<div style={{marginLeft:"5%"}}><Button onClick={async()=>{
-  let api = await fetch(`${DOMAIN}/add_workspace/${metaData['firstname']}/${workspacename}`,{
-    headers:{
-      Authorization:`Bearer ${token}`
-    }
-  });
-  api = await api.json();
-  window.location.reload();
 
-}}  backgroundColor={"#D0BCFF"} size="small" label={"Create Workspace"} /></div>
-<br></br>
 
-<br></br>
-    <Chart email={metaData['email']} name={metaData['firstname']} workspacename={workspacename} setWorkspaceName={setWorkspaceName}  />
+ <iframe
+      src="https://master.d2i5ydaw0h5cgi.amplifyapp.com/"
+      title="NOVA.AI"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        border: 'none',
+        margin: 0,
+        padding: 0,
+        overflow: 'hidden',
+        zIndex: 9999, // optional: ensures it's on top
+      }}
+      allowFullScreen
+    />
 
 </div>
     </div>
