@@ -3,6 +3,7 @@ import Button from "../stories/Button";
 import Share from "../stories/share";
 import { metaData } from "../data/dummy";
 import useToken from "../components/useToken";
+import "./FolderBubble.css"; // Import a CSS file for styling
 
 const DOMAIN = "http://127.0.0.1:5000";
 const SD = "https://Omniboard.afd.enterprises";
@@ -50,29 +51,11 @@ export default function FolderBubble(props) {
       onClick={() => setOpen(true)}
       id="main"
       style={{ backgroundColor: `${props.backgroundColor}d0` }}
-      className="companyBubble"
+      className="folder-bubble-container"
     >
       {props.bubbleSize > 50 && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            transition: "opacity 0.1s ease",
-            opacity: 1,
-            pointerEvents: "none",
-          }}
-        >
-          <p
-            style={{
-              color: props.textColor,
-              fontSize: 15,
-              fontFamily: "Source Code Pro",
-              marginLeft: 10,
-              textAlign: "right",
-            }}
-          >
+        <div className="folder-bubble-content">
+          <p className="folder-bubble-symbol">
             <b>
               <i>{props.symbol}</i>
             </b>
@@ -81,7 +64,7 @@ export default function FolderBubble(props) {
       )}
 
       {props.allowshare === "yes" && (
-        <div style={{ marginBottom: "10px" }}>
+        <div className="folder-bubble-share">
           <Share
             name={metaData.firstname}
             foldername={props.symbol}
@@ -92,19 +75,19 @@ export default function FolderBubble(props) {
         </div>
       )}
 
-      <div>
+      <div className="folder-bubble-buttons" style={{ gap: '15px', display: 'flex', flexDirection: 'column' }}>
         <Button
-          style={{ marginRight: "20px", color: props.textColor }}
-          onClick={handleDelete}
-          backgroundColor={"#D0BCFF"}
+          className="folder-bubble-button"
+          onClick={() => handleDelete()}
+          backgroundColor={"rgba(209, 207, 215, 0.7)"} /* Translucent color */
           size="small"
           label={"Delete Folder"}
         />
 
         <Button
-          style={{ marginRight: "20px", color: props.textColor }}
+          className="folder-bubble-button"
           onClick={() => handleViewNucleus()}
-          backgroundColor={"#D0BCFF"}
+          backgroundColor={"rgba(237, 235, 243, 0.7)"} /* Translucent color */
           size="small"
           label={"View Nucleus"}
         />
