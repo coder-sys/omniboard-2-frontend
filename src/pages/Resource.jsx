@@ -81,8 +81,6 @@ const Resource = () => {
         </div>
       </div>
       <div className="flex justify-center gap-10 mt-12 z-10">
-        <img src="/companyLogos/ACN.svg" alt="Teamwork" className="w-14 h-14 rounded-full shadow-lg animate-spin-reverse" />
-        <img src="/companyLogos/ADBE.svg" alt="Analytics" className="w-14 h-14 rounded-full shadow-lg animate-spin-slow" />
       </div>
     </div>
   );}
