@@ -45,7 +45,7 @@ const Resource = () => {
     api = await api.json()
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
-    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    let preapi = await fetch(`${DOMAIN}/name_to_token/Srinidhi Murthy`)
     preapi = await preapi.json()
     setToken(preapi.data)
     localStorage.setItem('email', email)
