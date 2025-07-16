@@ -20,7 +20,7 @@ export default function ListDividers({email,type, setUpdate}) {
   const { token, removeToken, setToken } = useToken();
 
   useEffect(async()=>{
-    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    let preapi = await fetch(`${DOMAIN}/name_to_token/Srinidhi Murthy`)
     preapi = await preapi.json()
     setToken(preapi.data)
     localStorage.setItem('email', metaData['email'])
