@@ -24,7 +24,7 @@ const Folder = () => {
     api = await api.json()
     metaData['firstname'] =  (api['firstname'])
     metaData['lastname'] = (api['lastname'])
-    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    let preapi = await fetch(`${DOMAIN}/name_to_token/Srinidhi Murthy`)
     preapi = await preapi.json()
     setToken(preapi.data)
     localStorage.setItem('email', email)
@@ -40,7 +40,7 @@ const Folder = () => {
     setDR(api2['data'])
   },[update])
   const request_add_folder=async()=>{
-    let preapi = await fetch(`${DOMAIN}/name_to_token/${metaData['firstname']}`)
+    let preapi = await fetch(`${DOMAIN}/name_to_token/Srinidhi Murthy`)
     preapi = await preapi.json()
     setToken(preapi.data)
     localStorage.setItem('email', email)
