@@ -16,7 +16,7 @@ const Folder = () => {
  
   const [update, setUpdate] = useState(0)
   const [foldername, setFoldername] = useState("")
-  const [date_err,setDR] = useState(100)
+  
   const [email_,setSID] = useState('')
   const { token, removeToken, setToken } = useToken();
   useEffect(async()=>{
@@ -31,13 +31,7 @@ const Folder = () => {
     console.log(token)
     console.log(metaData)
     console.log(preapi.data)
-    let api2 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`,{
-      headers:{
-        Authorization:`Bearer ${preapi.data}`
-      }
-    })
-    api2 = await api2.json()
-    setDR(api2['data'])
+    
   },[update])
   const request_add_folder=async()=>{
     let preapi = await fetch(`${DOMAIN}/name_to_token/Srinidhi Murthy`)
@@ -52,7 +46,7 @@ const Folder = () => {
     api = await api.json()
     window.location.reload()
   }
-  if(date_err<30 ){
+  if(2<30 ){
   return (
     <div className="mt-24">
                     <CustomizedInputsStyleOverrides keyDown={()=>{request_add_folder()}} ph={"Create Folder"} name={foldername} setName={setFoldername} style={{'marginLeft':"50px"}} />
