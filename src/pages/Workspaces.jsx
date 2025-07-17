@@ -49,15 +49,9 @@ useEffect(async()=>{
     setToken(preapi.data)
     localStorage.setItem('email', email)
     console.log(token)
- let api2 = await fetch(`${DOMAIN}/date_subtraction_for_paid_version`,{
-  headers:{
-    Authorization:`Bearer ${token}`
-  }
-})
- api2 = await api2.json()
- setDR(api2['data'])
+ 
 },[update])
-if(date_err<30){
+if(0<30){
   return(
     <div className="mt-24">
      
