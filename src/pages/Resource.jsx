@@ -57,15 +57,9 @@ const Resource = () => {
     api1 = await api1.json()
     console.log(api1['data'])
     setFolders(api1['data'])
-    let api2 = await fetch(DOMAIN+"/date_subtraction_for_paid_version",{
-      headers:{
-        Authorization:`Bearer ${preapi.data}`
-      }
-    })
-    api2 = await api2.json()
-    setDR(api2['data'])
+    
   },[updated])
-  if(date_err<30){
+  if(10<30){
   // Business AI Chatbot UI
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#f8fafc] via-[#e0c3fc] to-[#8ec5fc] relative">
