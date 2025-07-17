@@ -40,7 +40,7 @@ const Folder = () => {
     localStorage.setItem('email', email)
     let api = await fetch(`${DOMAIN}/add_folder/${metaData['firstname']}/${foldername}`,{
       headers:{
-        Authorization:`Bearer ${preapi.data}`
+        Authorization:`Bearer ${token}`
       }
     })
     api = await api.json()
