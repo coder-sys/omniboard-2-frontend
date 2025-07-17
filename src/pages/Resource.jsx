@@ -51,7 +51,7 @@ const Resource = () => {
     localStorage.setItem('email', email)
     let api1 = await fetch(`${DOMAIN}/get_folders/${metaData['firstname']}`,{
       headers:{
-        Authorization:`Bearer ${preapi.data}`
+        Authorization:`Bearer ${token}`
       }
     })
     api1 = await api1.json()
