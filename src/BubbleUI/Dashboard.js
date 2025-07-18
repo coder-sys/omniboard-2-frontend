@@ -49,30 +49,36 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-indigo-50 to-purple-100 flex items-center justify-center px-6 py-12">
-      <div className="bg-white shadow-xl rounded-3xl p-10 w-full max-w-5xl flex flex-col lg:flex-row items-center gap-10 animate-fade-in">
-        {/* Left: Text & Button */}
-        <div className="flex-1">
-          <h1 className="text-4xl font-extrabold text-indigo-700 mb-4">
-            Welcome to <span className="text-purple-600">Nucleus</span>
+    <div className="relative isolate bg-gradient-to-br from-indigo-50 to-purple-100 min-h-screen flex items-center justify-center px-6 py-12 overflow-hidden">
+      {/* Background blur circle */}
+      <div
+        className="absolute -z-10 w-[60rem] h-[60rem] bg-purple-300 opacity-20 rounded-full blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      ></div>
+
+      <div className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-between gap-12 p-10 bg-white/80 backdrop-blur-md shadow-2xl rounded-3xl border border-purple-200 animate-fade-in">
+        {/* Left */}
+        <div className="flex-1 text-center lg:text-left">
+          <h1 className="text-5xl font-bold text-gray-900 leading-tight mb-4">
+            Welcome to <span className="text-purple-700">Nucleus</span>
           </h1>
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-            Nucleus is your AI-powered product management platform — helping you shape roadmaps, brainstorm with visual tools, and organize your thoughts using collaborative folders and custom visuals. While these visuals aren’t permanently stored yet, they enhance your real-time workspace experience.
+          <p className="text-lg text-gray-600 leading-relaxed mb-6">
+            Nucleus is your AI-powered product management workspace — shape product visions, organize roadmaps, and explore with visual tools. Images and sketches aren't stored yet, but they enhance your real-time workflow like magic.
           </p>
+
           <button
             onClick={handleViewNucleus}
-            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition duration-300"
+            className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-3 rounded-full shadow-lg transition duration-300 hover:scale-105 active:scale-95"
           >
-            🚀 View Your Nucleus
+            🚀 Launch Your Nucleus
           </button>
         </div>
 
-        {/* Right: Illustration */}
+        {/* Right */}
         <div className="flex-1">
           <img
-            src="https://illustrations.popsy.co/gray/product-development.svg"
-            alt="Product Management Illustration"
-            className="w-full max-w-md mx-auto"
+            src="https://undraw.co/api/illustrations/3ef10795-0b33-4d6f-9338-bd3620da2ed5"
+            alt="AI product management"
+            className="w-full max-w-md mx-auto drop-shadow-xl"
           />
         </div>
       </div>
