@@ -55,32 +55,20 @@ export default function Dashboard() {
         className="absolute -z-10 w-[60rem] h-[60rem] bg-purple-300 opacity-20 rounded-full blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
       ></div>
 
-      <div className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-between gap-12 p-10 bg-white/80 backdrop-blur-md shadow-2xl rounded-3xl border border-purple-200 animate-fade-in">
-        {/* Left */}
-        <div className="flex-1 text-center lg:text-left">
-          <h1 className="text-5xl font-bold text-gray-900 leading-tight mb-4">
-            Welcome to <span className="text-purple-700">Nucleus</span>
-          </h1>
-          <p className="text-lg text-gray-600 leading-relaxed mb-6">
-            Nucleus is your AI-powered product management workspace — shape product visions, organize roadmaps, and explore with visual tools. Images and sketches aren't stored yet, but they enhance your real-time workflow like magic.
-          </p>
+      <div className="max-w-3xl w-full p-10 bg-white/80 backdrop-blur-md shadow-2xl rounded-3xl border border-purple-200 animate-fade-in text-center lg:text-left">
+        <h1 className="text-5xl font-bold text-gray-900 leading-tight mb-4">
+          Welcome to <span className="text-purple-700">Nucleus</span>
+        </h1>
+        <p className="text-lg text-gray-600 leading-relaxed mb-6">
+          Nucleus is your AI-powered product management workspace — shape product visions, organize roadmaps, and explore with visual tools. Images and sketches aren't stored yet, but they enhance your real-time workflow like magic.
+        </p>
 
-          <button
-            onClick={handleViewNucleus}
-            className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-3 rounded-full shadow-lg transition duration-300 hover:scale-105 active:scale-95"
-          >
-            🚀 Launch Your Nucleus
-          </button>
-        </div>
-
-        {/* Right */}
-        <div className="flex-1">
-          <img
-            src="https://undraw.co/api/illustrations/3ef10795-0b33-4d6f-9338-bd3620da2ed5"
-            alt="AI product management"
-            className="w-full max-w-md mx-auto drop-shadow-xl"
-          />
-        </div>
+        <button
+          onClick={handleViewNucleus}
+          className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-3 rounded-full shadow-lg transition duration-300 hover:scale-105 active:scale-95"
+        >
+          🚀 Launch Your Nucleus
+        </button>
       </div>
     </div>
   );
