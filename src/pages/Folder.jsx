@@ -56,9 +56,7 @@ const Folder = () => {
             <Dashboard />
           </div>
 
-          <div className="mt-4">
-            <ListDividers email={metaData.email} type="folders" />
-          </div>
+          
         </div>
 
         {/* Right: Custom Image */}
