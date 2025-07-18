@@ -24,7 +24,7 @@ export default function Dashboard(props) {
     localStorage.setItem('email', email)
       let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`,{
         headers:{
-          Authorization:`Bearer ${preapi.data}`
+          Authorization:`Bearer ${token}`
         }
       })
       api = await api.json()
@@ -33,7 +33,7 @@ export default function Dashboard(props) {
       console.log(metaData)
       let api2 = await fetch(`${DOMAIN}/get_folders/${metaData['firstname']}`,{
         headers:{
-          Authorization:`Bearer ${preapi.data}`
+          Authorization:`Bearer ${token}`
         }
       })
       api2 = await api2.json()
