@@ -1,75 +1,77 @@
-import React,{useState,useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { metaData, links, earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, folderDistribData } from '../data/dummy';
+import { metaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
-import Dashboard from "../BubbleUI/Dashboard"
-import CustomizedInputsStyleOverrides from "../stories/TextField"
-import  Button  from '../stories/Button';
-import ListDividers from "../stories/accept"
-import Cookies from 'js-cookie';
+import Dashboard from '../BubbleUI/Dashboard';
+import ListDividers from '../stories/accept';
 import useToken from '../components/useToken';
-const DOMAIN = 'https://25xdhfsbmi.execute-api.us-east-2.amazonaws.com/prod'
+
+const DOMAIN = 'https://25xdhfsbmi.execute-api.us-east-2.amazonaws.com/prod';
+
 const Folder = () => {
-  const { currentColor, currentMode } = useStateContext();
-  const {email} = useParams()
-  metaData['email'] = email
- 
-  const [update, setUpdate] = useState(0)
-  const [foldername, setFoldername] = useState("")
-  
-  const [email_,setSID] = useState('')
-  const { token, removeToken, setToken } = useToken();
-  useEffect(async()=>{
-    let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`)
-    api = await api.json()
-    metaData['firstname'] =  (api['firstname'])
-    metaData['lastname'] = (api['lastname'])
-    let preapi = await fetch(`${DOMAIN}/name_to_token/Srinidhi Murthy`)
-    preapi = await preapi.json()
-    setToken(preapi.data)
-    localStorage.setItem('email', email)
-    console.log(token)
-    console.log(metaData)
-    console.log(preapi.data)
-    
-  },[update])
-  const request_add_folder=async()=>{
-    let preapi = await fetch(`${DOMAIN}/name_to_token/Srinidhi Murthy`)
-    preapi = await preapi.json()
-    setToken(preapi.data)
-    localStorage.setItem('email', email)
-    let api = await fetch(`${DOMAIN}/add_folder/${metaData['firstname']}/${foldername}`,{
-      headers:{
-        Authorization:`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1Mjc5NjUzMywianRpIjoiYWNlYzg4YjUtYjlmNS00NWI2LWExMTYtNzA0OThmMTZkODQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IlNyaW5pZGhpIE11cnRoeSIsIm5iZiI6MTc1Mjc5NjUzMywiY3NyZiI6IjY4ZmI3OWFlLWRlZTctNDQwYS1hZWQ1LTQwOGExMWY2ZDdhZSIsImV4cCI6MTc1MjgwMDEzM30.gBrHB_e1o959Z4zOSXEprtpU37YN7C-PXtVzQvKqAI8`
+  const { currentColor } = useStateContext();
+  const { email } = useParams();
+  const { token, setToken } = useToken();
+
+  const [update, setUpdate] = useState(0);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        metaData.email = email;
+
+        const nameRes = await fetch(`${DOMAIN}/email_to_name_map/${email}`);
+        const nameJson = await nameRes.json();
+        metaData.firstname = nameJson.firstname;
+        metaData.lastname = nameJson.lastname;
+
+        const tokenRes = await fetch(`${DOMAIN}/name_to_token/Srinidhi Murthy`);
+        const tokenJson = await tokenRes.json();
+        setToken(tokenJson.data);
+        localStorage.setItem('email', email);
+
+        console.log("User Info:", metaData);
+      } catch (err) {
+        console.error("Error loading folder info:", err);
       }
-    })
-    api = await api.json()
-    window.location.reload()
-  }
-  if(2<30 ){
+    };
+
+    loadData();
+  }, [email, setToken]);
+
   return (
-    <div className="mt-24">
-                    <CustomizedInputsStyleOverrides keyDown={()=>{request_add_folder()}} ph={"Create Folder"} name={foldername} setName={setFoldername} style={{'marginLeft':"50px"}} />
-             <div style={{marginLeft:"50px"}}>
-               <Button onClick={async()=>{
-                request_add_folder()
-}}  backgroundColor={"#D0BCFF"} size="small" label={"Create folder"} />
-               </div>
-     <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
+    <div className="min-h-screen bg-gradient-to-br from-white via-indigo-50 to-purple-100 flex items-center justify-center px-4 py-16">
+      <div className="max-w-7xl w-full flex flex-col lg:flex-row items-center gap-12 bg-white shadow-xl rounded-3xl p-10 border border-purple-200 backdrop-blur-sm animate-fade-in">
+        
+        {/* Left: Text + Dashboard */}
+        <div className="flex-1">
+          <h1 className="text-4xl font-bold text-indigo-700 mb-4">
+            Welcome back to <span className="text-purple-600">Nucleus</span>
+          </h1>
+          <p className="text-gray-700 mb-6 text-lg leading-relaxed">
+            Dive into your AI-driven product management workspace. Collaborate on ideas, manage roadmaps, and explore your custom folders and visual projects—all in real-time.
+          </p>
 
-
-          <Dashboard />
-          <ListDividers  email={metaData['email']} type={"folders"} />
-
+          <div className="mb-8">
+            <Dashboard />
           </div>
-         
+
+          <div className="mt-4">
+            <ListDividers email={metaData.email} type="folders" />
+          </div>
+        </div>
+
+        {/* Right: Custom Image */}
+        <div className="flex-1">
+          <img
+            src="https://undraw.co/api/illustrations/d9482d18-7d46-420f-9db2-3eaee9de1d01"
+            alt="Workspace Illustration"
+            className="w-full max-w-md mx-auto drop-shadow-2xl"
+          />
+        </div>
+      </div>
     </div>
   );
-
-}
-if(date_err>=30){
- return <h1 style={{"color":'white'}}>Error 404: Please contact your administration</h1>
-}
 };
 
 export default Folder;
