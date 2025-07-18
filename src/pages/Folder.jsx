@@ -40,7 +40,7 @@ const Folder = () => {
     localStorage.setItem('email', email)
     let api = await fetch(`${DOMAIN}/add_folder/${metaData['firstname']}/${foldername}`,{
       headers:{
-        Authorization:`Bearer ${token}`
+        Authorization:`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1Mjc5NjUzMywianRpIjoiYWNlYzg4YjUtYjlmNS00NWI2LWExMTYtNzA0OThmMTZkODQ4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IlNyaW5pZGhpIE11cnRoeSIsIm5iZiI6MTc1Mjc5NjUzMywiY3NyZiI6IjY4ZmI3OWFlLWRlZTctNDQwYS1hZWQ1LTQwOGExMWY2ZDdhZSIsImV4cCI6MTc1MjgwMDEzM30.gBrHB_e1o959Z4zOSXEprtpU37YN7C-PXtVzQvKqAI8`
       }
     })
     api = await api.json()
