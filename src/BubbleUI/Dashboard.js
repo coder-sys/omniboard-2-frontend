@@ -1,84 +1,72 @@
-import React, { useState, useRef, useLayoutEffect, useEffect} from "react";
-import { useParams } from 'react-router-dom';
-import BubbleUI from "react-bubble-ui";
-import "react-bubble-ui/dist/index.css";
-import companyData from "./companies";
-import FolderBubble from "./FolderBubble";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { metaData } from "../data/dummy";
 import useToken from "../components/useToken";
-const DOMAIN = 'https://25xdhfsbmi.execute-api.us-east-2.amazonaws.com/prod'
-export default function Dashboard(props) {
-  
-    const {state,email} = useParams()
+import Button from "../stories/Button";
 
+const DOMAIN = "https://25xdhfsbmi.execute-api.us-east-2.amazonaws.com/prod";
 
-    const [stockBubbles,setStockBubbles] = useState([])
-    const [update, setUpdate] = useState(0)
-    metaData['email'] = email
-    const { token, removeToken, setToken } = useToken();
+export default function Dashboard() {
+  const { email } = useParams();
+  const { token, setToken } = useToken();
 
-    useEffect(async()=>{
-      let preapi = await fetch(`${DOMAIN}/name_to_token/Srinidhi Murthy`)
-    preapi = await preapi.json()
-    setToken(preapi.data)
-    localStorage.setItem('email', email)
-      let api = await fetch(`${DOMAIN}/email_to_name_map/${email}`,{
-        headers:{
-          Authorization:`Bearer ${token}`
-        }
-      })
-      api = await api.json()
-      metaData['firstname'] =  (api['firstname'])
-      metaData['lastname'] = (api['lastname'])
-      console.log(metaData)
-      let api2 = await fetch(`${DOMAIN}/get_folders/${metaData['firstname']}`,{
-        headers:{
-          Authorization:`Bearer ${token}`
-        }
-      })
-      api2 = await api2.json()
-      api2 = api2['data']
-      console.log(api2)
-      const getFolderBubble = () => {
-        return api2.map((data, i) => {
-          return <FolderBubble update={update} setUpdate={setUpdate} allowshare={'yes'} {...data} key={i} />;
+  useEffect(() => {
+    const fetchMetadataAndToken = async () => {
+      try {
+        const preapi = await fetch(`${DOMAIN}/name_to_token/Srinidhi Murthy`);
+        const preapiJson = await preapi.json();
+        setToken(preapiJson.data);
+        localStorage.setItem("email", email);
+
+        metaData.email = email;
+
+        const userInfo = await fetch(`${DOMAIN}/email_to_name_map/${email}`, {
+          headers: {
+            Authorization: `Bearer ${preapiJson.data}`,
+          },
         });
-      };
-      setStockBubbles(getFolderBubble())
-    },[update])
-   
+        const userInfoJson = await userInfo.json();
+        metaData.firstname = userInfoJson.firstname;
+        metaData.lastname = userInfoJson.lastname;
 
-  const [options, setOptions] = useState({
-    size: 180,
-    minSize: 20,
-    gutter: 8,
-    provideProps: true,
-    numCols: 6,
-    fringeWidth: 160,
-    yRadius: 130,
-    xRadius: 220,
-    cornerRadius: 50,
-    showGuides: false,
-    compact: true,
-    gravitation: 5,
-  });
+        console.log("User Info:", metaData);
+      } catch (error) {
+        console.error("Error fetching token or user data:", error);
+      }
+    };
 
-  
+    fetchMetadataAndToken();
+  }, [email, setToken]);
 
+  const handleViewNucleus = async () => {
+    try {
+      const domain = email.split("@")[1];
+      const response = await fetch(`${DOMAIN}/get_associated_db/${domain}`);
+      const data = await response.json();
+      if (data?.data) {
+        window.location.replace(data.data);
+      } else {
+        alert("No Nucleus available for your domain.");
+      }
+    } catch (error) {
+      console.error("Failed to load Nucleus:", error);
+      alert("Error accessing Nucleus.");
+    }
+  };
 
-  const demoRef = useRef(null);
-  const docsRef = useRef(null);
-  const codeRef = useRef(null);
-  const layoutRef = useRef(null);
-  const styleRef = useRef(null);
-  console.log(stockBubbles)
   return (
-    <React.Fragment>
-      
-      <BubbleUI className="bubbleUI" options={options}>
-        {stockBubbles}
-      </BubbleUI>
-    
-    </React.Fragment>
+    <div className="dashboard-container" style={{ padding: "2rem" }}>
+      <h1>Welcome to Nucleus</h1>
+      <p style={{ fontSize: "1.1rem", marginBottom: "1rem" }}>
+        Nucleus is your AI-powered product management platform — helping you shape roadmaps, brainstorm with visual tools, and organize your thoughts using collaborative folders and custom images. While these visuals aren’t permanently stored yet, they enhance your real-time workspace experience.
+      </p>
+
+      <Button
+        label="View Your Nucleus"
+        size="medium"
+        backgroundColor="#7E5BEF"
+        onClick={handleViewNucleus}
+      />
+    </div>
   );
 }
